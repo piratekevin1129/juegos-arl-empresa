@@ -1,0 +1,544 @@
+var oficinas = [
+	{
+		id:1,
+		piso:1,
+		llave:null,
+		empleado:null,
+		premio:null,
+		posx:354,
+		posy:175,
+		puerta:{
+			locked:false,
+			x:292,
+			y:306,
+			w:31,
+			h:10
+		},
+		ref:'Oficina sin nada'
+	},
+	{
+		id:2,
+		piso:1,
+		llave:null,
+		premio:null,
+		empleado:1,
+		posx:248,
+		posy:523,
+		puerta:false,
+		ref:'Oficina con empleado'
+	},
+	{
+		id:3,
+		piso:1,
+		llave:1,
+		premio:null,
+		empleado:null,
+		posx:430,
+		posy:229,
+		puerta:{
+			locked:true,
+			x:449,
+			y:348,
+			w:30,
+			h:10
+		},
+		ref:'Oficina con llave de la oficina x'
+	},
+	{
+		id:4,
+		piso:1,
+		llave:null,
+		premio:{
+			id:1,
+			x:486,
+			y:420
+		},
+		empleado:null,
+		posx:458,
+		posy:526,
+		puerta:{
+			locked:true,
+			x:514,
+			y:398,
+			w:30,
+			h:10
+		},
+		ref:'Oficina sola con un premio'
+	},
+	{
+		id:5,
+		piso:1,
+		llave:null,
+		premio:null,
+		empleado:null,
+		posx:584,
+		posy:180,
+		puerta:{
+			locked:false,
+			x:630,
+			y:290,
+			w:30,
+			h:10
+		},
+		ref:'Oficina sin nada'
+	},
+	{
+		id:6,
+		piso:1,
+		llave:null,
+		premio:null,
+		empleado:2,
+		posx:850,
+		posy:225,
+		puerta:false,
+		ref:'Oficina con empleado'
+	},
+	{
+		id:7,
+		piso:1,
+		llave:null,
+		premio:{
+			id:2,
+			x:654,
+			y:400
+		},
+		empleado:null,
+		posx:626,
+		posy:524,
+		puerta:{
+			locked:true,
+			x:751,
+			y:382,
+			w:30,
+			h:10
+		},
+		ref:'Oficina sola con un premio'
+	},
+	{
+		id:8,
+		piso:1,
+		llave:null,
+		premio:{
+			id:3,
+			x:960,
+			y:270
+		},
+		empleado:null,
+		posx:930,
+		posy:180,
+		puerta:{
+			locked:true,
+			x:910,
+			y:293,
+			w:10,
+			h:30
+		},
+		ref:'Oficina sola con un premio'
+	},
+	{
+		id:9,
+		piso:1,
+		llave:2,
+		premio:null,
+		empleado:null,
+		posx:970,
+		posy:570,
+		puerta:{
+			locked:true,
+			x:935,
+			y:417,
+			w:30,
+			h:10
+		},
+		ref:'Oficina con llave de la oficina x'
+	},
+
+	{
+		id:10,
+		piso:2,
+		llave:null,
+		premio:null,
+		empleado:null,
+		posx:52,
+		posy:180,
+		puerta:{
+			locked:true,
+			x:348,
+			y:89,
+			w:20,
+			h:40
+		},
+		ref:'Baño'
+	},
+	{
+		id:11,
+		piso:2,
+		llave:null,
+		premio:null,
+		empleado:3,
+		posx:658,
+		posy:432,
+		puerta:null,
+		ref:'Oficina con empleado'
+	},
+	{
+		id:12,
+		piso:2,
+		llave:3,
+		premio:null,
+		empleado:null,
+		posx:441,
+		posy:171,
+		puerta:null,
+		ref:'Concineta'
+	},
+	{
+		id:13,
+		piso:2,
+		llave:null,
+		premio:{
+			id:4,
+			x:880,
+			y:110
+		},
+		empleado:null,
+		posx:835,
+		posy:30,
+		puerta:{
+			locked:true,
+			x:810,
+			y:98,
+			w:20,
+			h:40
+		},
+		ref:'Patio sola con un premio'
+	},
+	{
+		id:14,
+		piso:2,
+		llave:null,
+		premio:null,
+		empleado:4,
+		posx:759,
+		posy:495,
+		puerta:null,
+		ref:'Oficina con una maquina que necesita epp'
+	},
+
+	//patio
+	{
+		id:15,
+		piso:1,
+		llave:null,
+		premio:null,
+		empleado:5,
+		posx:0,
+		posy:0,
+		puerta:null,
+		ref:'Patio con empleado',
+		icon:false
+	},
+	{
+		id:16,
+		piso:1,
+		llave:null,
+		premio:null,
+		empleado:6,
+		posx:0,
+		posy:0,
+		puerta:null,
+		ref:'Parqueadero con empleado',
+		icon:false
+	}
+]
+
+
+var llaves = [
+	{
+		id:1,
+		x:456,
+		y:290,
+		key:9,
+		ref:null
+	},
+	{
+		id:2,
+		x:888,
+		y:435,
+		key:15,//llaves del auto
+		ref:'del auto'
+	},
+	{
+		id:3,
+		x:530,
+		y:83,
+		key:8,
+		ref:null
+	}
+]
+
+
+var empleados = [
+	{
+		id:1,
+		piso:1,
+		llave:4,
+		posx:299,
+		posy:457,
+		rotation:-90,
+		idpregunta:1,
+		ref:'oficina 2 - preguna sobre sistema de gestión de riesgos laborales'
+	},
+	{
+		id:2,
+		piso:1,
+		llave:13,
+		posx:785,
+		posy:261,
+		rotation:43,
+		idpregunta:2,
+		ref:'oficina 6 - pregunta sobre ergonomía'
+	},
+	{
+		id:3,
+		piso:2,
+		llave:7,
+		posx:330,
+		posy:290,
+		rotation:0,
+		idpregunta:3,
+		ref:'oficina 6 - pregunta sobre salud ocupacional'
+	},
+	{
+		id:4,
+		piso:2,
+		llave:12,
+		posx:790,
+		posy:350,
+		rotation:-100,
+		idpregunta:4,
+		ref:'oficina 14 - pregunta sobre epp + juego de arrastrar'
+	},
+	{
+		id:5,
+		piso:1,
+		llave:10,
+		posx:30,
+		posy:170,
+		rotation:-100,
+		idpregunta:5,
+		ref:'afueras de la empresa - pregunta sobre simulacros de emergencia + interactividad de simulacro'
+	},
+	{
+		id:6,
+		piso:1,
+		llave:3,
+		posx:130,
+		posy:520,
+		rotation:56,
+		idpregunta:5,
+		ref:'afueras de la empresa - pregunta sobre seguridad vial'
+	}
+]
+
+var preguntas = [
+	{
+		id:1,
+		preguntas:[
+			{
+				pregunta:'Estar cubierto por la ARL significa que tenemos derecho a:',
+				respuestas:[
+					'La atención médica en caso de presentarse un accidente de trabajo o una enfermedad profesional.',
+					'a y c',
+					'El reconocimiento de las prestaciones económicas que puedan generarse por un accidente de trabajo o una enfermedad profesional.'
+				],
+				correcta:2
+			},
+			{
+				pregunta:'En caso de un accidente de trabajo o una enfermedad laboral, el trabajador afiliado cuenta con la prestación de servicios de salud como son:',
+				respuestas:[
+					'Asistencia médica, quirúrgica y servicios de hospitlización y rehabilitación profesional.',
+					'Servicios odontológicos y prótesis.',
+					'Asistencia médica, quirúrgica, servicios de hospitlización, servicios odontológicos, de rehabilitación profesional, medicamentos y prótesis.'
+				],
+				correcta:3
+			},
+			{
+				pregunta:'Como trabajadores tenemos responsabilidades relacionadas con nuestra seguridad y protección laboral, algunas de ellas son:',
+				respuestas:[
+					'Suministrar información clara, veraz y completa sobre el estado de salud; cumplir las normas de seguridad e higiene de la empresa.',
+					'Brindar la inducción y el entrenamiento a los trabajadores nuevos de la empresa.',
+					'Conocer completa y detalladamente la legislación sobre Riesgos Profesionales.'
+				],
+				correcta:1
+			},
+			{
+				pregunta:'Es un accidente de trabajo cuando:',
+				respuestas:[
+					'La actividad que está desarrollando se relaciona directamente con la labor que desempeña.',
+					'El evento ocurre mientras el trabajador está ejecutando una orden de su jefe.',
+					'a y b'
+				],
+				correcta:3
+			}
+		]
+	},
+	{
+		id:2,
+		preguntas:[
+			{
+				pregunta:'Ahora estás observando a dos personas en su puesto de trabajo. Haz clic en la que tiene la postura correcta de trabajo. Si fallas, se te descontará un premio.',
+				tipo:2
+			}
+		]
+	},
+	{
+		id:3,
+		preguntas:[
+			{
+				pregunta:'Uno de los objetivos del Programa de Salud Ocupacional es:',
+				respuestas:[
+					'Definir las actividades de promoción y prevención que permitan mejorar las condiciones de trabajo y de salud.',
+					'Identificar el origen de los accidentes y enfermedades comunes.',
+					'Controlar los factores de riesgo relacionados con el bienestar general de la persona.'
+				],
+				correcta:1
+			},
+			{
+				pregunta:'El panorama de factores de riesgo permite:',
+				respuestas:[
+					'Identificar, localizar y valorar las situaciones de riesgo existentes.',
+					'Priorizar las situaciones existentes y planificar las medidas de control necesarias.',
+					'a y b'
+				],
+				correcta:3
+			}
+		]
+	},
+	{
+		id:4,
+		preguntas:[
+			{
+				pregunta:'La siguiente es una manera inadecuada de promover el tema de seguridad en la empresa es:',
+				respuestas:[
+					'Permitiendo que los equipos de trabajo establezcan sus propias metas de mejoramiento.',
+					'Promoviendo en el personal la participación en la solución de problemas.',
+					'Imponiendo sanciones por el incumplimiento de normas.'
+				],
+				correcta:3
+			},
+			{
+				pregunta:'Las pausas activas se realizan en períodos de 5 a 7 minutos y pueden ser muy variadas durante la jornada laboral.  Algunas de ellas son:',
+				respuestas:[
+					'Salir de la oficina y tomar 2 minutos de sol para energizarse.',
+					'Ponerse de pies mientras habla por teléfono y realizar estiramientos de brazos, el tronco, el cuello, entre otros.',
+					'Leer un texto de un tema diferente al del trabajo durante 5 minutos.'
+				],
+				correcta:2
+			},
+			{
+				pregunta:'Una mala postura o un diseño inadecuado del puesto de trabajo puede producir en las personas:',
+				respuestas:[
+					'Fatiga visual',
+					'Dolor de espalda y tensión en el cuello.',
+					'a y b'
+				],
+				correcta:3
+			},
+			{
+				pregunta:'Cuál de las siguientes afirmaciones no es una medida preventiva para evitar accidentes de manos:',
+				respuestas:[
+					'Mantenga las manos húmedas al operar equipos eléctricos.',
+					'Utilice las herramientas para lo que fueron diseñadas.',
+					'Utilice una superficie de apoyo para cortar, triturar o pelar alimentos.'
+				],
+				correcta:1
+			},
+		]
+	},
+	{
+		id:5,
+		preguntas:[
+			{
+				pregunta:'Las 3 etapas básicas iniciales para diseñar un plan de emergencias en su empresa son:',
+				respuestas:[
+					'Definición del plan de acción, diseño del sistema de alerta y alarma, plan de evacuación.',
+					'Definición del plan de acción, conformación de las brigadas de emergencias y grupos de apoyo, plan de evacuación.',
+					'Identificación de las amenazas, análisis de vulnerabilidad, inventario de recursos. '
+				],
+				correcta:3
+			},
+			{
+				pregunta:'Una de las acciones a tomar en caso de incendio es:',
+				respuestas:[
+					'Si en su ruta hay una puerta, no la toque, ábrala.',
+					'Si el lugar está lleno de humo salga gateando, cubriéndose nariz y boca.',
+					'Si está en un vestier, permanezca allí.'
+				],
+				correcta:2
+			},
+			{
+				pregunta:'El plan de evacuación hace parte del Plan de emergencias y consiste en:',
+				respuestas:[
+					'Definir el procedimiento y las rutas de evacuación para que las personas protejan su vida mediante el desplazamiento organizado hasta lugares de menor riesgo.',
+					'Definir el procedimiento para que las personas se desplacen, retirándose del origen de la emergencia.',
+					'Definir el sistema de alerta y alarma y las rutas de evacuación para proteger a las personas.'
+				],
+				correcta:1
+			}
+		]
+	},
+	{
+		id:6,
+		preguntas:[
+			{
+				pregunta:'La combinación perfecta para evitar accidentes de tránsito es:',
+				respuestas:[
+					'Las capacidades del conductor y la postura al conducir.',
+					'La pericia y las capacidades del conductor.',
+					'Las señales de tránsito y la pericia'
+				],
+				correcta:2
+			},
+			{
+				pregunta:'Sí es posible reducir al mínimo las probabilidades de sufrir un accidente de tránsito. Frente a esta situación, podemos:',
+				respuestas:[
+					'Conocer las normas y señales de tránsito; mantener la atención en todo momento; estar en condiciones óptimas para transitar por la vía.',
+					'Revisar la vía con anterioridad antes de transitar por ella y conocer las normas y señales de tránsito.',
+					'Mantener la atención en todo momento; estar en condiciones óptimas para transitar por la vía.'
+				],
+				correcta:1
+			},
+			{
+				pregunta:'Para prevenir accidentes, debemos hacer mantenimiento preventivo a nuestro vehículo, para esto, debemos reconocer algunas de las partes del vehículo como:',
+				respuestas:[
+					'El motor, el radiador, el carburador',
+					'El depósito de aceite, los almacenadores de agua, la batería.',
+					'a y b'
+				],
+				correcta:3
+			}
+		]
+	}
+
+
+]
+
+function getEmpleadoData(id){
+	var e_data = null
+	for(var e = 0;e<empleados.length;e++){
+		if(empleados[e].id==id){
+			e_data = empleados[e]
+		}
+	}
+	return e_data
+}
+function getLlaveData(id){
+	var l_data = null
+	for(var e = 0;e<llaves.length;e++){
+		if(llaves[e].id==id){
+			l_data = llaves[e]
+		}
+	}
+	return l_data
+}

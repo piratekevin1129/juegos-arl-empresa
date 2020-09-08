@@ -1,0 +1,838 @@
+#container{
+    position: relative;
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    width: 768px;
+    height: 578px;
+    overflow: hidden;
+}
+header{
+    position: relative;
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0px;
+    padding: 0px;
+}
+.row{
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.row-header1{
+    background: #FFFFFF;
+    background: linear-gradient(to left, #FFFFFF, #F1F1F1);
+    background: -webkit-linear-gradient(to left, #FFFFFF, #F1F1F1);
+    background: -o-linear-gradient(to left, #FFFFFF, #F1F1F1);
+    height: 50px;
+    align-content: center;
+}
+.logo-sura{
+    display: flex;
+    width: 73px;
+    height: 100%;
+    position: relative;
+    margin-left: 20px;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url(../images/logo-sura.svg);
+}
+.titulo{
+    position: relative;
+    display: flex;
+    height: 100%;
+    justify-content: right;
+    margin-right: 20px;
+    align-items: center;
+}
+.titulo h1{
+    display: block;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+
+    font-family: 'Barlow-Medium';
+    font-size: 14px;
+    font-weight: normal;
+    color: #0033A0;
+    text-align: right;
+    line-height: normal;
+}
+.titulo h1 > span{
+    font-family: 'Barlow-SemiBold';
+    font-size: 
+}
+.row-header2{
+    background: #0033A0;
+    height: 23px;
+    align-content: center;
+}
+.logo-arl{
+    display: flex;
+    width: 25px;
+    height: 100%;
+    position: relative;
+    margin-left: 20px;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url(../images/logo-arl.svg);
+}
+#oficio-title{
+    position: relative;
+    display: flex;
+    height: 100%;
+    justify-content: right;
+    margin-right: 20px;
+    align-items: center;
+}
+#oficio-title h2{
+    display: block;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+
+    font-family: 'Barlow-Medium';
+    font-size: 12px;
+    font-weight: normal;
+    color: #FFFFFF;
+    text-align: right;
+    line-height: normal;
+}
+
+#game{
+    position: relative;
+    display: block;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    height: 100%;
+    height: calc(100% - 73px);
+    height: -moz-calc(100% - 73px);
+    box-sizing: border-box;
+    overflow: hidden;
+}
+        
+#home-scene{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+}
+.fondo{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    background-image: url(../images/fondo.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.cielo{
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    top: 0px;
+    left: 0px;
+    background: #5BC2E3;
+    background: linear-gradient(to bottom, #00A3D9, #FAFCFF);
+    background: -ms-linear-gradient(to bottom, #00A3D9, #FAFCFF);
+    background: -moz-linear-gradient(to bottom, #00A3D9, #FAFCFF);
+    background: -webkit-linear-gradient(to bottom, #00A3D9, #FAFCFF);
+    background: -o-linear-gradient(to bottom, #00A3D9, #FAFCFF);
+}
+.nubes{
+    position: absolute;
+    width: 1560px;
+    height: 310px;
+    left: 0px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-image: url(../images/nubes.png);
+
+    animation-name: animacion-nubes;
+    animation-duration: 20s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    -webkit-animation-name: animacion-nubes;
+    -webkit-animation-duration: 20s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+}
+@keyframes animacion-nubes{
+    0%{
+        left: 0px;
+    }
+    100%;{
+        left: -50%;
+    }
+}
+#personaje-home{
+    position: absolute;
+    display: block;
+    width: 132px;
+    height: 370px;
+    
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    top: 25%;
+    left: 5%;
+}
+.personaje-1{
+    background-image: url(../images/personaje-v1.png);
+}
+.personaje-2{
+    background-image: url(../images/personaje-v2.png);
+}
+.personaje-3{
+    background-image: url(../images/personaje-v3.png);
+}
+.personaje-ojos{
+    position: absolute;
+    width: 35px;
+    height: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-image: url(../images/ojos.png);
+    top: 35px;
+    left: 44px;
+}
+.personaje-ojos::after{
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    animation-name: animacion-ojos;
+    animation-duration: 6s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    -webkit-animation-name: animacion-ojos;
+    -webkit-animation-duration: 6s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+}
+@keyframes animacion-ojos{
+    0%{
+        background-image: none;
+    }
+    2%{
+        background-image: url(../images/parpados1.png);
+    }
+    4%{
+        background-image: url(../images/parpados2.png);
+    }
+    6%{
+        background-image: url(../images/parpados1.png);
+    }
+    8%{
+        background-image: none;
+    }
+    100%{
+        background-image: none;
+    }
+}
+
+#game-scene{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+}
+#game-wrapper{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+}
+
+/************ESTILOS DEL GAME***************/
+#piso-container{
+    position: absolute;
+    margin: 0px;
+    padding: 0px;
+}
+#piso,#paredes{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+}
+
+#puertas,#elementos{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+#avatar{
+    position: absolute;
+    width: 30px;
+    height: 28px;
+    box-shadow: 0px 0px 2px 1px rgba(0,0,0,1);
+}
+.avatar-left #avatar-clip{
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+}
+.avatar-right #avatar-clip{
+    transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+}
+.avatar-up #avatar-clip{
+    transform: rotate(-180deg);
+    -webkit-transform: rotate(-180deg);
+    -o-transform: rotate(-180deg);
+}
+.avatar-down #avatar-clip{
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+}
+#avatar-clip{
+    position: absolute;
+    transition: transform 0.1s, -webkit-transform 0.1s, -o-transform 0.1s;
+    -webkit-transition: transform 0.1s, -webkit-transform 0.1s, -o-transform 0.1s;
+}
+#mensaje{
+    position: absolute;
+    width: 250px;
+    height: auto;
+    border-radius: 0px 0px 20px 0px;
+    background-color: #E3E829;
+    
+    left: 50%;
+    transform: translateX(-50%) translateY(-100%);
+    -webkit-transform: translateX(-50%) translateY(-100%);
+    -o-transform: translateX(-50%) translateY(-100%);
+
+    padding: 5px;
+    box-sizing: border-box;
+}
+#mensaje::after{
+    position: absolute;
+    content: "";
+    width: 0px;
+    height: 0px;
+    left: 50%;
+    left: calc(50% - 7px);
+    left: -moz-calc(50% - 7px);
+    top: 100%;
+    border-left: 7px rgba(0,0,0,0) solid;
+    border-right: 7px rgba(0,0,0,0) solid;
+    border-top: #E3E829 solid 7px;
+}
+#mensaje p{
+    display: block;
+    position: relative;
+    width: 100%;
+    font-family: 'Barlow-Regular';
+    font-size: 14px;
+    color: #0033A0;
+    text-align: center;
+    font-weight: bold;
+    line-height: normal;
+    margin: 0px;
+    padding: 0px;
+}
+
+.mensaje-off{
+    visibility: hidden;
+    opacity: 0;
+    top: 50%;
+
+    transition: visibility 0.2s, opacity 0.2s, top 0.2s;
+    -webkit-transition: visibility 0.2s, opacity 0.2s, top 0.2s;
+}
+.mensaje-on{
+    visibility: visible;
+    opacity: 1;
+    top: -10px;
+
+    transition: visibility 0s, opacity 0.2s, top 0.2s;
+    -webkit-transition: visibility 0s, opacity 0.2s, top 0.2s;
+}
+
+#contenedor-item{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-content: space-between;
+    justify-content: flex-start;
+}
+.contenedor-item-on{
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0s, opacity 0.5s;
+    -webkit-transition: visibility 0s, opacity 0.5s;
+}
+.contenedor-item-off{
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.5s, opacity 0.5s;
+    -webkit-transition: visibility 0.5s, opacity 0.5s;
+}
+.contenedor-item-img{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-image: url(../images/fondo-premios.jpg);
+    filter: brightness(30%);
+    -webkit-filter: brightness(30%);
+    -o-filter: brightness(30%);
+}
+#contenedor-item-title{
+    display: block;
+    width: 100%;
+    font-family: 'Barlow-Bold';
+    font-size: 24px;
+    color: #FFFFFF;
+    text-align: center;
+    font-weight: normal;
+    line-height: normal;
+    margin: 0px;
+    padding: 0px;
+    margin-top: 20px;
+}
+#contenedor-item-content{
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0px 0px;
+    padding: 0px;
+    height: 300px;
+    border: #FFF solid 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+    
+#contenedor-item-msg{
+    display: block;
+    width: 100%;
+    font-family: 'Barlow-Medium';
+    font-size: 18px;
+    color: #FFFFFF;
+    text-align: center;
+    font-weight: normal;
+    line-height: normal;
+    margin: 0px;
+    padding: 0px;
+    margin-bottom: 20px;
+}
+
+/********estilos de iconos, llaves, etc...********/
+.icono-oficina{
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    padding-top: 1px;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-image: url(../images/oficina-icon.png);
+    display: flex;
+    justify-content: center;
+    
+    font-family: 'Barlow-SemiBold';
+    color: #FFFFFF;
+    text-align: center;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 17px;
+    text-shadow: 2px 1px 1px #000000;
+    -webkit-text-shadow: 2px 1px 1px #000000;
+    -o-text-shadow: 2px 1px 1px #000000;
+
+    transform: translateX(-12.5px) translateY(-12.5px);
+    -webkit-transform: translateX(-12.5px) translateY(-12.5px);
+    -o-transform: translateX(-12.5px) translateY(-12.5px);
+}
+.icono-puerta{
+    position: absolute;
+    background-color: #FFFF00;
+    box-sizing: border-box;
+    border: #000 solid 1px;
+}
+.icono-empleado{
+    position: absolute;
+    width: 30px;
+    height: 28px;
+}
+.icono-llave{
+    position: absolute;
+    width: 17px;
+    height: 30px;
+}
+.icono-premio{
+    position: absolute;
+    width: 20px;
+    height: 30px;
+}
+
+.icono-empleado-light{background-color: #2cbe10;}
+.icono-llave-light{background-color: #00CCFF;}
+.icono-premio-light{background-color: #FFFF00;}
+
+.icono-empleado-light,
+.icono-llave-light,
+.icono-premio-light
+{
+    position: absolute;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    
+    top: 50%;
+    top: calc(50% - 15px);
+    top: -moz-calc(50% - 15px);
+    left: 50%;
+    left: calc(50% - 15px);
+    left: -moz-calc(50% - 15px);
+
+    animation-name: animacion-light;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    -webkit-animation-name: animacion-light;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+}
+@keyframes animacion-light{
+    0% {
+        transform: scale(0);
+        -webkit-transform: scale(0);
+        -o-transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.5);
+        -webkit-transform: scale(1.5);
+        -o-transform: scale(1.5);
+        opacity: 0.75;
+    }
+    100% {
+        transform: scale(2.5);
+        -webkit-transform: scale(2.5);
+        -o-transform: scale(2.5);
+        opacity: 0;
+    }
+}
+.icono-empleado-img,
+.icono-llave-img,
+.icono-premio-img
+{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.icono-empleado-img{background-image: url(../images/empleado-icon.png);}
+.icono-llave-img{background-image: url(../images/llave-icon.png);}
+.icono-premio-img{background-image: url(../images/premio-icon.png);}
+
+/*******************************************/
+
+/*************MODAL*************/
+#modal{
+    z-index: 500;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    top: 0px;
+    left: 0px;
+    
+    align-items: center;
+    justify-content: center;
+}
+.modal-off{
+    visibility: hidden;
+    opacity: 0;
+    background-color: rgba(0,0,0,0);
+
+    transition: opacity 0.5s, background-color 0.5s, visibility 0.5s;
+    -webkit-transition: opacity 0.5s, background-color 0.5s, visibility 0.5s;
+}
+.modal-on{
+    visibility: visible;
+    opacity: 1;
+    background-color: rgba(0,0,0,0.5);
+    
+    transition: opacity 0.5s, background-color 0.5s, visibility 0s;
+    -webkit-transition: opacity 0.5s, background-color 0.5s, visibility 0s;
+}
+
+#modal-box{
+    width: 360px;
+    position: relative;
+    display: block;
+    margin: 0px;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    box-shadow: 0px 0px 3px 2px rgba(0,0,0,0.2);
+}
+.modal-box-final{
+    left: 13%;
+}
+
+#modal-title{
+    display: block;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    border: none;
+    margin-bottom: 10px;
+
+    font-family: 'FSJoey-Bold';
+    font-size: 19px;
+    color: #0033A0;
+    text-align: center;
+    font-weight: normal;
+    line-height: normal;
+}
+#modal-close-btn{
+    display: block;
+    margin: 0px;
+    padding: 0px;
+    border-radius: 50%;
+    position: absolute;
+
+    background-color: #00AEC7;
+    border: none;
+    right: 10px;
+    top: 10px;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+
+    transition: background-color 0.3s, transform 0.3s, -webkit-transform 0.3s, -o-transform 0.3s;
+    -webkit-transition: background-color 0.3s, transform 0.3s, -webkit-transform 0.3s, -o-transform 0.3s;
+}
+#modal-close-btn::after,
+#modal-close-btn::before
+{
+    content: "";
+    position: absolute;
+    width: 15px;
+    height: 2px;
+    background-color: #FFFFFF;
+    transform-origin: center center;
+    -webkit-transform-origin: center center;
+    -o-transform-origin: center center;
+    top: 50%;
+    top: calc(50% - 1px);
+    top: -moz-calc(50% - 1px);
+    left: 50%;
+    left: calc(50% - 7.5px);
+    left: -moz-calc(50% - 7.5px);
+}
+#modal-close-btn::after{
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+}
+#modal-close-btn::before{
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+}
+#modal-close-btn:hover{
+    background-color: #008B96;
+    transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    -o-transform: scale(1.2);
+}
+
+#modal-content{
+    position: relative;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    margin-bottom: 20px;
+    max-height: 450px;
+    overflow: auto;
+}
+
+#modal-content > p{
+    display: block;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+
+    font-family: 'Barlow-Medium';
+    font-size: 13px;
+    color: #53565A;
+    text-align: center;
+    font-weight: normal;
+    line-height: normal;
+    margin-bottom: 10px;
+}
+#modal-content > p span{
+    font-family: 'Barlow-Bold';
+    color: #555555;
+}   
+
+#modal-content > h6{
+    display: block;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+
+    font-family: 'FSJoey-Bold';
+    font-size: 14px;
+    color: #0033A0;
+    text-align: center;
+    font-weight: normal;
+    line-height: normal;
+}
+#modal-button{
+    position: absolute;
+    display: block;
+    width: 160px;
+    height: 41px;
+    border-radius: 4px;
+    background-color: #00AEC7;
+    border: none;
+
+    font-family: 'Barlow-Bold';
+    font-size: 18px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    text-align: center;
+    font-weight: normal;
+    line-height: normal;
+    bottom: -20px;
+    left: 50%;
+    left: calc(50% - 80px);
+    left: -moz-calc(50% - 80px);
+    box-shadow: 0px 2px 3px 2px rgba(0,0,0,0.2);
+    cursor: pointer;
+
+    transition: background-color 0.3s, transform 0.3s, -webkit-transform 0.3s, -o-transform 0.3s;
+    -webkit-transition: background-color 0.3s, transform 0.3s, -webkit-transform 0.3s, -o-transform 0.3s;
+}
+#modal-button:hover{
+    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    background-color: #0097A3;
+    
+}
+
+/****************FOCUS***************/
+#focus-msg{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    background-color: rgba(0,0,0,0.75);
+}
+#focus-msg p{
+    position: absolute;
+    display: block;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Barlow-Medium';
+    font-size: 20px;
+    color: #FFFFFF;
+    text-align: center;
+    font-weight: normal;
+    line-height: normal;
+    top: 50%;
+    left: 0px;
+}
+.focus-off{
+    display: none;
+}
+.focus-on{
+    display: block;
+}
+
+/**************CARGADOR***************/
+#cargador{
+    z-index: 700;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    margin: 0px;
+    padding: 0px;
+    background-color: #FFFFFF;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.cargador-on{
+    display: flex;
+}
+.cargador-off{
+    display: none;
+}
+.cargador-img{
+    position: relative;
+    display: block;
+    width: 30px;
+    height: 30px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-image: url(../images/cargador_v2g.gif);
+    margin: 0px;
+    padding: 0px;
+    margin-bottom: 10px;
+}
+.cargador-txt{
+    display: block;
+    font-family: 'Barlow-Medium';
+    font-size: 14px;
+    color: #000000;
+    text-align: center;
+    font-weight: normal;
+    line-height: normal;
+    margin: 0px;
+    padding: 0px;
+}
