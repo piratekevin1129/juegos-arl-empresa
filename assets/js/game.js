@@ -137,9 +137,7 @@ function setGame(){
 		loadImage({url:'assets/images/piso2.jpg',callBack:function(data){
 			piso2_data = {width:data.width,height:data.height,src:data.src}
 
-			avatar.style.top = avatar_data.top+'px'
-			avatar.style.left = avatar_data.left+'px'//150
-			setFloor(1)
+			setFloor(1,true)
 			addEvents()
 			/*jQuery("body").mouseleave(function() {
 				focusOut()
@@ -167,7 +165,7 @@ var paredes = getE('paredes')
 var piso1_data = null
 var piso2_data = null
 
-function setFloor(floor){
+function setFloor(floor,start){
 	clearFloor()
 
 	actual_floor = floor
@@ -179,6 +177,39 @@ function setFloor(floor){
 		piso_data.width = piso1_data.width
 		piso_data.height = piso1_data.height
 		walls = paredes_piso1 
+
+		//carro
+		var carro = document.createElement('div')
+		carro.className = 'icono-auto'
+		carro.innerHTML = '<div class="icono-auto-light"></div><div class="icono-auto-img"></div>'
+		piso.appendChild(carro)
+		//area del carro
+		var carro_area = document.createElement('div')
+		carro_area.className = 'icono-auto-area'
+
+		carro_area.setAttribute('id','carro')
+		carro_area.setAttribute('type','carro')
+		paredes.appendChild(carro_area)
+		piso_data.elementos.push(carro_area)
+
+		//put avatar
+		if(start){
+			avatar_data.left = 250
+			avatar_data.top = 60
+			piso_data.left = 0
+			piso_data.top = 0
+			movex = 1
+			movey = 1
+		}else{
+			//al pie de las escaleras
+			avatar_data.left = 300
+			avatar_data.top = 252
+			piso_data.left = 0
+			piso_data.top = -87
+			movex = 1
+			movey = 2
+		}
+		
 	}else if(floor==2){
 		piso_container.style.width = piso2_data.width+'px'
 		piso_container.style.height = piso2_data.height+'px'
@@ -186,7 +217,35 @@ function setFloor(floor){
 		piso_data.width = piso2_data.width
 		piso_data.height = piso2_data.height
 		walls = paredes_piso2
+
+		//put avatar
+		if(start){
+			//nunca va a entrar aqui pero bueno
+			avatar_data.left = 250
+			avatar_data.top = 60
+			piso_data.left = 0
+			piso_data.top = 0
+			movex = 1
+			movey = 1
+		}else{
+			//al pie de las escaleras
+			avatar_data.left = 85
+			avatar_data.top = 219
+			piso_data.left = 0
+			piso_data.top = 0
+			movex = 1
+			movey = 1
+		}
 	}
+
+	//put avatar
+	avatar.style.top = avatar_data.top+'px'
+	avatar.style.left = avatar_data.left+'px'//150
+	//set piso coords
+	piso.style.top = piso_data.top+'px'
+	piso.style.left = piso_data.left+'px'
+	paredes.style.top = piso_data.top+'px'
+	paredes.style.left = piso_data.left+'px'
 
 	//poner elementos de cada oficina (icono, llave, premio, empleado y puerta)
 	for(i = 0;i<oficinas.length;i++){
@@ -207,11 +266,15 @@ function setFloor(floor){
 					var puerta = document.createElement('div')	
 					puerta.className = 'icono-puerta'
 					puerta.setAttribute('id','puerta'+office.id)
+					puerta.setAttribute('ind',office.id)
+					puerta.setAttribute('type','puerta')
 					puerta.style.width = office.puerta.w+'px'
 					puerta.style.height = office.puerta.h+'px'
 					puerta.style.left = office.puerta.x+'px'
 					puerta.style.top = office.puerta.y+'px'
+					
 					piso.appendChild(puerta)
+					piso_data.elementos.push(puerta)
 				}
 				
 			}
@@ -227,8 +290,12 @@ function setFloor(floor){
 					empleado.style.transform = 'rotate('+empleado_data.rotation+'deg)'
 					empleado.style.webkitTransform = 'rotate('+empleado_data.rotation+'deg)'
 					empleado.style.oTransform = 'rotate('+empleado_data.rotation+'deg)'
+
 					empleado.setAttribute('id','empleado'+empleado_data.id)
+					empleado.setAttribute('ind',empleado_data.id)
+					empleado.setAttribute('type','empleado')
 					piso.appendChild(empleado)
+					piso_data.elementos.push(empleado)
 				}
 			}
 
@@ -239,9 +306,12 @@ function setFloor(floor){
 					premio.innerHTML = '<div class="icono-premio-light"></div><div class="icono-premio-img"></div>'
 					premio.style.left = office.premio.x+'px'
 					premio.style.top = office.premio.y+'px'
-					
+
+					premio.setAttribute('type','premio')
+					empleado.setAttribute('ind',office.id)
 					premio.setAttribute('id','premio'+office.premio.id)
 					piso.appendChild(premio)
+					piso_data.elementos.push(premio)
 				}
 				
 			}
@@ -257,7 +327,10 @@ function setFloor(floor){
 					
 					llave.setAttribute('id','llave'+llave_data.id)
 					llave.setAttribute('key',llave_data.key)
+					llave.setAttribute('type','llave')
+					llave.setAttribute('ind',llave_data.id)
 					piso.appendChild(llave)
+					piso_data.elementos.push(llave)
 				}
 			}
 		}
@@ -267,8 +340,7 @@ function setFloor(floor){
 	piso_data.paredes = []
 	for(i = 0;i<walls.length;i++){
 		var pared = document.createElement('div')
-		pared.style.position = 'absolute'
-		pared.style.backgroundColor = 'rgba(0,0,0,0.5)'
+		pared.className = 'icono-pared'
 		pared.style.width = walls[i].w+'px'
 		pared.style.height = walls[i].h+'px'
 		pared.style.left = walls[i].x+'px'
@@ -276,31 +348,62 @@ function setFloor(floor){
 		paredes.appendChild(pared)
 		piso_data.paredes.push(pared)
 	}
+
+	//poner area de las escaleras
+	var escaleras = document.createElement('div')
+	escaleras.className = 'icono-escaleras icono-escaleras-piso-'+floor
+	escaleras.setAttribute('id','escaleras')
+	escaleras.setAttribute('type','escaleras')
+
+	paredes.appendChild(escaleras)
+	piso_data.elementos.push(escaleras)
 }
 
 function clearFloor(){
 	piso.innerHTML = ''
+	paredes.innerHTML = ''
+	piso_data = {
+		left:0,
+		top:0,
+		width:0,
+		height:0,
+		paredes:[],
+		elementos:[]
+	}
+	piso_data.left = 0
+	piso_data.top = 0
+	piso.style.left = '0px'
+	piso.style.top = '0px'
+	paredes.style.left = '0px'
+	paredes.style.top = '0px'
+	avatar_data.left = 0
+	avatar_data.top = 0
+	avatar.style.left = '0px'
+	avatar.style.top = '0px'
 }
 
 ///////////EVENTOS DEL TECLADO///////////
 var avatar = getE('avatar')
 var avatar_data = {
-	left:250,
-	top:60,
+	left:0,
+	top:0,
 	width:30,
 	height:28,
-	area:10
+	area:8,
+	llaves:[]
 }
 var piso_data = {
 	left:0,
 	top:0,
 	width:0,
 	height:0,
-	paredes:[]
+	paredes:[],
+	elementos:[]
 }
 var avatar_speed = 0
 var avatar_aceleration = 0.2
 var animacion_avatar = null
+var animacion_avatar_2 = null//animacion para animar el avatar detras de escena
 
 var direccion_x = null
 var direccion_y = null
@@ -311,72 +414,80 @@ function addEvents(){
 	//document.addEventListener("visibilitychange", onchange);
 	//window.addEventListener('mouseout',focusOut, false)
 }
+function removeEvents(){
+	window.removeEventListener('keydown',downTecla, false)
+	window.removeEventListener('keyup',upTecla, false)
+
+	direccion_x = null
+	direccion_y = null
+	clearInterval(animacion_avatar)
+	spdStopAnimation(0)
+}
 
 function focusOut(){
 	getE('focus-msg').className = 'focus-on'
 }
+
 function focusOn(){
 	getE('focus-msg').className = 'focus-off'
 }
 
 function downTecla(e){
 	//console.log(e.keyCode)
+	var put_events = false
 	if(e.keyCode==37){
 		//izquierda
 		direccion_x = 'left'
 		avatar_speed = 0
-		animacion_avatar = setInterval(moveAvatar,20)
-		spdPlayAnimation({frame:1,stop:0,loop:true},0)
+		put_events = true
 		avatar.className = 'avatar-left'
-		window.removeEventListener('keydown',downTecla, false)
 	}else if(e.keyCode==39){
 		//derecha
 		direccion_x = 'right'
 		avatar_speed = 0
-		animacion_avatar = setInterval(moveAvatar,20)
-		spdPlayAnimation({frame:1,stop:0,loop:true},0)
+		put_events = true
 		avatar.className = 'avatar-right'
-		window.removeEventListener('keydown',downTecla, false)
 	}else if(e.keyCode==38){
 		//arriba
 		direccion_y = 'up'
 		avatar_speed = 0
-		animacion_avatar = setInterval(moveAvatar,20)
-		spdPlayAnimation({frame:1,stop:0,loop:true},0)
+		put_events = true
 		avatar.className = 'avatar-up'
-		window.removeEventListener('keydown',downTecla, false)
 	}else if(e.keyCode==40){
 		//abajo
 		direccion_y = 'down'
 		avatar_speed = 0
+		put_events = true
+		avatar.className = 'avatar-down'
+	}
+	if(put_events){
 		animacion_avatar = setInterval(moveAvatar,20)
 		spdPlayAnimation({frame:1,stop:0,loop:true},0)
-		avatar.className = 'avatar-down'
 		window.removeEventListener('keydown',downTecla, false)
 	}
 }
+
 function upTecla(e){
+	var put_events = false
 	if(e.keyCode==37){
 		//izquierda
 		direccion_x = null
-		window.addEventListener('keydown',downTecla, false)
-		clearInterval(animacion_avatar)
-		spdStopAnimation(0)
+		put_events = true
 	}else if(e.keyCode==39){
 		//derecha
 		direccion_x = null
-		window.addEventListener('keydown',downTecla, false)
-		clearInterval(animacion_avatar)
-		spdStopAnimation(0)
+		put_events = true
 	}else if(e.keyCode==38){
 		//arriba
 		direccion_y = null
-		window.addEventListener('keydown',downTecla, false)
-		clearInterval(animacion_avatar)
-		spdStopAnimation(0)
+		put_events = true
 	}else if(e.keyCode==40){
 		//abajo
 		direccion_y = null
+		put_events = true
+	}
+
+	if(put_events){
 		window.addEventListener('keydown',downTecla, false)
 		clearInterval(animacion_avatar)
 		spdStopAnimation(0)
@@ -385,8 +496,14 @@ function upTecla(e){
 
 var movex = 1
 var movey = 1
-function moveAvatar(){
+function moveAvatar(back){
+	if(back==undefined||back==null){
+		back = false
+	}
+	//console.log("back: "+back)
+	
 	var new_left = 0
+	var check_collision = null
 
 	if(direccion_x=='left'){
 		if(movex==1){
@@ -415,19 +532,30 @@ function moveAvatar(){
 
 		
 		if(movex==1){
-			if(!checkCollision(new_left,null,true)){
+			if(back){
 				avatar.style.left = new_left+'px'
 				avatar_data.left = new_left
+			}else{
+				check_collision = checkCollision(new_left,null,true,back)
+				if(!check_collision.collision){
+					avatar.style.left = new_left+'px'
+					avatar_data.left = new_left
+				}
 			}
 		}else if(movex==2){
-			if(!checkCollision(new_left,null,false)){
+			if(back){
 				piso.style.left = new_left+'px'
 				paredes.style.left = new_left+'px'
 				piso_data.left = new_left
+			}else{
+				check_collision = checkCollision(new_left,null,false,back)
+				if(!check_collision.collision){
+					piso.style.left = new_left+'px'
+					paredes.style.left = new_left+'px'
+					piso_data.left = new_left
+				}
 			}
-		}
-		
-		
+		}	
 	}else if(direccion_x=='right'){
 		if(movex==1){
 			new_left = avatar_data.left+avatar_speed
@@ -455,15 +583,29 @@ function moveAvatar(){
 		}
 
 		if(movex==1){
-			if(!checkCollision(new_left,null,true)){
+			if(back){
 				avatar.style.left = new_left+'px'
 				avatar_data.left = new_left	
+			}else{
+				check_collision = checkCollision(new_left,null,true,back)
+				if(!check_collision.collision){
+					avatar.style.left = new_left+'px'
+					avatar_data.left = new_left	
+				}
 			}
+				
 		}else if(movex==2){
-			if(!checkCollision(new_left,null,false)){
+			if(back){
 				piso.style.left = new_left+'px'
 				paredes.style.left = new_left+'px'
 				piso_data.left = new_left
+			}else{
+				check_collision = checkCollision(new_left,null,false,back)
+				if(!check_collision.collision){
+					piso.style.left = new_left+'px'
+					paredes.style.left = new_left+'px'
+					piso_data.left = new_left
+				}
 			}
 		}	
 	}
@@ -496,12 +638,20 @@ function moveAvatar(){
 		}
 		
 		if(movey==1){
-			if(!checkCollision(null,new_top,true)){
+			if(back){
 				avatar.style.top = new_top+'px'
 				avatar_data.top = new_top
+			}else{
+				check_collision = checkCollision(null,new_top,true,back)
+				if(!check_collision.collision){
+					avatar.style.top = new_top+'px'
+					avatar_data.top = new_top
+				}
 			}
+				
 		}else if(movey==2){
-			if(!checkCollision(null,new_top,false)){
+			check_collision = checkCollision(null,new_top,false,back)
+			if(!check_collision.collision){
 				piso.style.top = new_top+'px'
 				paredes.style.top = new_top+'px'
 				piso_data.top = new_top
@@ -533,36 +683,70 @@ function moveAvatar(){
 			}
 		}
 
-		
 		if(movey==1){
-			if(!checkCollision(null,new_top,true)){
+			if(back){
 				avatar.style.top = new_top+'px'
 				avatar_data.top = new_top
+			}else{
+				check_collision = checkCollision(null,new_top,true,back)
+				if(!check_collision.collision){
+					avatar.style.top = new_top+'px'
+					avatar_data.top = new_top
+				}
 			}
+				
 		}else if(movey==2){
-			if(!checkCollision(null,new_top,false)){
+			if(back){
 				piso.style.top = new_top+'px'
 				paredes.style.top = new_top+'px'
 				piso_data.top = new_top
+			}else{
+				check_collision = checkCollision(null,new_top,false,back)
+				if(!check_collision.collision){
+					piso.style.top = new_top+'px'
+					paredes.style.top = new_top+'px'
+					piso_data.top = new_top
+				}
 			}
 		}
-
 	}
 	
 	avatar_speed+=avatar_aceleration
 	if(avatar_speed>3){
 		avatar_speed = 3
 	}
+
+	if(!back){
+		if(check_collision.stop){
+			console.log("stop, collision between element")
+			removeEvents()
+			if(check_collision.type=='empleado'){
+				setPregunta(check_collision.params)
+			}else if(check_collision.type=='puerta'||check_collision.type=='escaleras'){
+				setPelicula(check_collision.params)	
+			}
+			
+		}
+	}
 }
 
-function checkCollision(x,y,a){
-	
+function moveAvatar2(){
+	for(var aa = 0;aa<16;aa++){
+		moveAvatar(true)
+		//console.log("move avatar")
+	}
+	direccion_x = null
+	direccion_y = null
+}
+
+function checkCollision(x,y,a,b){
 	var collision = false
 	//comprobar colision
 
 	var a_rect = null
 	var dif_piso_x = 0
 	var dif_piso_y = 0
+	var rect_parent = paredes.getBoundingClientRect()
 	//esto esta bien
 
 	if(a){
@@ -593,37 +777,277 @@ function checkCollision(x,y,a){
 		}
 	}
 	
-	var rect_parent = paredes.getBoundingClientRect()
-	for(var c = 0;c<piso_data.paredes.length;c++){
-		var rect = piso_data.paredes[c].getBoundingClientRect()
-		var rect_pared = {
-			w:rect.width,
-			h:rect.height,
-			x:(rect.left-rect_parent.left),
-			y:(rect.top-rect_parent.top)
-		}
+	
+	if(!b){//si esta detras de camaras, no detectar colisiones con paredes
+		for(var c = 0;c<piso_data.paredes.length;c++){
+			var rect = piso_data.paredes[c].getBoundingClientRect()
+			var rect_pared = {
+				w:rect.width,
+				h:rect.height,
+				x:(rect.left-rect_parent.left),
+				y:(rect.top-rect_parent.top)
+			}
 
-		if(
-			(a_rect.x+avatar_data.area)>=rect_pared.x&&
-			(a_rect.x-avatar_data.area)<=(rect_pared.x+rect_pared.w)&&
-			(a_rect.y+avatar_data.area)>=rect_pared.y&&
-			(a_rect.y-avatar_data.area)<=(rect_pared.y+rect_pared.h)
-		){
-			//colision
-			collision = true
-			/*var pared = document.createElement('div')
-			pared.style.position = 'absolute'
-			pared.style.backgroundColor = 'rgba(0,0,0,0.5)'
-			pared.style.width = piso_data.paredes[c].w+'px'
-			pared.style.height = piso_data.paredes[c].h+'px'
-			pared.style.left = piso_data.paredes[c].x+'px'
-			pared.style.top = piso_data.paredes[c].y+'px'
-			piso.appendChild(pared)*/
-			//console.log("colision con "+c)
+			if(
+				(a_rect.x+avatar_data.area)>=rect_pared.x&&
+				(a_rect.x-avatar_data.area)<=(rect_pared.x+rect_pared.w)&&
+				(a_rect.y+avatar_data.area)>=rect_pared.y&&
+				(a_rect.y-avatar_data.area)<=(rect_pared.y+rect_pared.h)
+			){
+				//colision
+				//type = 'pared'
+				//collision = true
+				//console.log("colision con "+c)
+			}
 		}
 	}
-	return collision
+	
+	var type = ''
+	var element = null
+	var rect_element = null
+	var stop = null
+	var callBack = null
+	
+	var params = []
+	var mov = 0
+
+	if(!b){//si esta detras de camaras, no detectar colisiones con objetos
+		for(var c = 0;c<piso_data.elementos.length;c++){
+			var rect = piso_data.elementos[c].getBoundingClientRect()
+			var rect_elemento = {
+				w:rect.width,
+				h:rect.height,
+				x:(rect.left-rect_parent.left),
+				y:(rect.top-rect_parent.top)
+			}
+
+			if(
+				(a_rect.x+avatar_data.area)>=rect_elemento.x&&
+				(a_rect.x-avatar_data.area)<=(rect_elemento.x+rect_elemento.w)&&
+				(a_rect.y+avatar_data.area)>=rect_elemento.y&&
+				(a_rect.y-avatar_data.area)<=(rect_elemento.y+rect_elemento.h)
+			){
+				//colision
+				type = piso_data.elementos[c].getAttribute('type')
+				element = piso_data.elementos[c]
+				collision = true
+				rect_element = rect_elemento
+				//console.log("colision con "+c)
+			}		
+		}
+
+		//carro,puerta,llave,premio,empleado,escaleras
+		if(type=='puerta'){
+			//mirar si la puerta esta desbloqueada
+			var oficina_id = element.getAttribute('ind')
+			var oficina_data = getOficinaData(oficina_id)
+			var estado_puerta = ''//variable para detectar si la puerta la abre o la cierra
+			var entrar_o_salir = ''
+
+			if(oficina_data.puerta!=null){
+				//mirar si va a entrar o a salir
+				if(oficina_data.puerta.direccion=='horizontal'){
+					if(
+						(a_rect.y+avatar_data.area)>=rect_element.y&&
+						(a_rect.y-avatar_data.area)<=(rect_element.y+(rect_element.h/2))
+					){
+						estado_puerta = 'arriba'
+					}else{
+						estado_puerta = 'abajo'
+					}
+				}else{
+					if(
+						(a_rect.x+avatar_data.area)>=rect_element.x&&
+						(a_rect.x-avatar_data.area)<=(rect_element.x+(rect_element.w/2))
+					){
+						estado_puerta = 'izquierda'
+					}else{
+						estado_puerta = 'derecha'
+					}
+				}
+
+				//console.log(estado_puerta)
+				//definir si sale o entra
+				if(oficina_data.puerta.orientacion=='norte'){
+					if(estado_puerta=='arriba'){
+						entrar_o_salir = 'sale'
+					}else if(estado_puerta=='abajo'){
+						entrar_o_salir = 'entra'
+					}
+				}else if(oficina_data.puerta.orientacion=='sur'){
+					if(estado_puerta=='arriba'){
+						entrar_o_salir = 'entra'
+					}else if(estado_puerta=='abajo'){
+						entrar_o_salir = 'sale'
+					}
+				}else if(oficina_data.puerta.orientacion=='oeste'){
+					if(estado_puerta=='izquierda'){
+						entrar_o_salir = 'sale'
+					}else if(estado_puerta=='derecha'){
+						entrar_o_salir = 'entra'
+					}
+				}else if(oficina_data.puerta.orientacion=='este'){
+					if(estado_puerta=='izquierda'){
+						entrar_o_salir = 'entra'
+					}else if(estado_puerta=='derecha'){
+						entrar_o_salir = 'sale'
+					}
+				}
+
+				//console.log(entrar_o_salir)
+				if(oficina_data.puerta.locked){
+					//preguntar por llave
+					if(!avatar_data.llaves.includes(oficina_id)){
+						//normalmente esto es cuando entra, porque si va a salir es porque ya entró
+						setMensaje({content:'<p>Necesito la llave de esta oficina</p>',delay:3000})
+					}else{
+						if(entrar_o_salir=='entra'){
+							mov = 0
+						}else if(entrar_o_salir=='sale'){
+							mov = 1
+						}
+						stop = true
+						params = [mov,oficina_data.puerta.direccion,oficina_data.puerta.orientacion,entrar_o_salir]
+					}
+				}else{
+					//animacion de entrada
+					if(entrar_o_salir=='entra'){
+						mov = 0
+					}else if(entrar_o_salir=='sale'){
+						mov = 1
+					}
+					stop = true
+					params = [mov,oficina_data.puerta.direccion,oficina_data.puerta.orientacion,entrar_o_salir]
+				}
+			}
+		}else if(type=='escaleras'){
+			var clase_escaleras = element.getAttribute('class')
+			if(clase_escaleras.indexOf('piso-1')!=-1){
+				//subamos pa arriba
+				params = [2]
+			}else{
+				//bajemos pa abajo
+				params = [3]
+			}
+			stop = true
+		}else if(type=='empleado'){
+			//obtener datos del empleado
+			var empleado_id = element.getAttribute('ind')
+			var empleado_data = getEmpleadoData(empleado_id)
+
+			stop = true
+			params = [empleado_data]
+		}
+	}
+
+	return {collision:collision,stop:stop,params:params,type:type}
 }
+
+var movies = [
+	'abrir-puerta',
+	'cerrar-puerta',
+	'subir-escaleras',
+	'bajar-escaleras'
+]
+
+var animacion_pelicula = null
+function setPelicula(params){
+	console.log(params)
+	var movie = params[0]
+	var param1 = null
+	var param2 = null
+	var param3 = null
+
+	var video = getE('pelicula');
+	var source = document.createElement('source');
+
+	source.setAttribute('src','assets/animations/'+movies[movie]+'.mp4');
+	source.setAttribute('type','video/mp4')
+
+	video.appendChild(source);
+	video.load();
+	var video_loaded = false
+	
+	video.onloadedmetadata = function() {
+		video.onloadedmetadata = null
+		getE('contenedor-peliculas').className = 'contenedor-peliculas-off'
+		animacion_pelicula = setTimeout(function(){
+			clearTimeout(animacion_pelicula)
+			animacion_pelicula = null
+			video.play();
+		},500)
+	}
+	video.onended = function(){
+		video.onended = null
+		
+		getE('contenedor-peliculas').className = 'contenedor-peliculas-onn'
+		animacion_pelicula = setTimeout(function(){
+			clearTimeout(animacion_pelicula)
+			animacion_pelicula = null
+			
+			video.pause()
+			video.removeChild(source);
+			video.load()
+
+			getE('contenedor-peliculas').style.display = 'none'
+			getE('contenedor-peliculas').className = ''
+
+			//poner eventos otra vez
+			addEvents()
+		},500)
+	}
+	getE('contenedor-peliculas').style.display = 'block'
+	getE('contenedor-peliculas').className = 'contenedor-peliculas-on'
+
+	if(movie==0||movie==1){
+		param1 = params[1]
+		param2 = params[2]
+		param3 = params[3]
+		//animacion de entrada o salida de puerta, meter o sacar al personaje
+		//mirar si lo metemos al norte, sur este o oeste con tatuajes en el pecho
+		if(param1=='horizontal'){
+			direccion_x = null
+			//mirar si sube o baja
+			if(param2=='norte'){
+				if(param3=='entra'){
+					direccion_y = 'up'
+				}else if(param3=='sale'){
+					direccion_y = 'down'
+				}
+			}else if(param2=='sur'){
+				if(param3=='entra'){
+					direccion_y = 'down'
+				}else if(param3=='sale'){
+					direccion_y = 'up'
+				}
+			}
+		}else if(param1=='vertical'){
+			direccion_y = null
+			//mirar si avanza o retrocede
+			if(param2=='oeste'){
+				if(param3=='entra'){
+					direccion_x = 'left'
+				}else if(param3=='sale'){
+					direccion_x = 'right'
+				}
+			}else if(param2=='este'){
+				if(param3=='entra'){
+					direccion_x = 'right'
+				}else if(param3=='sale'){
+					direccion_x = 'left'
+				}
+			}
+		}
+		//console.log(param1,param2,param3)
+		moveAvatar2()
+	}
+	else if(movie==2){
+		setFloor(2,false)
+	}else if(movie==3){
+		setFloor(1,false)
+	}
+}
+
 
 /////////////////COMPROBAR////////////////
 

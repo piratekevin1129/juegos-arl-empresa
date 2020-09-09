@@ -389,14 +389,14 @@ header{
 .contenedor-item-on{
     visibility: visible;
     opacity: 1;
-    transition: visibility 0s, opacity 0.5s;
-    -webkit-transition: visibility 0s, opacity 0.5s;
+    transition: visibility 0s, opacity 0.25s;
+    -webkit-transition: visibility 0s, opacity 0.25s;
 }
 .contenedor-item-off{
     visibility: hidden;
     opacity: 0;
-    transition: visibility 0.5s, opacity 0.5s;
-    -webkit-transition: visibility 0.5s, opacity 0.5s;
+    transition: visibility 0.25s, opacity 0.25s;
+    -webkit-transition: visibility 0.25s, opacity 0.25s;
 }
 .contenedor-item-img{
     position: absolute;
@@ -451,6 +451,96 @@ header{
     padding: 0px;
     margin-bottom: 20px;
 }
+
+#contenedor-peliculas{
+    opacity: 0.9;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-content: space-between;
+    justify-content: flex-start;
+    background-color: #000000;
+}
+#contenedor-peliculas-cargador{
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url(../images/cargador_v1.png);
+    top: 50%;
+    top: calc(50% - 20px);
+    top: -moz-calc(50% - 20px);
+    left: 50%;
+    left: calc(50% - 20px);
+    left: -moz-calc(50% - 20px);
+    animation-name: animacion-cargador-pelicula;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    -webkit-animation-name: animacion-cargador-pelicula;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+}
+@keyframes animacion-cargador-pelicula{
+    0% {
+        transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(180deg);
+        -webkit-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+    }
+}
+
+#contenedor-peliculas video{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+#contenedor-peliculas-alfa{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    background-color: #000000;
+}
+.contenedor-peliculas-on #contenedor-peliculas-alfa{
+    opacity: 1;
+}
+.contenedor-peliculas-onn #contenedor-peliculas-alfa{
+    opacity: 1;
+    transition: opacity 0.5s;
+    -webkit-transition: opacity 0.5s;
+}
+.contenedor-peliculas-on #contenedor-peliculas-cargador{
+    visibility: visible;
+}
+.contenedor-peliculas-off #contenedor-peliculas-alfa{
+    opacity: 0;
+    transition: opacity 0.5s;
+    -webkit-transition: opacity 0.5s;
+}
+.contenedor-peliculas-off #contenedor-peliculas-cargador,
+.contenedor-peliculas-onn #contenedor-peliculas-cargador{
+    visibility: hidden;
+}
+
 
 /********estilos de iconos, llaves, etc...********/
 .icono-oficina{
@@ -553,7 +643,8 @@ header{
 }
 .icono-empleado-img,
 .icono-llave-img,
-.icono-premio-img
+.icono-premio-img,
+.icono-auto-img
 {
     position: absolute;
     width: 100%;
@@ -567,6 +658,90 @@ header{
 .icono-empleado-img{background-image: url(../images/empleado-icon.png);}
 .icono-llave-img{background-image: url(../images/llave-icon.png);}
 .icono-premio-img{background-image: url(../images/premio-icon.png);}
+.icono-auto-img{background-image: url(../images/auto-icon.png);}
+
+.icono-escaleras{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: #FF0000;
+    top: 300px;
+    left: 300px;
+    opacity: 0.5
+}
+.icono-pared{
+    position: absolute;
+    background-color: #000000;
+    opacity: 0.5;
+}
+.icono-escaleras-piso-1{
+    width: 40px;
+    height: 70px;
+    left: 250px;
+    top: 325px;
+}
+.icono-escaleras-piso-2{
+    width: 30px;
+    height: 70px;
+    left: 40px;
+    top: 214px;
+}
+.icono-auto{
+    position: absolute;
+    width: 104px;
+    height: 49px;
+    top: 536px;
+    left: 10px;
+}
+.icono-auto-light{
+    position: absolute;
+    width: 90%;
+    height: 90%;
+    top: 5%;
+    left: 5%;
+    background-color: #FFFFFF;
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
+    -o-filter: blur(5px);
+
+    animation-name: animacion-light-2;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    -webkit-animation-name: animacion-light-2;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+}
+@keyframes animacion-light-2{
+    0%{
+        transform: scale(1);
+        -webkit-transform: scale(1);
+        -o-transform: scale(1);
+        opacity: 0;
+    }
+    50%{
+        transform: scale(1.2);
+        -webkit-transform: scale(1.2);
+        -o-transform: scale(1.2);
+        opacity: 1;
+    }
+    100%{
+        transform: scale(1);
+        -webkit-transform: scale(1);
+        -o-transform: scale(1);
+        opacity: 0;
+    }
+}
+.icono-auto-area{
+    position: absolute;
+    background-color: #FFFFFF;
+    opacity: 0.5;
+    width: 97px;
+    height: 46px;
+    left: 15px;
+    top: 540px;
+}
 
 /*******************************************/
 

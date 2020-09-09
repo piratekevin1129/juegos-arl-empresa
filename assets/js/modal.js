@@ -95,15 +95,23 @@ function setVideoInstrucciones(div){
 }
 
 var animacion_mensaje = null
+var showing_mensaje = false
 function setMensaje(data){
-	getE('mensaje').innerHTML = data.content
-	getE('mensaje').className = 'mensaje-on'
+	if(!showing_mensaje){
+		getE('mensaje').innerHTML = data.content
+		getE('mensaje').className = 'mensaje-on'
 
-	clearTimeout(animacion_mensaje)
-	animacion_mensaje = setTimeout(function(){
 		clearTimeout(animacion_mensaje)
-		animacion_mensaje = null
+		showing_mensaje = true
 
-		getE('mensaje').className = 'mensaje-off'
-	},data.delay)
+		animacion_mensaje = setTimeout(function(){
+			showing_mensaje = false
+			clearTimeout(animacion_mensaje)
+			animacion_mensaje = null
+
+			getE('mensaje').className = 'mensaje-off'
+		},data.delay)
+	}else{
+		//console.log("mostrando")
+	}
 }

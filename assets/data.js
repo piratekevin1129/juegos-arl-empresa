@@ -10,9 +10,11 @@ var oficinas = [
 		puerta:{
 			locked:false,
 			x:292,
-			y:306,
-			w:31,
-			h:10
+			y:301,
+			w:30,
+			h:20,
+			direccion:'horizontal',
+			orientacion:'norte'
 		},
 		ref:'Oficina sin nada'
 	},
@@ -24,7 +26,7 @@ var oficinas = [
 		empleado:1,
 		posx:248,
 		posy:523,
-		puerta:false,
+		puerta:null,
 		ref:'Oficina con empleado'
 	},
 	{
@@ -38,9 +40,11 @@ var oficinas = [
 		puerta:{
 			locked:true,
 			x:449,
-			y:348,
+			y:343,
 			w:30,
-			h:10
+			h:20,
+			direccion:'horizontal',
+			orientacion:'norte'
 		},
 		ref:'Oficina con llave de la oficina x'
 	},
@@ -59,9 +63,11 @@ var oficinas = [
 		puerta:{
 			locked:true,
 			x:514,
-			y:398,
+			y:393,
 			w:30,
-			h:10
+			h:20,
+			direccion:'horizontal',
+			orientacion:'sur'
 		},
 		ref:'Oficina sola con un premio'
 	},
@@ -76,9 +82,11 @@ var oficinas = [
 		puerta:{
 			locked:false,
 			x:630,
-			y:290,
+			y:285,
 			w:30,
-			h:10
+			h:20,
+			direccion:'horizontal',
+			orientacion:'norte'
 		},
 		ref:'Oficina sin nada'
 	},
@@ -90,7 +98,7 @@ var oficinas = [
 		empleado:2,
 		posx:850,
 		posy:225,
-		puerta:false,
+		puerta:null,
 		ref:'Oficina con empleado'
 	},
 	{
@@ -108,9 +116,11 @@ var oficinas = [
 		puerta:{
 			locked:true,
 			x:751,
-			y:382,
+			y:377,
 			w:30,
-			h:10
+			h:20,
+			direccion:'horizontal',
+			orientacion:'sur'
 		},
 		ref:'Oficina sola con un premio'
 	},
@@ -128,10 +138,12 @@ var oficinas = [
 		posy:180,
 		puerta:{
 			locked:true,
-			x:910,
+			x:905,
 			y:293,
-			w:10,
-			h:30
+			w:20,
+			h:30,
+			direccion:'vertical',
+			orientacion:'este'
 		},
 		ref:'Oficina sola con un premio'
 	},
@@ -146,9 +158,11 @@ var oficinas = [
 		puerta:{
 			locked:true,
 			x:935,
-			y:417,
+			y:412,
 			w:30,
-			h:10
+			h:20,
+			direccion:'horizontal',
+			orientacion:'sur'
 		},
 		ref:'Oficina con llave de la oficina x'
 	},
@@ -166,7 +180,9 @@ var oficinas = [
 			x:348,
 			y:89,
 			w:20,
-			h:40
+			h:40,
+			direccion:'vertical',
+			orientacion:'oeste'
 		},
 		ref:'Baño'
 	},
@@ -209,7 +225,9 @@ var oficinas = [
 			x:810,
 			y:98,
 			w:20,
-			h:40
+			h:40,
+			direccion:'vertical',
+			orientacion:'este'
 		},
 		ref:'Patio sola con un premio'
 	},
@@ -252,7 +270,6 @@ var oficinas = [
 	}
 ]
 
-
 var llaves = [
 	{
 		id:1,
@@ -276,7 +293,6 @@ var llaves = [
 		ref:null
 	}
 ]
-
 
 var empleados = [
 	{
@@ -520,9 +536,17 @@ var preguntas = [
 			}
 		]
 	}
-
-
 ]
+
+function getOficinaData(id){
+	var o_data = null
+	for(var o = 0;o<oficinas.length;o++){
+		if(oficinas[o].id==id){
+			o_data = oficinas[o]
+		}
+	}
+	return o_data
+}
 
 function getEmpleadoData(id){
 	var e_data = null
