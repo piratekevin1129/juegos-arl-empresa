@@ -71,12 +71,74 @@
                             <div class="contenedor-preguntas-fondo"></div>
                             <div class="burbuja-texto burbuja-texto-off" id="burbuja-texto-pregunta1"></div>
                         </div>
+
+                        <div id="contenedor-preguntas-2" class="contenedor-preguntas-hidden">
+                            <div class="contenedor-preguntas-fondo"></div>
+                            <div class="burbuja-texto-big burbuja-texto-off" id="burbuja-texto-pregunta2"></div>
+                            <div id="opcion-a">
+                                <div id="opcion-a-pregunta" class="spd_sprite" width="188" height="255" frames="15" src="assets/images/pregunta2/opcion_a_sprite.png"></div>
+                                <div id="opcion_a_btn"></div>
+                            </div>
+                            <div id="opcion-b">
+                                <div id="opcion-b-pregunta" class="spd_sprite" width="290" height="260" frames="15" src="assets/images/pregunta2/opcion_b_sprite.png"></div>
+                                <div id="opcion_b_btn"></div>
+                            </div>
+                        </div>
+
+                        <div id="contenedor-preguntas-3" class="contenedor-preguntas-hidden">
+                            <div class="contenedor-preguntas-fondo"></div>
+                            <div class="burbuja-texto-big burbuja-texto-off" id="burbuja-texto-pregunta3"></div>
+                        </div>
+
+                        <div id="contenedor-preguntas-4" class="contenedor-preguntas-hidden">
+                            <div class="contenedor-preguntas-fondo"></div>
+                            <div class="burbuja-texto-big burbuja-texto-off" id="burbuja-texto-pregunta4"></div>
+                        </div>
+
+                        <div id="contenedor-preguntas-5" class="contenedor-preguntas-hidden">
+                            <div class="contenedor-preguntas-video">
+                                <video id="contenedor-preguntas-video-5"></video>
+                            </div>
+                            <div id="alarma-pregunta-5">
+                                <div id="alarma" class="spd_sprite" width="130" height="90" frames="11" src="assets/images/pregunta5/sirena_sprite.png"></div>
+                                <div id="alarma_btn"></div>
+                            </div>
+                            <div class="burbuja-texto-big burbuja-texto-off" id="burbuja-texto-pregunta5"></div>
+                        </div>
+
+                        <div id="contenedor-preguntas-6" class="contenedor-preguntas-hidden">
+                            <div class="contenedor-preguntas-fondo"></div>
+                            <div class="burbuja-texto-big burbuja-texto-off" id="burbuja-texto-pregunta6"></div>
+                        </div>
                     </div>
-                    <div id="contenedor-preguntas-alfa"></div>
-                    <div id="contenedor-preguntas-cargador"></div>
+                    
                     <div id="ruleta">
-                        <div></div>
+                        <div id="ruleta-img"></div>
+                        <div id="ruleta-pointer"></div>
                     </div>
+
+                    <div id="contenedor-carta" class="contenedor-carta-off">
+                        <div id="carta-wrap">
+                            <div id="carta">
+                                <div class="carta-enunciado">
+                                    <p>Hola</p>
+                                </div>
+                                <div class="carta-respuestas">
+                                    <div class="carta-respuesta" onclick="clickRespuesta(1)">
+                                        <p><span>A)</span>Respuesta 1</p>
+                                    </div>
+                                    <div class="carta-respuesta" onclick="clickRespuesta(1)">
+                                        <p><span>B)</span>Respuesta 2</p>
+                                    </div>
+                                    <div class="carta-respuesta" onclick="clickRespuesta(1)">
+                                        <p><span>C)</span>Respuesta 3</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="contenedor-preguntas-alfa"></div>
                 </div>
 
         	</div>
@@ -134,12 +196,25 @@ window.onload = function(){
 		spdLoadSprite({idname:'llave-animada',autoplay:'off',callBack:function(){
 		spdLoadSprite({idname:'premio-animado',autoplay:'off',callBack:function(){
 
-			spdCreateAnimation({id:0,sprite:'avatar-clip'})
-			spdCreateAnimation({id:1,sprite:'llave-animada'})
-			spdCreateAnimation({id:2,sprite:'premio-animado'})
+            //sprites de preguntas 3 y 5
+            spdLoadSprite({idname:'opcion-a-pregunta',autoplay:'off',callBack:function(){
+            spdLoadSprite({idname:'opcion-b-pregunta',autoplay:'off',callBack:function(){
+            spdLoadSprite({idname:'alarma',autoplay:'off',callBack:function(){
 
-			prepareWindow()
-	        setGame()
+    			spdCreateAnimation({id:0,sprite:'avatar-clip'})
+    			spdCreateAnimation({id:1,sprite:'llave-animada'})
+    			spdCreateAnimation({id:2,sprite:'premio-animado'})
+
+                spdCreateAnimation({id:3,sprite:'opcion-a-pregunta'})
+                spdCreateAnimation({id:4,sprite:'opcion-b-pregunta'})
+                spdCreateAnimation({id:5,sprite:'alarma'})
+
+    			prepareWindow()
+    	        setGame()
+
+            }})
+            }})
+            }})
 		}})
 		}})
 		}})

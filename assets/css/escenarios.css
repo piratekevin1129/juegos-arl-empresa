@@ -1,0 +1,386 @@
+#contenedor-preguntas-iframe{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    top: 0px;
+    left: 0px;
+    margin: 0px;
+    padding: 0px;
+}
+.contenedor-preguntas-hidden{
+    display: none;
+}
+.contenedor-preguntas-visible{
+    display: block;
+}
+.contenedor-preguntas-fondo{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    top: 0px;
+    left: 0px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+#contenedor-preguntas-1 .contenedor-preguntas-hidden{
+    background-image: url(../images/pregunta1/fondo.jpg);
+}
+#contenedor-preguntas-2 .contenedor-preguntas-hidden{
+    background-image: url(../images/pregunta2/fondo.jpg);
+}
+#contenedor-preguntas-3 .contenedor-preguntas-hidden{
+    background-image: url(../images/pregunta3/fondo.jpg);
+}
+#contenedor-preguntas-4 .contenedor-preguntas-hidden{
+    background-image: url(../images/pregunta4/fondo.jpg);
+}
+#contenedor-preguntas-6 .contenedor-preguntas-hidden{
+    background-image: url(../images/pregunta6/fondo.jpg);
+}
+
+.burbuja-texto{
+    position: absolute;
+    width: 350px;
+    height: auto;
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    box-shadow: 0px 4px -10px 2px rgba(0,0,0,0.2);
+    margin: 0px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transform-origin: 80% 100%;
+    -webkit-transform-origin: 80% 100%;
+    -o-transform-origin: 80% 100%;
+
+    transition: transform 0.5s, -webkit-transform 0.5s, -o-transform 0.5s, opacity 0.5s;
+    -webkit-transition: transform 0.5s, -webkit-transform 0.5s, -o-transform 0.5s, opacity 0.5s;
+}
+.burbuja-texto-big{
+    position: absolute;
+    width: 70%;
+    left: 15%;
+    height: auto;
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    box-shadow: 0px 4px -10px 2px rgba(0,0,0,0.2);
+    margin: 0px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: opacity 0.5s;
+    -webkit-transition: opacity 0.5s;
+    
+}
+
+.burbuja-texto::after{
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    top: 100%;
+    left: 80%;
+    left: calc(80% - 10px);
+    left: -moz-calc(80% - 10px);
+    border-right: 10px solid rgba(0,0,0,0);
+    border-left: 10px solid rgba(0,0,0,0);
+    border-top: 15px solid #FFFFFF;
+}
+
+.burbuja-texto-off{
+    transform: scale(0.2);
+    -webkit-transform: scale(0.2);
+    -o-transform: scale(0.2);
+    opacity: 0;
+}
+.burbuja-texto-on{
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    -o-transform: scale(1);
+    opacity: 1;
+}
+.burbuja-texto-big-off{
+    opacity: 0;
+}
+.burbuja-texto-big-on{
+    opacity: 1;
+}
+
+.burbuja-texto p,
+.burbuja-texto-big p{
+    display: block;
+    width: 100%;
+    font-family: 'Barlow-Medium';
+    font-size: 15px;
+    color: #000000;
+    text-align: center;
+    font-weight: normal;
+    line-height: normal;
+    margin: 0px;
+    padding: 0px;
+}
+.burbuja-texto p span,
+.burbuja-texto-big p span{
+    font-family: 'Barlow-Bold';
+}
+
+#burbuja-texto-pregunta1{
+    top: 20px;
+    left: 30%;
+}
+#burbuja-texto-pregunta2{
+    top: 20px;
+}
+#burbuja-texto-pregunta3{
+    top: 20px;
+}
+#burbuja-texto-pregunta4{
+    bottom: 20px;
+}
+#burbuja-texto-pregunta5{
+    top: 20px;
+}
+#burbuja-texto-pregunta6{
+    top: 20px;
+}
+
+
+#opcion-a{
+    position: absolute;
+    width: 188px;
+    height: 255px;
+    box-sizing: border-box;
+    border: #000 solid 1px;
+    top: 0%;
+    left: 0%;
+}
+#opcion-b{
+    position: absolute;
+    width: 290px;
+    height: 260px;
+    box-sizing: border-box;
+    border: #000 solid 1px;
+    top: 0%;
+    left: 0%;
+}
+#opcion_a_btn,#opcion_b_btn{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    background-color: #FF0000;
+    opacity: 0.4;
+    cursor: pointer;
+}
+
+.contenedor-preguntas-video{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    top: 0px;
+    left: 0px;
+    background-color: #000000;
+}
+
+#contenedor-preguntas-video-5"{
+    position: relative;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+#alarma-pregunta-5{
+    position: absolute;
+    width: 130px;
+    height: 90px;
+    box-sizing: border-box;
+    border: #000 solid 1px;
+    top: 0%;
+    right: 20px;
+}
+#alarma_btn{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    background-color: #FFFF00;
+    opacity: 0.4;
+    cursor: pointer;
+
+}
+                                
+
+/************RULETA************/
+#ruleta{
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+    left: 50%;
+    left: calc(50% - 110px);
+    left: -moz-calc(50% - 110px);
+}
+#ruleta-img{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    top: 0px;
+    left: 0px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+.ruleta-split-2{background-image: url(../images/ruleta-split-2.png);}
+.ruleta-split-3{background-image: url(../images/ruleta-split-3.png);}
+.ruleta-split-4{background-image: url(../images/ruleta-split-4.png);}
+
+#ruleta-pointer{
+    position: absolute;
+    width: 38px;
+    height: 38px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-image: url(../images/ruleta-pointer.png);
+    top: -10px;
+    left: 50%;
+    left: calc(50% - 16px);
+    left: -moz-calc(50% - 16px);
+}
+.ruleta-on{
+    animation-name: animacion-ruleta;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    -webkit-animation-name: animacion-ruleta;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-fill-mode: forwards;
+}
+
+@keyframes animacion-ruleta{
+    0% {
+        top:-220px;
+    }
+    50% {
+        top: 50%;
+        top: calc(50% - 110px);
+        top: -moz-calc(50% - 110px);
+        animation-timing-function: ease-in;
+        -webkit-animation-timing-function: ease-in;
+    }
+    75% {
+        top: 50%;
+        top: calc(50% - 220px);
+        top: -moz-calc(50% - 220px);
+        animation-timing-function: ease-out;
+        -webkit-animation-timing-function: ease-out;
+    }
+    87% {
+        top: 50%;
+        top: calc(50% - 110px);
+        top: -moz-calc(50% - 110px);
+        animation-timing-function: ease-in;
+        -webkit-animation-timing-function: ease-in;
+    }
+    93% {
+        top: 50%;
+        top: calc(50% - 55px);
+        top: -moz-calc(50% - 55px);
+        animation-timing-function: ease-out;
+        -webkit-animation-timing-function: ease-out;
+    }
+    100% {
+        top: 50%;
+        top: calc(50% - 110px);
+        top: -moz-calc(50% - 110px);
+        animation-timing-function: ease-in;
+        -webkit-animation-timing-function: ease-in;
+    }
+}
+
+.ruleta-off{
+    animation:none;
+    animation:unset;
+    -webkit-animation:none;
+    -webkit-animation:unset;
+    top: -230px;
+
+    transition: top 0.5s ease-out, transform 0.5 ease-out, -webkit-transform 0.5 ease-out, -o-transform 0.5 ease-out;
+    -wetbkit-transition: top 0.5s ease-out, transform 0.5 ease-out, -webkit-transform 0.5 ease-out, -o-transform 0.5 ease-out;
+}
+
+#contenedor-carta{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    background-color: rgba(255,255,255,1);
+}
+#carta{
+    position: absolute;
+    width: 275px;
+    height: 402px;
+    box-sizing: border-box;
+
+    transition: left ease-in 0.5s, top ease-in 0.5s;
+    -webkit-transition: left ease-in 0.5s, top ease-in 0.5s;
+}
+.carta-back{
+    background-image: url(../images/carta-2.png);
+}
+.carta-front{
+    background-image: url(../images/carta-1.png);
+}
+
+.contenedor-carta-off{
+
+}
+.contenedor-carta-on{
+
+}
+.carta-on{
+    left: 50%;
+    left: calc(50% - (275px / 2));
+    left: -moz-calc(50% - (275px / 2));
+    top: 50%;
+    top: calc(50% - (275px / 2));
+    top: -moz-calc(50% - (275px / 2));
+}
+.carta-off{
+    left: 100%;
+    top: 100%;
+}
+.carta-flip
+                            <div class="carta-enunciado">
+                                <p>Hola</p>
+                            </div>
+                            <div class="carta-respuestas">
+                                <div class="carta-respuesta" onclick="clickRespuesta(1)">
+                                    <p><span>A)</span>Respuesta 1</p>
+                                </div>
+                                <div class="carta-respuesta" onclick="clickRespuesta(1)">
+                                    <p><span>B)</span>Respuesta 2</p>
+                                </div>
+                                <div class="carta-respuesta" onclick="clickRespuesta(1)">
+                                    <p><span>C)</span>Respuesta 3</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
