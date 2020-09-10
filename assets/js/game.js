@@ -127,6 +127,8 @@ function empezarJuego(){
 		}else{
 			
 		}
+		addEvents()
+		setEscenario([1])
 	})
 }
 
@@ -138,7 +140,6 @@ function setGame(){
 			piso2_data = {width:data.width,height:data.height,src:data.src}
 
 			setFloor(1,true)
-			addEvents()
 			/*jQuery("body").mouseleave(function() {
 				focusOut()
 		  	});*/
@@ -966,7 +967,6 @@ function setPelicula(params){
 
 	video.appendChild(source);
 	video.load();
-	var video_loaded = false
 	
 	video.onloadedmetadata = function() {
 		video.onloadedmetadata = null
@@ -1048,6 +1048,183 @@ function setPelicula(params){
 	}
 }
 
+var animacion_escenario = null
+function setEscenario(params){
+	console.log(params)
+	var escenario = params[0]
+	
+	//var video = getE('pelicula');
+	//var source = document.createElement('source');
+
+	//source.setAttribute('src','assets/animations/'+movies[movie]+'.mp4');
+	//source.setAttribute('type','video/mp4')
+
+	//video.appendChild(source);
+	//video.load();
+	
+	//video.onloadedmetadata = function() {
+		//video.onloadedmetadata = null
+		//getE('contenedor-peliculas').className = 'contenedor-peliculas-off'
+		//animacion_pelicula = setTimeout(function(){
+			//clearTimeout(animacion_pelicula)
+			//animacion_pelicula = null
+			//video.play();
+		//},500)
+	//}
+	
+
+		//al terminar la pregunta
+		//poner alfa en negro
+		/*getE('contenedor-preguntas').className = 'contenedor-preguntas-onn'
+		//esperar a que este todo en negro
+		animacion_escenario = setTimeout(function(){
+			clearTimeout(animacion_escenario)
+			animacion_escenario = null
+			
+			//video.pause()
+			//video.removeChild(source);
+			//video.load()
+
+			getE('contenedor-preguntas').style.display = 'none'
+			getE('contenedor-preguntas').className = ''
+
+			//poner eventos otra vez
+			addEvents()
+		},500)*/
+	
+	//poner alfa con cargador
+	getE('contenedor-preguntas').style.display = 'block'
+	getE('contenedor-preguntas').className = 'contenedor-preguntas-on'
+
+	//simular carga
+	animacion_escenario = setTimeout(function(){
+		clearTimeout(animacion_escenario)
+		animacion_escenario = null
+
+		//quitar alfa
+		getE('contenedor-preguntas').className = 'contenedor-preguntas-off'
+
+		
+		//detectar el escenario
+		if(escenario==1){
+			setBurbujaText('¡Hola! te preguntaré acerca del tema Sistema de Riesgos Laborales.',escenario,'',function(){//-big
+				setRuleta(4)
+			})
+		}
+	},500)
+
+	//poner escenario visible
+	getE('contenedor-preguntas-'+escenario).className = "contenedor-preguntas-visible"
+
+	
+}
+
+var animacion_burbuja = null
+function setBurbujaText(txt,e,type,callBack){
+	var h = '<p>'+txt+'</p>'
+	getE('burbuja-texto-pregunta'+e).innerHTML = h
+	getE('burbuja-texto-pregunta'+e).classList.add('burbuja-texto'+type+'-on')
+	
+	animacion_burbuja = setTimeout(function(){
+		clearTimeout(animacion_burbuja)
+		animacion_burbuja = null
+
+		if(callBack!=null){
+			callBack()
+		}
+	},500)
+}
+function unsetBurbujaText(e,type,callBack){
+	getE('burbuja-texto-pregunta'+e).classList.remove('burbuja-texto'+type+'-off')
+	animacion_burbuja = setTimeout(function(){
+		clearTimeout(animacion_burbuja)
+		animacion_burbuja = null
+
+		if(callBack!=null){
+			callBack()
+		}
+	},500)
+}
+
+var animacion_ruleta = null
+var animacion_ruleta2 = null
+function setRuleta(split,callBack){
+	getE('ruleta-img').className = 'ruleta-split-'+split
+	getE('ruleta').className = 'ruleta-on'
+	animacion_ruleta = setTimeout(function(){
+		clearTimeout(animacion_ruleta)
+		animacion_ruleta = null
+
+		//rodar
+		var aceleracion = 0
+		var rotacion = 0
+		var frames = 0
+		var random_frames = getRand(25,100)
+		var estado = 'acelerando'
+		var termina = false
+
+		animacion_ruleta2 = setInterval(function(){
+			rotacion+=aceleracion
+
+			if(estado=='acelerando'){
+				aceleracion+=0.5
+				if(aceleracion>20){
+					frames++
+					aceleracion = 20
+				}
+				if(frames>=random_frames){
+					estado = 'des-acelerando'
+				}
+			}else{
+				aceleracion-=0.5
+				if(aceleracion<0){
+					aceleracion = 0
+					termina = true
+				}
+			}
+			
+			if(rotacion>360){
+				var dif = 360-rotacion
+				rotacion = dif
+			}
+
+			getE('ruleta-img').style.transform = 'rotate('+rotacion+'deg)'
+			getE('ruleta-img').style.webkitTransform = 'rotate('+rotacion+'deg)'
+			getE('ruleta-img').style.oTransform = 'rotate('+rotacion+'deg)'
+
+			if(termina){
+				clearInterval(animacion_ruleta2)
+				animacion_ruleta2 = null
+				var fragmentos = []
+				var fragmento = (360/split)
+				var partes = []
+				if(split==4){
+					partes = [0,3,2,1]
+				}else if(split==3){
+					partes = [0,2,1]
+				}else if(split==2){
+					partes = [0,1]
+				}
+				var f = 0
+				for(f = 0;f<split;f++){
+					fragmentos.push({ini:fragmento*f,fin:fragmento*(f+1)})
+				}
+				var p = 0
+				for(f = 0;f<fragmentos.length;f++){
+					if(rotacion>=fragmentos[f].ini&&rotacion<=fragmentos[f].fin){
+						p = f
+					}
+				}
+				console.log(partes[p])
+			}
+
+			
+		},20)
+		/*if(callBack!=null){
+			callBack()
+		}*/
+	},1500)
+}
 
 /////////////////COMPROBAR////////////////
 

@@ -12,6 +12,7 @@
     <link href="assets/css/fonts.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/reset.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/master.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/escenarios.css" rel="stylesheet" type="text/css" />
     <!--<link href="assets/css/responsive.css" rel="stylesheet" type="text/css" />-->
 
     <!--Libreria spider-->
@@ -74,7 +75,7 @@
 
                         <div id="contenedor-preguntas-2" class="contenedor-preguntas-hidden">
                             <div class="contenedor-preguntas-fondo"></div>
-                            <div class="burbuja-texto-big burbuja-texto-off" id="burbuja-texto-pregunta2"></div>
+                            <div class="burbuja-texto-big burbuja-texto-big-off" id="burbuja-texto-pregunta2"></div>
                             <div id="opcion-a">
                                 <div id="opcion-a-pregunta" class="spd_sprite" width="188" height="255" frames="15" src="assets/images/pregunta2/opcion_a_sprite.png"></div>
                                 <div id="opcion_a_btn"></div>
@@ -87,12 +88,12 @@
 
                         <div id="contenedor-preguntas-3" class="contenedor-preguntas-hidden">
                             <div class="contenedor-preguntas-fondo"></div>
-                            <div class="burbuja-texto-big burbuja-texto-off" id="burbuja-texto-pregunta3"></div>
+                            <div class="burbuja-texto-big burbuja-texto-big-off" id="burbuja-texto-pregunta3"></div>
                         </div>
 
                         <div id="contenedor-preguntas-4" class="contenedor-preguntas-hidden">
                             <div class="contenedor-preguntas-fondo"></div>
-                            <div class="burbuja-texto-big burbuja-texto-off" id="burbuja-texto-pregunta4"></div>
+                            <div class="burbuja-texto-big burbuja-texto-big-off" id="burbuja-texto-pregunta4"></div>
                         </div>
 
                         <div id="contenedor-preguntas-5" class="contenedor-preguntas-hidden">
@@ -103,27 +104,28 @@
                                 <div id="alarma" class="spd_sprite" width="130" height="90" frames="11" src="assets/images/pregunta5/sirena_sprite.png"></div>
                                 <div id="alarma_btn"></div>
                             </div>
-                            <div class="burbuja-texto-big burbuja-texto-off" id="burbuja-texto-pregunta5"></div>
+                            <div class="burbuja-texto-big burbuja-texto-big-off" id="burbuja-texto-pregunta5"></div>
                         </div>
 
                         <div id="contenedor-preguntas-6" class="contenedor-preguntas-hidden">
                             <div class="contenedor-preguntas-fondo"></div>
-                            <div class="burbuja-texto-big burbuja-texto-off" id="burbuja-texto-pregunta6"></div>
+                            <div class="burbuja-texto-big burbuja-texto-big-off" id="burbuja-texto-pregunta6"></div>
                         </div>
                     </div>
                     
-                    <div id="ruleta">
+                    <div id="ruleta" class="ruleta-off">
                         <div id="ruleta-img"></div>
                         <div id="ruleta-pointer"></div>
                     </div>
 
                     <div id="contenedor-carta" class="contenedor-carta-off">
-                        <div id="carta-wrap">
-                            <div id="carta">
-                                <div class="carta-enunciado">
-                                    <p>Hola</p>
-                                </div>
-                                <div class="carta-respuestas">
+                        <div id="carta-wrap" class="carta-off">
+                            <div id="carta" class="carta-back">
+                                <div id="carta-content">
+                                    <div class="carta-enunciado">
+                                        <p>Hola</p>
+                                    </div>
+                                    
                                     <div class="carta-respuesta" onclick="clickRespuesta(1)">
                                         <p><span>A)</span>Respuesta 1</p>
                                     </div>
@@ -132,13 +134,14 @@
                                     </div>
                                     <div class="carta-respuesta" onclick="clickRespuesta(1)">
                                         <p><span>C)</span>Respuesta 3</p>
-                                    </div>
+                                    </div>    
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div id="contenedor-preguntas-alfa"></div>
+                    <div id="contenedor-preguntas-cargador"></div><!--cargador solo para videos-->
                 </div>
 
         	</div>
@@ -178,6 +181,7 @@
 <script src="assets/js/mobile.js"></script>
 <script src="assets/js/modal.js"></script>
 <script src="assets/js/game.js"></script>
+<script src="assets/js/escenarios.js"></script>
 <script>
 
 var underground_mp3 = null

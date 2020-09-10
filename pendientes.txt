@@ -1,2 +1,4 @@
 agregar minijuego de arrastrar en empresa
 agregar fondo de nubes en las preguntas 5 y 6
+
+poner a cargar lados de la carta y splits de la ruleta, y fondos de los iframes
