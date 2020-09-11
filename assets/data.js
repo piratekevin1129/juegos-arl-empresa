@@ -303,7 +303,11 @@ var empleados = [
 		posy:457,
 		rotation:-90,
 		idpregunta:1,
-		ref:'oficina 2 - preguna sobre sistema de gestión de riesgos laborales'
+		estado:'disponible',
+		ref:'oficina 2 - preguna sobre sistema de gestión de riesgos laborales',
+		bienvenida:'¡Hola! te preguntaré acerca del tema Sistema de Riesgos Laborales.',
+		bien:'¡¡Muy Bien!!, has respondido correctamente, aqui tienes una llave.',
+		mal:'La respuesta es incorrecta, vuelve en otro momento.'
 	},
 	{
 		id:2,
@@ -313,7 +317,11 @@ var empleados = [
 		posy:261,
 		rotation:43,
 		idpregunta:2,
-		ref:'oficina 6 - pregunta sobre ergonomía'
+		estado:'disponible',
+		ref:'oficina 6 - pregunta sobre ergonomía',
+		bienvenida:'Ahora estás observando a dos personas en su puesto de trabajo. Haz clic en la que tiene la postura correcta de trabajo.',
+		bien:'¡¡Muy Bien!!. Haz respondido correctamente, aquí tienes una llave',
+		mal:'¡¡La respuesta es incorrecta!!. Vuelve en otro momento'
 	},
 	{
 		id:3,
@@ -323,7 +331,11 @@ var empleados = [
 		posy:290,
 		rotation:0,
 		idpregunta:3,
-		ref:'oficina 6 - pregunta sobre salud ocupacional'
+		estado:'disponible',
+		ref:'oficina 6 - pregunta sobre salud ocupacional',
+		bienvenida:'¡Hola! en este momento nos encontramos en un comite paritario de salud, por lo tanto te preguntaremos sobre el programa de salud ocupacional.',
+		bien:'¡¡Muy Bien!!, haz respondido correctamente.<br />Aqui tienes una llave.',
+		mal:'¡¡La respuesta es incorrecta!!, vuelve en otro momento.'
 	},
 	{
 		id:4,
@@ -333,7 +345,12 @@ var empleados = [
 		posy:350,
 		rotation:-100,
 		idpregunta:4,
-		ref:'oficina 14 - pregunta sobre epp + juego de arrastrar'
+		estado:'disponible',
+		ref:'oficina 14 - pregunta sobre epp + juego de arrastrar',
+		//bienvenida:'Coloca al personaje los equipos de protección que le hacen falta<br />para operar la maquina que esta a su lado.',
+		bienvenida:'Ahora responde la siguiente pregunta',
+		bien:'¡¡Muy Bien!!. Haz respondido correctamente, aquí tienes una llave.',
+		mal:'¡La respuesta es incorrecta!. Vuelve en otro momento.'
 	},
 	{
 		id:5,
@@ -343,7 +360,12 @@ var empleados = [
 		posy:170,
 		rotation:-100,
 		idpregunta:5,
-		ref:'afueras de la empresa - pregunta sobre simulacros de emergencia + interactividad de simulacro'
+		estado:'disponible',
+		ref:'afueras de la empresa - pregunta sobre simulacros de emergencia + interactividad de simulacro',
+		bienvenida:'Plan de emergencias. En este tema veremos un simulacro de evacuación. Haz clic en la sirena  del lado derecho  de tu pantalla.',
+		bienvenida2:'Luego de ver el simulacro de evacuación responde la siguiente pregunta.',
+		bien:'¡¡Muy Bien!!. Haz respondido correctamente, aquí tienes una llave.',
+		mal:'¡La respuesta es incorrecta!. Regresa en otro momento.'
 	},
 	{
 		id:6,
@@ -352,8 +374,12 @@ var empleados = [
 		posx:130,
 		posy:520,
 		rotation:56,
-		idpregunta:5,
-		ref:'afueras de la empresa - pregunta sobre seguridad vial'
+		idpregunta:6,
+		estado:'disponible',
+		ref:'afueras de la empresa - pregunta sobre seguridad vial',
+		bienvenida:'La seguridad vial también es un factor importante en las empresas. Contesta correctamente y seguro que irás por buen camino.',
+		bien:'¡¡Muy Bien!!. Haz respondido correctamente, <br />aquí tienes una llave.',
+		mal:'¡La respuesta es incorrecta!. Vuelve en otro momento.'
 	}
 ]
 
@@ -403,8 +429,7 @@ var preguntas = [
 		id:2,
 		preguntas:[
 			{
-				pregunta:'Ahora estás observando a dos personas en su puesto de trabajo. Haz clic en la que tiene la postura correcta de trabajo. Si fallas, se te descontará un premio.',
-				tipo:2
+				correcta:1
 			}
 		]
 	},
@@ -548,15 +573,23 @@ function getOficinaData(id){
 	return o_data
 }
 
-function getEmpleadoData(id){
+function getEmpleadoData(id,flag){
 	var e_data = null
+	var e_ind = -1
 	for(var e = 0;e<empleados.length;e++){
 		if(empleados[e].id==id){
 			e_data = empleados[e]
+			e_ind = e
 		}
 	}
-	return e_data
+
+	if(flag!=null&&flag!=undefined){
+		return e_ind
+	}else{
+		return e_data
+	}
 }
+
 function getLlaveData(id){
 	var l_data = null
 	for(var e = 0;e<llaves.length;e++){
@@ -565,4 +598,13 @@ function getLlaveData(id){
 		}
 	}
 	return l_data
+}
+function getPreguntasData(id){
+	var q_data = null
+	for(var q = 0;q<preguntas.length;q++){
+		if(preguntas[q].id==id){
+			q_data = preguntas[q]
+		}
+	}
+	return q_data
 }

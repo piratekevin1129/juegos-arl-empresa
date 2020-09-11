@@ -84,7 +84,7 @@
     height: auto;
     border-radius: 10px;
     background-color: #FFFFFF;
-    box-shadow: 0px 4px -10px 2px rgba(0,0,0,0.2);
+    box-shadow: 0px 6px 8px 3px rgba(0,0,0,0.3);
     margin: 0px;
     padding: 15px;
     display: flex;
@@ -148,7 +148,7 @@
 }
 
 #burbuja-texto-pregunta1{
-    top: 20px;
+    top: 50px;
     left: 50%;
     left: calc(50% - (350px / 2));
     left: -moz-calc(50% - (350px / 2));
@@ -175,18 +175,16 @@
     width: 188px;
     height: 255px;
     box-sizing: border-box;
-    border: #000 solid 1px;
-    top: 0%;
-    left: 0%;
+    top: 34%;
+    left: 4.4%;
 }
 #opcion-b{
     position: absolute;
     width: 290px;
     height: 260px;
     box-sizing: border-box;
-    border: #000 solid 1px;
-    top: 0%;
-    left: 0%;
+    top: 35.7%;
+    left: 54%;
 }
 #opcion_a_btn,#opcion_b_btn{
     position: absolute;
@@ -194,8 +192,7 @@
     height: 100%;
     top: 0px;
     left: 0px;
-    background-color: #FF0000;
-    opacity: 0.4;
+    opacity: 0;
     cursor: pointer;
 }
 
@@ -250,6 +247,11 @@
     left: 50%;
     left: calc(50% - 110px);
     left: -moz-calc(50% - 110px);
+
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-fill-mode: forwards;
 }
 #ruleta-img{
     position: absolute;
@@ -282,14 +284,9 @@
 .ruleta-on{
     animation-name: animacion-ruleta;
     animation-duration: 1.5s;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
     -webkit-animation-name: animacion-ruleta;
     -webkit-animation-duration: 1.5s;
-    -webkit-animation-iteration-count: 1;
-    -webkit-animation-fill-mode: forwards;
 }
-
 @keyframes animacion-ruleta{
     0% {
         top:-220px;
@@ -318,14 +315,22 @@
 }
 
 .ruleta-off{
-    animation:none;
-    animation:unset;
-    -webkit-animation:none;
-    -webkit-animation:unset;
-    top: -230px;
-
-    transition: top 0.5s ease-out, transform 0.5 ease-out, -webkit-transform 0.5 ease-out, -o-transform 0.5 ease-out;
-    -wetbkit-transition: top 0.5s ease-out, transform 0.5 ease-out, -webkit-transform 0.5 ease-out, -o-transform 0.5 ease-out;
+    animation-name: animacion-ruleta-off;
+    animation-duration: 0.5s;
+    -webkit-animation-name: animacion-ruleta-off;
+    -webkit-animation-duration: 1.5s;
+}
+@keyframes animacion-ruleta-off{
+    0% {
+        top: 50%;
+        top: calc(50% - 110px);
+        top: -moz-calc(50% - 110px);
+    }
+    100% {
+        top: -230px;
+        animation-timing-function: ease-out;
+        -webkit-animation-timing-function: ease-out;
+    }
 }
 
 #contenedor-carta{
@@ -337,10 +342,10 @@
     background-color: rgba(255,255,255,0);
 }
 .contenedor-carta-off{
-    display: none;    
+    visibility: hidden;
 }
 .contenedor-carta-on{
-    display: block;
+    visibility: visible;
 }
 #carta-wrap{
     position: absolute;
@@ -350,24 +355,25 @@
     perspective: 1000px;
     -webkit-perspective: 1000px;
 
-    transition: left ease-in 0.5s, top ease-in 0.5s;
-    -webkit-transition: left ease-in 0.5s, top ease-in 0.5s;
+    transition: left 0.5s, top 0.5s;
+    -webkit-transition: left 0.5s, top 0.5s;
 }
 #carta{
     position: absolute;
     width: 100%;
     height: 100%;
+    top: 0px;
+    left: 0px;
     box-sizing: border-box;
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
 
     display: flex;
-    justify-content: flex-start;
     align-items: center;
 
-    transition: transform 0.5s, -webkit-transform 0.5s, -o-transform 0.5s;
-    -webkit-transition: transform 0.5s, -webkit-transform 0.5s, -o-transform 0.5s;
+    transition: transform 0.25s, -webkit-transform 0.25s, -o-transform 0.25s;
+    -webkit-transition: transform 0.25s, -webkit-transform 0.25s, -o-transform 0.25s;
 }
 .carta-back{
     background-image: url(../images/carta-2.png);
@@ -387,8 +393,8 @@
     left: calc(50% - (275px / 2));
     left: -moz-calc(50% - (275px / 2));
     top: 50%;
-    top: calc(50% - (275px / 2));
-    top: -moz-calc(50% - (275px / 2));
+    top: calc(50% - (402px / 2));
+    top: -moz-calc(50% - (402px / 2));
 }
 .carta-off{
     left: 100%;
@@ -398,12 +404,15 @@
 #carta-content{
     position: relative;
     display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
     width: 100%;
     box-sizing: border-box;
     margin: 0px;
-    padding: 25px 25px;
+    padding: 25px 27px 25px 25px;
 }
 .carta-enunciado{
+	position: relative;
     display: block;
     width: 100%;
     margin: 0px;
@@ -414,7 +423,7 @@
 .carta-enunciado p{
     margin: 0px;
     font-family: 'Barlow-Semibold';
-    font-size: 15px;
+    font-size: 14px;
     color: #000000;
     text-align: center;
     line-height: normal;
@@ -429,15 +438,23 @@
     box-sizing: border-box;
     margin-bottom: 10px;
     padding-left: 18px;
+    position: relative;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    -webkit-transition: opacity 0.2s;
+}
+.carta-respuesta:hover{
+	opacity: 0.7;
 }
 .carta-respuesta p{
     margin: 0px;
     font-family: 'Barlow-Regular';
     font-size: 14px;
     color: #000000;
-    text-align: center;
+    text-align: justify;
     line-height: normal;
     font-weight: normal;
+    position: relative;
 }
 
 .carta-respuesta p span{
@@ -445,7 +462,7 @@
     display: block;
     width: 15px;
     height: 15px;
-    top: 3px;
+    top: 2px;
     left: -18px;
 
     font-family: 'Barlow-Bold';

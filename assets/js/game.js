@@ -128,7 +128,7 @@ function empezarJuego(){
 			
 		}
 		addEvents()
-		setEscenario([1])
+		setEscenario(empleados[1])
 	})
 }
 
@@ -284,13 +284,19 @@ function setFloor(floor,start){
 				if(office.empleado!=false){
 					var empleado_data = getEmpleadoData(office.empleado)
 					var empleado = document.createElement('div')
-					empleado.className = 'icono-empleado'
+					if(empleado_data.estado!='disponible'){
+						empleado.className = 'icono-empleado icono-empleado-visitado'	
+					}else{
+						empleado.className = 'icono-empleado'
+					}
 					empleado.innerHTML = '<div class="icono-empleado-light"></div><div class="icono-empleado-img"></div>'
 					empleado.style.left = empleado_data.posx+'px'
 					empleado.style.top = empleado_data.posy+'px'
 					empleado.style.transform = 'rotate('+empleado_data.rotation+'deg)'
 					empleado.style.webkitTransform = 'rotate('+empleado_data.rotation+'deg)'
 					empleado.style.oTransform = 'rotate('+empleado_data.rotation+'deg)'
+
+					empleado.setAttribute('estado',empleado_data.estado)
 
 					empleado.setAttribute('id','empleado'+empleado_data.id)
 					empleado.setAttribute('ind',empleado_data.id)
@@ -309,7 +315,7 @@ function setFloor(floor,start){
 					premio.style.top = office.premio.y+'px'
 
 					premio.setAttribute('type','premio')
-					empleado.setAttribute('ind',office.id)
+					premio.setAttribute('ind',office.id)
 					premio.setAttribute('id','premio'+office.premio.id)
 					piso.appendChild(premio)
 					piso_data.elementos.push(premio)
@@ -391,7 +397,8 @@ var avatar_data = {
 	width:30,
 	height:28,
 	area:8,
-	llaves:[]
+	llaves:[],
+	premios:[]
 }
 var piso_data = {
 	left:0,
@@ -719,10 +726,9 @@ function moveAvatar(back){
 
 	if(!back){
 		if(check_collision.stop){
-			console.log("stop, collision between element")
 			removeEvents()
 			if(check_collision.type=='empleado'){
-				setPregunta(check_collision.params)
+				setEscenario(check_collision.params[0])
 			}else if(check_collision.type=='puerta'||check_collision.type=='escaleras'){
 				setPelicula(check_collision.params)	
 			}
@@ -778,7 +784,6 @@ function checkCollision(x,y,a,b){
 		}
 	}
 	
-	
 	if(!b){//si esta detras de camaras, no detectar colisiones con paredes
 		for(var c = 0;c<piso_data.paredes.length;c++){
 			var rect = piso_data.paredes[c].getBoundingClientRect()
@@ -829,6 +834,7 @@ function checkCollision(x,y,a,b){
 				(a_rect.y-avatar_data.area)<=(rect_elemento.y+rect_elemento.h)
 			){
 				//colision
+				
 				type = piso_data.elementos[c].getAttribute('type')
 				element = piso_data.elementos[c]
 				collision = true
@@ -933,11 +939,28 @@ function checkCollision(x,y,a,b){
 			stop = true
 		}else if(type=='empleado'){
 			//obtener datos del empleado
-			var empleado_id = element.getAttribute('ind')
-			var empleado_data = getEmpleadoData(empleado_id)
+			//mirar si esta disponible
+			var estado_empleado = element.getAttribute('estado')
+			if(estado_empleado=='visitado'){
+				//no cuenta, reset
+				colision = false
+				stop = null
+				params = []
+				type = ''
+			}else if(estado_empleado=='ocupado'){
+				colision = false
+				stop = null
+				params = []
+				type = ''
+				setMensaje({content:'<p>Debo volver en otro momento</p>',delay:3000})
+			}else{
+				//el otro estado es disponible
+				var empleado_id = element.getAttribute('ind')
+				var empleado_data = getEmpleadoData(empleado_id)
 
-			stop = true
-			params = [empleado_data]
+				stop = true
+				params = [empleado_data]
+			}
 		}
 	}
 
@@ -953,7 +976,6 @@ var movies = [
 
 var animacion_pelicula = null
 function setPelicula(params){
-	console.log(params)
 	var movie = params[0]
 	var param1 = null
 	var param2 = null
@@ -1049,9 +1071,12 @@ function setPelicula(params){
 }
 
 var animacion_escenario = null
+var actual_escenario = null//guarda la data del empleado
 function setEscenario(params){
-	console.log(params)
-	var escenario = params[0]
+	//params es empleado_data
+	actual_escenario = params
+	var questions = getPreguntasData(params.idpregunta).preguntas
+	var split = questions.length
 	
 	//var video = getE('pelicula');
 	//var source = document.createElement('source');
@@ -1072,26 +1097,6 @@ function setEscenario(params){
 		//},500)
 	//}
 	
-
-		//al terminar la pregunta
-		//poner alfa en negro
-		/*getE('contenedor-preguntas').className = 'contenedor-preguntas-onn'
-		//esperar a que este todo en negro
-		animacion_escenario = setTimeout(function(){
-			clearTimeout(animacion_escenario)
-			animacion_escenario = null
-			
-			//video.pause()
-			//video.removeChild(source);
-			//video.load()
-
-			getE('contenedor-preguntas').style.display = 'none'
-			getE('contenedor-preguntas').className = ''
-
-			//poner eventos otra vez
-			addEvents()
-		},500)*/
-	
 	//poner alfa con cargador
 	getE('contenedor-preguntas').style.display = 'block'
 	getE('contenedor-preguntas').className = 'contenedor-preguntas-on'
@@ -1104,50 +1109,87 @@ function setEscenario(params){
 		//quitar alfa
 		getE('contenedor-preguntas').className = 'contenedor-preguntas-off'
 
-		
 		//detectar el escenario
-		if(escenario==1){
-			setBurbujaText('¡Hola! te preguntaré acerca del tema Sistema de Riesgos Laborales.',escenario,'',function(){//-big
-				setRuleta(4)
+		if(actual_escenario.id==1){
+			setBurbujaText(params.bienvenida,function(){
+				setRuleta(split,function(p){
+					setPregunta(questions[p])
+				})
+			})
+		}else if(actual_escenario.id==2){
+			setBurbujaText(params.bienvenida,function(){
+				pregunta_data = questions[0]
 			})
 		}
 	},500)
 
 	//poner escenario visible
-	getE('contenedor-preguntas-'+escenario).className = "contenedor-preguntas-visible"
+	getE('contenedor-preguntas-'+actual_escenario.id).className = "contenedor-preguntas-visible"
+}
+function unsetEscenario(callBack){
+	//poner alfa en negro
+	getE('contenedor-preguntas').className = 'contenedor-preguntas-onn'
+	//esperar a que este todo en negro
+	animacion_escenario = setTimeout(function(){
+		clearTimeout(animacion_escenario)
+		animacion_escenario = null
+		
+		//video.pause()
+		//video.removeChild(source);
+		//video.load()
 
-	
+		getE('contenedor-preguntas-'+actual_escenario.id).className = "contenedor-preguntas-hidden"
+		getE('contenedor-preguntas').style.display = 'none'
+		getE('contenedor-preguntas').className = ''
+		if(callBack!=null){
+			callBack()
+		}
+	},500)
 }
 
 var animacion_burbuja = null
-function setBurbujaText(txt,e,type,callBack){
+function setBurbujaText(txt,callBack){
 	var h = '<p>'+txt+'</p>'
-	getE('burbuja-texto-pregunta'+e).innerHTML = h
-	getE('burbuja-texto-pregunta'+e).classList.add('burbuja-texto'+type+'-on')
-	
-	animacion_burbuja = setTimeout(function(){
-		clearTimeout(animacion_burbuja)
-		animacion_burbuja = null
+	getE('burbuja-texto-pregunta'+actual_escenario.id).innerHTML = h
 
-		if(callBack!=null){
+	var actual_clase = getE('burbuja-texto-pregunta'+actual_escenario.id).className
+	if(actual_clase.indexOf('big')!=-1){
+		getE('burbuja-texto-pregunta'+actual_escenario.id).className = 'burbuja-texto-big burbuja-texto-big-on'
+	}else{
+		getE('burbuja-texto-pregunta'+actual_escenario.id).className = 'burbuja-texto burbuja-texto-on'
+	}
+
+	//si hay callback, esperar puesta de burbuja, si no no desgastarse	
+	if(callBack!=null){
+		animacion_burbuja = setTimeout(function(){
+			clearTimeout(animacion_burbuja)
+			animacion_burbuja = null
+
 			callBack()
-		}
-	},500)
+		},500)
+	}
 }
-function unsetBurbujaText(e,type,callBack){
-	getE('burbuja-texto-pregunta'+e).classList.remove('burbuja-texto'+type+'-off')
-	animacion_burbuja = setTimeout(function(){
-		clearTimeout(animacion_burbuja)
-		animacion_burbuja = null
+function unsetBurbujaText(callBack){
+	var actual_clase = getE('burbuja-texto-pregunta'+actual_escenario.id).className
+	if(actual_clase.indexOf('big')!=-1){
+		getE('burbuja-texto-pregunta'+actual_escenario.id).className = 'burbuja-texto-big burbuja-texto-big-off'
+	}else{
+		getE('burbuja-texto-pregunta'+actual_escenario.id).className = 'burbuja-texto burbuja-texto-off'
+	}	
+	
+	if(callBack!=null){
+		animacion_burbuja = setTimeout(function(){
+			clearTimeout(animacion_burbuja)
+			animacion_burbuja = null
 
-		if(callBack!=null){
 			callBack()
-		}
-	},500)
+		},500)
+	}
 }
 
 var animacion_ruleta = null
 var animacion_ruleta2 = null
+
 function setRuleta(split,callBack){
 	getE('ruleta-img').className = 'ruleta-split-'+split
 	getE('ruleta').className = 'ruleta-on'
@@ -1215,15 +1257,224 @@ function setRuleta(split,callBack){
 						p = f
 					}
 				}
-				console.log(partes[p])
-			}
+				getE('ruleta').className = 'ruleta-off'
+				//console.log(partes[p])
 
-			
+				//si hay callback, esperar ida de ruleta, si no no desgastarse en eso
+				if(callBack!=null){
+					animacion_ruleta = setTimeout(function(){
+						clearTimeout(animacion_ruleta)
+						animacion_ruleta = null
+
+						callBack(p)
+					},500)
+				}
+			}
 		},20)
-		/*if(callBack!=null){
-			callBack()
-		}*/
 	},1500)
+}
+
+var pregunta_data = null
+var animacion_carta = null
+var animacion_carta2 = null
+
+var respuestas_opciones = ['a','b','c','d','e']
+function setPregunta(question){
+	//build pregunta
+	pregunta_data = question
+	console.log(pregunta_data)
+	var h = ''
+	h+='<div class="carta-enunciado">'
+        h+='<p>'+pregunta_data.pregunta+'</p>'
+    h+='</div>'
+    for(j = 0;j<pregunta_data.respuestas.length;j++){
+    	h+='<div class="carta-respuesta" onclick="clickRespuesta('+(j+1)+')">'
+    	h+='<p><span>'+respuestas_opciones[j]+')</span>'+pregunta_data.respuestas[j]+'</p>'
+    	h+='</div>'
+    }
+    
+	getE('carta-content').innerHTML = h
+
+	getE('contenedor-carta').className = 'contenedor-carta-on'
+	getE('carta-wrap').className = 'carta-on'
+	animacion_carta = setTimeout(function(){
+		clearTimeout(animacion_carta)
+		animacion_carta = null
+
+		getE('carta').style.transform = 'rotateY(90deg)'
+		getE('carta').style.webkitTransform = 'rotateY(90deg)'
+		getE('carta').style.oTransform = 'rotateY(90deg)'
+
+		animacion_carta = setTimeout(function(){
+			clearTimeout(animacion_carta)
+			animacion_carta = null
+
+			getE('carta').className = 'carta-front'
+			getE('carta').style.transform = 'rotateY(0deg)'
+			getE('carta').style.webkitTransform = 'rotateY(0deg)'
+			getE('carta').style.oTransform = 'rotateY(0deg)'
+		},250)
+	},500)
+}
+
+function clickRespuesta(r){
+	getE('carta').style.transform = 'rotateY(90deg)'
+	getE('carta').style.webkitTransform = 'rotateY(90deg)'
+	getE('carta').style.oTransform = 'rotateY(90deg)'
+
+	animacion_carta = setTimeout(function(){
+		clearTimeout(animacion_carta)
+		animacion_carta = null
+
+		getE('carta').className = 'carta-back'
+		getE('carta').style.transform = 'rotateY(0deg)'
+		getE('carta').style.webkitTransform = 'rotateY(0deg)'
+		getE('carta').style.oTransform = 'rotateY(0deg)'
+		
+		getE('carta-wrap').className = 'carta-off'
+		//esperar que se vaya la carta
+		animacion_carta = setTimeout(function(){
+			clearTimeout(animacion_carta)
+			animacion_carta = null
+
+			getE('contenedor-carta').className = 'contenedor-carta-off'
+			//quitar contenedor-preguntas
+			finalRespuesta(r,function(){
+		
+			})
+		},500)
+	},250)
+}
+
+function finalRespuesta(r,callBack){
+	unsetBurbujaText(function(){
+		var msg_burbuja = ""
+		if(r==pregunta_data.correcta){
+			msg_burbuja = actual_escenario.bien
+		}else{
+			msg_burbuja = actual_escenario.mal
+		}
+		//alert("bien")
+		setBurbujaText(msg_burbuja,function(){
+			//alert("hola?")
+			//esperar tiempo para que se lea el mensaje de la estructura
+			animacion_carta = setTimeout(function(){
+				clearTimeout(animacion_carta)
+				animacion_carta = null
+
+				if(r==pregunta_data.correcta){
+					//poner empleado como visitado
+					var empleado_div = getE('empleado'+actual_escenario.id)
+					empleado_div.classList.add('icono-empleado-visitado')
+					empleado_div.setAttribute('estado','visitado')
+					var empleado_ind = getEmpleadoData(actual_escenario.id,true)
+					empleados[empleado_ind].estado = 'visitado'
+
+					//quitar
+					unsetBurbujaText(null)
+					//poner ganaste encima de contenedor-preguntas
+					setVictoriaItem('llave',{ref:null,key:actual_escenario.llave},function(){
+						unsetEscenario(function(){
+							continuarGame()
+						})
+					})
+				}else{
+					//poner empleado como no disponible, mientras tanto
+					var empleado_div = getE('empleado'+actual_escenario.id)
+					empleado_div.classList.add('icono-empleado-visitado')
+					empleado_div.setAttribute('estado','ocupado')
+					
+					//quitar todo
+					unsetBurbujaText(function(){
+						unsetEscenario(function(){
+							continuarGame()
+						})
+					})
+				}
+			},3000)
+		})
+	})
+}
+
+function clickOpcion(r){
+	finalRespuesta(r,function(){
+
+	})
+}
+function overOpciona(){
+	//pararla primero
+	spdStopAnimation(3)
+	spdPlayAnimation({frame:1,stop:6,loop:false},3)
+}
+function outOpciona(){
+	spdPlayAnimation({frame:7,stop:0,loop:false},3)
+}
+function overOpcionb(){
+	//pararla primero
+	spdStopAnimation(4)
+	spdPlayAnimation({frame:1,stop:6,loop:false},4)
+}
+function outOpcionb(){
+	spdPlayAnimation({frame:7,stop:0,loop:false},4)
+}
+
+var animacion_item = null
+function setVictoriaItem(item,data,callBack){
+	getE('contenedor-item-content').className = 'contenedor-item-content-'+item
+	//de momento nada al titulo
+	//getE('contenedor-item-title')
+
+	if(item=='llave'){
+		if(data.ref==null){
+			getE('contenedor-item-msg').innerHTML = 'Felicidades has ganado las llaves <span>de la oficina '+data.key+'</span>'
+		}else{
+			getE('contenedor-item-msg').innerHTML = 'Felicidades has ganado las llaves <span>'+data.ref+'</span>'
+		}
+		avatar_data.llaves.push(data.key)
+		spdPlayAnimation({frame:1,stop:0,loop:true},1)
+	}else{
+
+	}
+
+	getE('contenedor-item').style.display = 'flex'
+	animacion_item = setTimeout(function(){
+		clearTimeout(animacion_item)
+		animacion_item = null
+
+		getE('contenedor-item').className = 'contenedor-item-on'
+
+		//esperar a que este puesto del todo
+		animacion_item = setTimeout(function(){
+			clearTimeout(animacion_item)
+			animacion_item = null
+
+			if(callBack!=null){
+				//quitar contenedor preguntas
+				callBack()
+			}			
+
+			//esperar tiempito a que el usuario lea
+			animacion_item = setTimeout(function(){
+				clearTimeout(animacion_item)
+				animacion_item = null
+
+				getE('contenedor-item').className = 'contenedor-item-off'
+				//esperar que se quite el contenedor item
+				animacion_item = setTimeout(function(){
+					clearTimeout(animacion_item)
+					animacion_item = null
+
+					getE('contenedor-item').style.display = 'none'
+				},500)
+			},3000)
+		},500)
+	},50)
+}
+
+function continuarGame(){
+	//poner eventos, etc
+	//poner eventos otra vez
+	addEvents()
 }
 
 /////////////////COMPROBAR////////////////
@@ -1258,7 +1509,7 @@ function reiniciarJuego(){//reiniciar, por acabarse el tiempo
 	
 }
 
-function continuarJuego(){
+function continuarJuego(){//seguir con el reloj
 	reanudarReloj()
 }
 function seguirJuego(){//funcion para el modal

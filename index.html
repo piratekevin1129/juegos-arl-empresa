@@ -52,20 +52,12 @@
         			<div id="mensaje" class="mensaje-off"></div>
         		</div>
         		
-        		<div id="contenedor-item" class="contenedor-item-off">
-        			<div class="contenedor-item-img"></div>
-        			<h1 id="contenedor-item-title"></h1>
-        			<div id="contenedor-item-content">
-        				<div id="llave-animada" class="spd_sprite" width="182" height="240" frames="21" src="assets/images/llave_animada_sprite.png"></div>
-        				<div id="premio-animado" class="spd_sprite" width="220" height="248" frames="21" src="assets/images/premio_animado_sprite.png"></div>
-        			</div>
-        			<p id="contenedor-item-msg"></p>
-        		</div>
                 <div id="contenedor-peliculas" style="display: none">
                     <video id="pelicula"></video>
                     <div id="contenedor-peliculas-alfa"></div>
                     <div id="contenedor-peliculas-cargador"></div>
                 </div>
+
                 <div id="contenedor-preguntas" style="display: none">
                     <div id="contenedor-preguntas-iframe">
                         <div id="contenedor-preguntas-1" class="contenedor-preguntas-hidden">
@@ -77,12 +69,12 @@
                             <div class="contenedor-preguntas-fondo"></div>
                             <div class="burbuja-texto-big burbuja-texto-big-off" id="burbuja-texto-pregunta2"></div>
                             <div id="opcion-a">
-                                <div id="opcion-a-pregunta" class="spd_sprite" width="188" height="255" frames="15" src="assets/images/pregunta2/opcion_a_sprite.png"></div>
-                                <div id="opcion_a_btn"></div>
+                                <div id="opcion-a-pregunta" class="spd_sprite" width="188" height="255" frames="11" src="assets/images/pregunta2/opcion_a_sprite.png"></div>
+                                <div id="opcion_a_btn" onclick="clickOpcion(1)" onmouseover="overOpciona()" onmouseout="outOpciona()"></div>
                             </div>
                             <div id="opcion-b">
-                                <div id="opcion-b-pregunta" class="spd_sprite" width="290" height="260" frames="15" src="assets/images/pregunta2/opcion_b_sprite.png"></div>
-                                <div id="opcion_b_btn"></div>
+                                <div id="opcion-b-pregunta" class="spd_sprite" width="290" height="260" frames="11" src="assets/images/pregunta2/opcion_b_sprite.png"></div>
+                                <div id="opcion_b_btn" onclick="clickOpcion(2)" onmouseover="overOpcionb()" onmouseout="outOpcionb()"></div>
                             </div>
                         </div>
 
@@ -144,6 +136,15 @@
                     <div id="contenedor-preguntas-cargador"></div><!--cargador solo para videos-->
                 </div>
 
+                <div id="contenedor-item" style="display: none;" class="contenedor-item-off">
+                    <div class="contenedor-item-img"></div>
+                    <div id="contenedor-item-title"></div>
+                    <div id="contenedor-item-content">
+                        <div id="llave-animada" class="spd_sprite" width="182" height="240" frames="21" src="assets/images/llave_animada_sprite.png"></div>
+                        <div id="premio-animado" class="spd_sprite" width="220" height="248" frames="21" src="assets/images/premio_animado_sprite.png"></div>
+                    </div>
+                    <div id="contenedor-item-msg"></div>
+                </div>
         	</div>
         	<div id="home-scene">
         		<div class="fondo">
