@@ -478,9 +478,7 @@ header{
     left: 0px;
     width: 100%;
     height: 100%;
-    display: flex;
-    align-content: space-between;
-    justify-content: flex-start;
+    
     background-color: #000000;
 }
 #contenedor-peliculas-cargador,#contenedor-preguntas-cargador{
@@ -541,8 +539,11 @@ header{
     background-color: #000000;
 }
 .contenedor-peliculas-on #contenedor-peliculas-alfa,
-.contenedor-preguntas-on #contenedor-preguntas-alfa,{
+.contenedor-preguntas-on #contenedor-preguntas-alfa{
     opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s, visibility 0s;
+    -webkit-transition: opacity 0.5s, visibility 0s;
 }
 .contenedor-peliculas-onn #contenedor-peliculas-alfa,
 .contenedor-preguntas-onn #contenedor-preguntas-alfa{
@@ -558,8 +559,8 @@ header{
 .contenedor-preguntas-off #contenedor-preguntas-alfa{
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.5s, visibility 0.5;
-    -webkit-transition: opacity 0.5s, visibility 0.5;
+    transition: opacity 0.5s, visibility 0.5s;
+    -webkit-transition: opacity 0.5s, visibility 0.5s;
 }
 .contenedor-peliculas-off #contenedor-peliculas-cargador,
 .contenedor-peliculas-onn #contenedor-peliculas-cargador,
@@ -612,10 +613,6 @@ header{
     width: 30px;
     height: 28px;
 }
-.icono-empleado-visitado .icono-empleado-light{/*clase para no disponible*/
-    display: none !important;
-}
-
 .icono-llave{
     position: absolute;
     width: 14px;
@@ -679,7 +676,8 @@ header{
 .icono-empleado-img,
 .icono-llave-img,
 .icono-premio-img,
-.icono-auto-img
+.icono-auto-img,
+.icono-llave2-img
 {
     position: absolute;
     width: 100%;
@@ -692,9 +690,30 @@ header{
 }
 .icono-empleado-img{background-image: url(../images/empleado-icon.png);}
 .icono-llave-img{background-image: url(../images/llave-icon.png);}
+.icono-llave2-img{background-image: url(../images/llave2-icon.png);}
 .icono-premio-img{background-image: url(../images/premio-icon.png);}
 .icono-auto-img{background-image: url(../images/auto-icon.png);}
 
+/**********ELEMENTOS NO DISPONIBLES************/
+/*clase para no disponible*/
+.icono-empleado-visitado .icono-empleado-light,
+.icono-llave-recogida .icono-llave-light,
+.icono-premio-recogido .icono-premio-light
+{
+    display: none !important;
+    animation: none;
+    animation: unset;
+    -webkit-animation: none;
+    -webkit-animation: unset;
+}
+.icono-llave-recogida,
+.icono-premio-recogido
+{
+    display: none !important;
+    visibility: hidden;
+}
+
+/*****OTROS ELEMENTOS****/
 .icono-escaleras{
     position: absolute;
     width: 50px;

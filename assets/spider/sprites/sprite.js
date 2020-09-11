@@ -231,7 +231,7 @@ function spdPlayAnimation(params,ind){
                 }
             }
         }
-    },50)
+    },40)
 }
 
 function spdCreateAnimation(params){

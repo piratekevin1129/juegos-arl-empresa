@@ -128,7 +128,6 @@ function empezarJuego(){
 			
 		}
 		addEvents()
-		setEscenario(empleados[1])
 	})
 }
 
@@ -277,7 +276,6 @@ function setFloor(floor,start){
 					piso.appendChild(puerta)
 					piso_data.elementos.push(puerta)
 				}
-				
 			}
 
 			if(office.empleado!=null&&office.empleado!=undefined){
@@ -297,7 +295,6 @@ function setFloor(floor,start){
 					empleado.style.oTransform = 'rotate('+empleado_data.rotation+'deg)'
 
 					empleado.setAttribute('estado',empleado_data.estado)
-
 					empleado.setAttribute('id','empleado'+empleado_data.id)
 					empleado.setAttribute('ind',empleado_data.id)
 					empleado.setAttribute('type','empleado')
@@ -309,29 +306,45 @@ function setFloor(floor,start){
 			if(office.premio!=null&&office.premio!=undefined){
 				if(office.premio!=false){
 					var premio = document.createElement('div')
-					premio.className = 'icono-premio'
+					if(office.premio.recogido=='si'){
+						premio.className = 'icono-premio icono-premio-recogido'
+					}else{
+						premio.className = 'icono-premio'	
+					}
+					
 					premio.innerHTML = '<div class="icono-premio-light"></div><div class="icono-premio-img"></div>'
 					premio.style.left = office.premio.x+'px'
 					premio.style.top = office.premio.y+'px'
 
+					premio.setAttribute('recogido',office.premio.recogido)
 					premio.setAttribute('type','premio')
 					premio.setAttribute('ind',office.id)
 					premio.setAttribute('id','premio'+office.premio.id)
 					piso.appendChild(premio)
 					piso_data.elementos.push(premio)
-				}
-				
+				}	
 			}
 
 			if(office.llave!=null&&office.llave!=undefined){
 				if(office.llave!=false){
 					var llave_data = getLlaveData(office.llave)
 					var llave = document.createElement('div')
-					llave.className = 'icono-llave'
-					llave.innerHTML = '<div class="icono-llave-light"></div><div class="icono-llave-img"></div>'
+					if(llave_data.recogida=='no'){
+						llave.className = 'icono-llave'	
+					}else{
+						llave.className = 'icono-llave icono-llave-recogida'	
+					}
+					
+					if(llave_data.ref!=null){
+						llave.innerHTML = '<div class="icono-llave-light"></div><div class="icono-llave2-img"></div>'	
+					}else{
+						llave.innerHTML = '<div class="icono-llave-light"></div><div class="icono-llave-img"></div>'
+					}
+					
 					llave.style.left = llave_data.x+'px'
 					llave.style.top = llave_data.y+'px'
 					
+					llave.setAttribute('recogida',llave_data.recogida)
 					llave.setAttribute('id','llave'+llave_data.id)
 					llave.setAttribute('key',llave_data.key)
 					llave.setAttribute('type','llave')
@@ -397,7 +410,8 @@ var avatar_data = {
 	width:30,
 	height:28,
 	area:8,
-	llaves:[],
+	subarea:5,
+	llaves:[4],
 	premios:[]
 }
 var piso_data = {
@@ -410,11 +424,22 @@ var piso_data = {
 }
 var avatar_speed = 0
 var avatar_aceleration = 0.2
+var top_speed = 3
 var animacion_avatar = null
 var animacion_avatar_2 = null//animacion para animar el avatar detras de escena
 
 var direccion_x = null
 var direccion_y = null
+
+function gotKey(l){
+	var got_key = false
+	for(k = 0;k<avatar_data.llaves.length;k++){
+		if(avatar_data.llaves[k]==l){
+			got_key = true
+		}
+	}
+	return got_key
+}
 
 function addEvents(){
 	window.addEventListener('keydown',downTecla, false)
@@ -720,8 +745,8 @@ function moveAvatar(back){
 	}
 	
 	avatar_speed+=avatar_aceleration
-	if(avatar_speed>3){
-		avatar_speed = 3
+	if(avatar_speed>top_speed){
+		avatar_speed = top_speed
 	}
 
 	if(!back){
@@ -731,6 +756,10 @@ function moveAvatar(back){
 				setEscenario(check_collision.params[0])
 			}else if(check_collision.type=='puerta'||check_collision.type=='escaleras'){
 				setPelicula(check_collision.params)	
+			}else if(check_collision.type=='llave'){
+				ganarLLave(check_collision.params)
+			}else if(check_collision.type=='premio'){
+				ganarPremio(check_collision.params)
 			}
 			
 		}
@@ -828,10 +857,10 @@ function checkCollision(x,y,a,b){
 			}
 
 			if(
-				(a_rect.x+avatar_data.area)>=rect_elemento.x&&
-				(a_rect.x-avatar_data.area)<=(rect_elemento.x+rect_elemento.w)&&
-				(a_rect.y+avatar_data.area)>=rect_elemento.y&&
-				(a_rect.y-avatar_data.area)<=(rect_elemento.y+rect_elemento.h)
+				(a_rect.x+avatar_data.subarea)>=rect_elemento.x&&
+				(a_rect.x-avatar_data.subarea)<=(rect_elemento.x+rect_elemento.w)&&
+				(a_rect.y+avatar_data.subarea)>=rect_elemento.y&&
+				(a_rect.y-avatar_data.subarea)<=(rect_elemento.y+rect_elemento.h)
 			){
 				//colision
 				
@@ -904,7 +933,7 @@ function checkCollision(x,y,a,b){
 				//console.log(entrar_o_salir)
 				if(oficina_data.puerta.locked){
 					//preguntar por llave
-					if(!avatar_data.llaves.includes(oficina_id)){
+					if(!gotKey(oficina_id)){
 						//normalmente esto es cuando entra, porque si va a salir es porque ya entró
 						setMensaje({content:'<p>Necesito la llave de esta oficina</p>',delay:3000})
 					}else{
@@ -943,12 +972,10 @@ function checkCollision(x,y,a,b){
 			var estado_empleado = element.getAttribute('estado')
 			if(estado_empleado=='visitado'){
 				//no cuenta, reset
-				colision = false
 				stop = null
 				params = []
 				type = ''
 			}else if(estado_empleado=='ocupado'){
-				colision = false
 				stop = null
 				params = []
 				type = ''
@@ -961,6 +988,16 @@ function checkCollision(x,y,a,b){
 				stop = true
 				params = [empleado_data]
 			}
+		}else if(type=='llave'){
+			var llave_id = element.getAttribute('ind')
+			var llave_data = getLlaveData(llave_id)
+			stop = true
+			params = [llave_data]
+		}else if(type=='premio'){
+			var premio_id = element.getAttribute('ind')
+			var premio_data = getOficinaData(premio_id)
+			stop = true
+			params = [premio_data]
 		}
 	}
 
@@ -982,23 +1019,8 @@ function setPelicula(params){
 	var param3 = null
 
 	var video = getE('pelicula');
-	var source = document.createElement('source');
-
-	source.setAttribute('src','assets/animations/'+movies[movie]+'.mp4');
-	source.setAttribute('type','video/mp4')
-
-	video.appendChild(source);
-	video.load();
+	var source = null
 	
-	video.onloadedmetadata = function() {
-		video.onloadedmetadata = null
-		getE('contenedor-peliculas').className = 'contenedor-peliculas-off'
-		animacion_pelicula = setTimeout(function(){
-			clearTimeout(animacion_pelicula)
-			animacion_pelicula = null
-			video.play();
-		},500)
-	}
 	video.onended = function(){
 		video.onended = null
 		
@@ -1020,6 +1042,29 @@ function setPelicula(params){
 	}
 	getE('contenedor-peliculas').style.display = 'block'
 	getE('contenedor-peliculas').className = 'contenedor-peliculas-on'
+
+	//esperar a que cargue
+	animacion_pelicula = setTimeout(function(){
+		clearTimeout(animacion_pelicula)
+		animacion_pelicula = null
+
+		source = document.createElement('source');
+		source.setAttribute('src','assets/animations/'+movies[movie]+'.mp4');
+		source.setAttribute('type','video/mp4')
+
+		video.appendChild(source);
+		video.load();
+
+		video.onloadedmetadata = function() {
+			video.onloadedmetadata = null
+			getE('contenedor-peliculas').className = 'contenedor-peliculas-off'
+			animacion_pelicula = setTimeout(function(){
+				clearTimeout(animacion_pelicula)
+				animacion_pelicula = null
+				video.play();
+			},500)
+		}
+	},500)
 
 	if(movie==0||movie==1){
 		param1 = params[1]
@@ -1078,25 +1123,6 @@ function setEscenario(params){
 	var questions = getPreguntasData(params.idpregunta).preguntas
 	var split = questions.length
 	
-	//var video = getE('pelicula');
-	//var source = document.createElement('source');
-
-	//source.setAttribute('src','assets/animations/'+movies[movie]+'.mp4');
-	//source.setAttribute('type','video/mp4')
-
-	//video.appendChild(source);
-	//video.load();
-	
-	//video.onloadedmetadata = function() {
-		//video.onloadedmetadata = null
-		//getE('contenedor-peliculas').className = 'contenedor-peliculas-off'
-		//animacion_pelicula = setTimeout(function(){
-			//clearTimeout(animacion_pelicula)
-			//animacion_pelicula = null
-			//video.play();
-		//},500)
-	//}
-	
 	//poner alfa con cargador
 	getE('contenedor-preguntas').style.display = 'block'
 	getE('contenedor-preguntas').className = 'contenedor-preguntas-on'
@@ -1106,8 +1132,12 @@ function setEscenario(params){
 		clearTimeout(animacion_escenario)
 		animacion_escenario = null
 
-		//quitar alfa
-		getE('contenedor-preguntas').className = 'contenedor-preguntas-off'
+		if(actual_escenario.id!=5){
+			//quitar alfa
+			getE('contenedor-preguntas').className = 'contenedor-preguntas-off'
+		}else{
+			//quitarlo cuando cargue el video
+		}
 
 		//detectar el escenario
 		if(actual_escenario.id==1){
@@ -1119,6 +1149,48 @@ function setEscenario(params){
 		}else if(actual_escenario.id==2){
 			setBurbujaText(params.bienvenida,function(){
 				pregunta_data = questions[0]
+			})
+		}else if(actual_escenario.id==3){
+			setBurbujaText(params.bienvenida,function(){
+				setRuleta(split,function(p){
+					setPregunta(questions[p])
+				})
+			})
+		}else if(actual_escenario.id==4){
+			setBurbujaText(params.bienvenida,function(){
+				setRuleta(split,function(p){
+					setPregunta(questions[p])
+				})
+			})
+		}else if(actual_escenario.id==5){
+			var video = getE('contenedor-preguntas-video-5');
+			var source = document.createElement('source');
+
+			source.setAttribute('src','assets/images/pregunta5/fondo.mp4');
+			source.setAttribute('type','video/mp4')
+
+			video.appendChild(source);
+			video.load();
+			
+			video.onloadedmetadata = function() {
+				video.onloadedmetadata = null
+				getE('contenedor-preguntas').className = 'contenedor-preguntas-off'
+				animacion_escenario = setTimeout(function(){
+					clearTimeout(animacion_escenario)
+					animacion_escenario = null
+					
+					spdPlayAnimation({frame:1,stop:0,loop:true},5)
+					setBurbujaText(params.bienvenida,function(){
+						getE('alarma_btn').style.display = 'block'
+						getE('alarma_btn').setAttribute('onclick','clickSirena()')
+					})
+				},500)
+			}
+		}else if(actual_escenario.id==6){
+			setBurbujaText(params.bienvenida,function(){
+				setRuleta(split,function(p){
+					setPregunta(questions[p])
+				})
 			})
 		}
 	},500)
@@ -1134,9 +1206,16 @@ function unsetEscenario(callBack){
 		clearTimeout(animacion_escenario)
 		animacion_escenario = null
 		
-		//video.pause()
-		//video.removeChild(source);
-		//video.load()
+		if(actual_escenario.id==5){
+			//tumbar el video
+			var video = getE('contenedor-preguntas-video-5');
+			var source = video.getElementsByTagName('source')[0]
+
+			video.pause()
+			video.removeChild(source);
+			video.load()
+			spdStopAnimation(5)
+		}		
 
 		getE('contenedor-preguntas-'+actual_escenario.id).className = "contenedor-preguntas-hidden"
 		getE('contenedor-preguntas').style.display = 'none'
@@ -1183,7 +1262,7 @@ function unsetBurbujaText(callBack){
 			animacion_burbuja = null
 
 			callBack()
-		},500)
+		},600)
 	}
 }
 
@@ -1365,6 +1444,7 @@ function finalRespuesta(r,callBack){
 				if(r==pregunta_data.correcta){
 					//poner empleado como visitado
 					var empleado_div = getE('empleado'+actual_escenario.id)
+					console.log(actual_escenario.id)
 					empleado_div.classList.add('icono-empleado-visitado')
 					empleado_div.setAttribute('estado','visitado')
 					var empleado_ind = getEmpleadoData(actual_escenario.id,true)
@@ -1374,9 +1454,9 @@ function finalRespuesta(r,callBack){
 					unsetBurbujaText(null)
 					//poner ganaste encima de contenedor-preguntas
 					setVictoriaItem('llave',{ref:null,key:actual_escenario.llave},function(){
-						unsetEscenario(function(){
-							continuarGame()
-						})
+						unsetEscenario(null)
+					},function(){
+						continuarGame()
 					})
 				}else{
 					//poner empleado como no disponible, mientras tanto
@@ -1417,9 +1497,30 @@ function overOpcionb(){
 function outOpcionb(){
 	spdPlayAnimation({frame:7,stop:0,loop:false},4)
 }
+function clickSirena(){
+	var questions = getPreguntasData(actual_escenario.idpregunta).preguntas
+	var split = questions.length
+
+	getE('alarma_btn').style.display = 'none'
+	getE('alarma_btn').removeAttribute('onclick')
+
+	var video = getE('contenedor-preguntas-video-5')
+	video.play()
+	video.onended = function(){
+		video.onended = null
+		unsetBurbujaText(function(){
+			//variable de data quemada porque es algo personalizado
+			setBurbujaText(actual_escenario.bienvenida2,function(){
+				setRuleta(split,function(p){
+					setPregunta(questions[p])
+				})
+			})
+		})
+	}
+}
 
 var animacion_item = null
-function setVictoriaItem(item,data,callBack){
+function setVictoriaItem(item,data,callBack,callBack2){
 	getE('contenedor-item-content').className = 'contenedor-item-content-'+item
 	//de momento nada al titulo
 	//getE('contenedor-item-title')
@@ -1432,8 +1533,15 @@ function setVictoriaItem(item,data,callBack){
 		}
 		avatar_data.llaves.push(data.key)
 		spdPlayAnimation({frame:1,stop:0,loop:true},1)
-	}else{
-
+	}else if(item=='premio'){
+		if(data.ref==null){
+			getE('contenedor-item-msg').innerHTML = 'Felicidades has ganado <span>un trofeo</span>'
+		}else{
+			//nunca va a entrar aqui
+			getE('contenedor-item-msg').innerHTML = 'Felicidades has ganado <span>'+data.ref+'</span>'
+		}
+		avatar_data.premios.push(data.trophy)
+		spdPlayAnimation({frame:1,stop:0,loop:true},2)
 	}
 
 	getE('contenedor-item').style.display = 'flex'
@@ -1449,7 +1557,7 @@ function setVictoriaItem(item,data,callBack){
 			animacion_item = null
 
 			if(callBack!=null){
-				//quitar contenedor preguntas
+				//quitar contenedor preguntas se llama desde atras
 				callBack()
 			}			
 
@@ -1465,10 +1573,41 @@ function setVictoriaItem(item,data,callBack){
 					animacion_item = null
 
 					getE('contenedor-item').style.display = 'none'
+					if(callBack2!=null){
+						callBack2()
+					}
 				},500)
 			},3000)
 		},500)
 	},50)
+}
+
+function ganarLLave(params){
+	var llave_data = params[0]
+	//quitar llave del piso
+	var llave_div = getE('llave'+llave_data.id)
+	var llave_ind = getLlaveData(llave_data.id,true)
+	llaves[llave_ind].recogida = 'si'
+	llave_div.setAttribute('recogida','si')
+	llave_div.classList.add('icono-llave-recogida')
+
+	setVictoriaItem('llave',{ref:llave_data.ref,key:llave_data.key},function(){},function(){
+		continuarGame()
+	})
+}
+
+function ganarPremio(params){
+	var oficina_data = params[0]
+	//quitar premio del piso
+	var premio_div = getE('premio'+oficina_data.premio.id)
+	premio_div.setAttribute('recogido','si')
+	premio_div.classList.add('icono-premio-recogido')
+	var oficina_ind = getOficinaData(oficina_data.id,true)
+	oficinas[oficina_ind].premio.recogido = 'si'
+
+	setVictoriaItem('premio',{ref:oficina_data.premio.ref,trophy:oficina_data.premio.id},function(){},function(){
+		continuarGame()
+	})
 }
 
 function continuarGame(){

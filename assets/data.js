@@ -55,7 +55,9 @@ var oficinas = [
 		premio:{
 			id:1,
 			x:486,
-			y:420
+			y:420,
+			recogido:'no',
+			ref:null
 		},
 		empleado:null,
 		posx:458,
@@ -108,7 +110,9 @@ var oficinas = [
 		premio:{
 			id:2,
 			x:654,
-			y:400
+			y:400,
+			recogido:'no',
+			ref:null
 		},
 		empleado:null,
 		posx:626,
@@ -131,7 +135,9 @@ var oficinas = [
 		premio:{
 			id:3,
 			x:960,
-			y:270
+			y:270,
+			recogido:'no',
+			ref:null
 		},
 		empleado:null,
 		posx:930,
@@ -215,7 +221,9 @@ var oficinas = [
 		premio:{
 			id:4,
 			x:880,
-			y:110
+			y:110,
+			recogido:'no',
+			ref:null
 		},
 		empleado:null,
 		posx:835,
@@ -276,21 +284,24 @@ var llaves = [
 		x:456,
 		y:290,
 		key:9,
-		ref:null
+		ref:null,
+		recogida:'no'
 	},
 	{
 		id:2,
 		x:888,
 		y:435,
 		key:15,//llaves del auto
-		ref:'del auto'
+		ref:'del auto',
+		recogida:'no'
 	},
 	{
 		id:3,
 		x:530,
 		y:83,
 		key:8,
-		ref:null
+		ref:null,
+		recogida:'no'
 	}
 ]
 
@@ -563,14 +574,21 @@ var preguntas = [
 	}
 ]
 
-function getOficinaData(id){
+function getOficinaData(id,flag){
 	var o_data = null
+	var o_ind = -1
 	for(var o = 0;o<oficinas.length;o++){
 		if(oficinas[o].id==id){
 			o_data = oficinas[o]
+			o_ind = o
 		}
 	}
-	return o_data
+	if(flag!=null&&flag!=undefined){
+		return o_ind
+	}else{
+		return o_data
+	}
+	
 }
 
 function getEmpleadoData(id,flag){
@@ -590,14 +608,21 @@ function getEmpleadoData(id,flag){
 	}
 }
 
-function getLlaveData(id){
+function getLlaveData(id,flag){
 	var l_data = null
-	for(var e = 0;e<llaves.length;e++){
-		if(llaves[e].id==id){
-			l_data = llaves[e]
+	var l_ind = -1
+	for(var l = 0;l<llaves.length;l++){
+		if(llaves[l].id==id){
+			l_data = llaves[l]
+			l_ind = l
 		}
 	}
-	return l_data
+	if(flag!=null&&flag!=undefined){
+		return l_ind
+	}else{
+		return l_data	
+	}
+	
 }
 function getPreguntasData(id){
 	var q_data = null
