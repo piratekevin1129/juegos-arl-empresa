@@ -50,7 +50,7 @@ function loadImage(data){
         img.onload = null
         img.onerror = null
         img = null
-        console.log("error: "+data.src)
+        console.log("error: "+data.url)
         data.callBack(this)
     }
     img.src = data.url

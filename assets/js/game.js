@@ -128,6 +128,7 @@ function empezarJuego(){
 			
 		}
 		addEvents()
+		setEscenario(empleados[3])
 	})
 }
 
@@ -1132,11 +1133,22 @@ function setEscenario(params){
 		clearTimeout(animacion_escenario)
 		animacion_escenario = null
 
-		if(actual_escenario.id!=5){
-			//quitar alfa
-			getE('contenedor-preguntas').className = 'contenedor-preguntas-off'
-		}else{
+		if(actual_escenario.id==5){
 			//quitarlo cuando cargue el video
+		}else if(actual_escenario.id==4){
+			///cargar recursos del escenario 4
+            setEppStands(function(){
+            	getE('contenedor-preguntas').className = 'contenedor-preguntas-off'
+            	/*setBurbujaText(params.bienvenida,function(){
+					setRuleta(split,function(p){
+						setPregunta(questions[p])
+					})
+				})*/
+            })
+            //quitar alfa... lo de quitar alfa va, en la funcion setEppStands
+		}else{
+			//quitar alfa
+			getE('contenedor-preguntas').className = 'contenedor-preguntas-off'			
 		}
 
 		//detectar el escenario
@@ -1157,11 +1169,7 @@ function setEscenario(params){
 				})
 			})
 		}else if(actual_escenario.id==4){
-			setBurbujaText(params.bienvenida,function(){
-				setRuleta(split,function(p){
-					setPregunta(questions[p])
-				})
-			})
+			
 		}else if(actual_escenario.id==5){
 			var video = getE('contenedor-preguntas-video-5');
 			var source = document.createElement('source');

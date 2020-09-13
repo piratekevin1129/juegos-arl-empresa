@@ -1,3 +1,4 @@
+/********GENERAL*********/
 #contenedor-preguntas-iframe{
     position: relative;
     width: 100%;
@@ -169,7 +170,7 @@
     top: 20px;
 }
 
-
+/********ESCENARIO 3**********/
 #opcion-a{
     position: absolute;
     width: 188px;
@@ -196,6 +197,237 @@
     cursor: pointer;
 }
 
+/*********ESCENARIO 4**********/
+#personaje{
+    position: absolute;
+    display: block;
+    width: 132px;
+    height: 370px;
+    
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    top: 13%;
+    left: 74%;
+}
+
+#personaje-main{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.personaje-1{
+    background-image: url(../images/personaje-v1.png);
+}
+.personaje-ojos{
+    position: absolute;
+    width: 35px;
+    height: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-image: url(../images/ojos.png);
+    top: 35px;
+    left: 44px;
+}
+.personaje-ojos::after{
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    animation-name: animacion-ojos;
+    animation-duration: 6s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    -webkit-animation-name: animacion-ojos;
+    -webkit-animation-duration: 6s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+}
+@keyframes animacion-ojos{
+    0%{
+        background-image: none;
+    }
+    2%{
+        background-image: url(../images/parpados1.png);
+    }
+    4%{
+        background-image: url(../images/parpados2.png);
+    }
+    6%{
+        background-image: url(../images/parpados1.png);
+    }
+    8%{
+        background-image: none;
+    }
+    100%{
+        background-image: none;
+    }
+}
+#personaje_areas,#personaje_ropas{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+}
+.area-epp{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    transform: translateX(-15px) translateY(-15px);
+    -webkit-transform: translateX(-15px) translateY(-15px);
+    -o-transform: translateX(-15px) translateY(-15px);
+}
+.area-epp-off{
+    display: none;
+}
+.area-epp-on{
+    display: block;
+}
+.area-epp::after,
+.area-epp::before{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    box-sizing: border-box;
+    top: 0px;
+    left: 0px;
+
+    animation-name: animacion-area;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    -webkit-animation-name: animacion-area;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+}
+.area-epp::before{
+    animation-delay: 0.5s;
+    -webkit-animation-delay: 0.5s;
+}
+@keyframes animacion-area {
+    0% {
+        transform: scale(0);
+        -webkit-transform: scale(0);
+        -o-transform: scale(0);
+        opacity: 0;
+        border: #FFFFFF solid 2px;
+    }
+    50%{
+        transform: scale(1);
+        -webkit-transform: scale(1);
+        -o-transform: scale(1);
+        opacity: 1;
+        border: #FFFFFF solid 5px;
+    }
+    100%{
+        transform: scale(2);
+        -webkit-transform: scale(2);
+        -o-transform: scale(2);
+        opacity: 0;
+        border: #FFFFFF solid 1px;
+    }
+}
+#area-epp-1{top: 4%;left: 46%;}
+#area-epp-2{top: 12%;left: 47%;}
+#area-epp-3{top: 17%;left: 47%;}
+#area-epp-4{top: 56%;left: 82%;}
+#area-epp-5{top: 56%;left: 13%;}
+#area-epp-6{top: 92%;left: 50%;}
+
+#elementos-epp{
+    position: absolute;
+    width: 210px;
+    height: 210px;
+    box-sizing: border-box;
+    top: 42px;
+    left: 290px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    align-content: space-around;
+}
+.elemento-epp{
+    position: relative;
+    width: 65px;
+    height: 65px;
+    box-sizing: border-box;
+    border: #000 solid 1px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin: 0px;
+    padding: 0px;
+}
+.elemento-epp > div{
+    position: relative;
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    cursor: grab;
+}
+.elemento-epp-hide{
+    visibility: hidden;
+}
+.elemento-epp-show{
+    visibility: visible;
+}
+
+#elemento-epp-move{
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    cursor: grabbing;
+}
+.elemento-epp-move-on{
+    display: block;
+}
+.elemento-epp-move-off{
+    display: none;
+}
+.ropa-epp{
+    cursor: pointer;
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+
+    transition: transform 0.2s, -webkit-transform 0.2s, -o-transform 0.2s, opacity 0.2s;
+    -webkit-transition: transform 0.2s, -webkit-transform 0.2s, -o-transform 0.2s, opacity 0.2s;
+}
+
+.ropa-epp-off{
+    display: none;
+}
+.ropa-epp-on{
+    display: block;
+}
+
+<div id="contenedor-mensaje-alerta" class="contenedor-mensaje-alerta-on">
+    <div id="contenedor-mensaje-alerta-box"></div>
+</div>
+/***********ESCENARIO 5***********/
 .contenedor-preguntas-video{
     position: absolute;
     width: 100%;
@@ -352,8 +584,8 @@
     perspective: 1000px;
     -webkit-perspective: 1000px;
 
-    transition: left 0.5s, top 0.5s;
-    -webkit-transition: left 0.5s, top 0.5s;
+    transition: left 0.5s, top 0.5s, transform 0.5s, -webkit-transform 0.5s, -o-transform 0.5s;
+    -webkit-transition: left 0.5s, top 0.5s, transform 0.5s, -webkit-transform 0.5s, -o-transform 0.5s;
 }
 #carta{
     position: absolute;
@@ -392,10 +624,16 @@
     top: 50%;
     top: calc(50% - (402px / 2));
     top: -moz-calc(50% - (402px / 2));
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    -o-transform: scale(1);
 }
 .carta-off{
     left: 100%;
     top: 100%;
+    transform: scale(0.4);
+    -webkit-transform: scale(0.4);
+    -o-transform: scale(0.4);
 }
 
 #carta-content{
