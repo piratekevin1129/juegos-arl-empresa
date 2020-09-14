@@ -128,7 +128,7 @@ function empezarJuego(){
 			
 		}
 		addEvents()
-		setEscenario(empleados[3])
+		//setEscenario(empleados[3])
 	})
 }
 
@@ -412,7 +412,7 @@ var avatar_data = {
 	height:28,
 	area:8,
 	subarea:5,
-	llaves:[4],
+	llaves:[],
 	premios:[]
 }
 var piso_data = {
@@ -425,7 +425,7 @@ var piso_data = {
 }
 var avatar_speed = 0
 var avatar_aceleration = 0.2
-var top_speed = 3
+var top_speed = 3.6
 var animacion_avatar = null
 var animacion_avatar_2 = null//animacion para animar el avatar detras de escena
 
@@ -471,24 +471,28 @@ function downTecla(e){
 	var put_events = false
 	if(e.keyCode==37){
 		//izquierda
+		resetKeys()
 		direccion_x = 'left'
 		avatar_speed = 0
 		put_events = true
 		avatar.className = 'avatar-left'
 	}else if(e.keyCode==39){
 		//derecha
+		resetKeys()
 		direccion_x = 'right'
 		avatar_speed = 0
 		put_events = true
 		avatar.className = 'avatar-right'
 	}else if(e.keyCode==38){
 		//arriba
+		resetKeys()
 		direccion_y = 'up'
 		avatar_speed = 0
 		put_events = true
 		avatar.className = 'avatar-up'
 	}else if(e.keyCode==40){
 		//abajo
+		resetKeys()
 		direccion_y = 'down'
 		avatar_speed = 0
 		put_events = true
@@ -499,6 +503,10 @@ function downTecla(e){
 		spdPlayAnimation({frame:1,stop:0,loop:true},0)
 		window.removeEventListener('keydown',downTecla, false)
 	}
+}
+function resetKeys(){
+	direccion_x = null
+	direccion_y = null
 }
 
 function upTecla(e){
@@ -1139,11 +1147,17 @@ function setEscenario(params){
 			///cargar recursos del escenario 4
             setEppStands(function(){
             	getE('contenedor-preguntas').className = 'contenedor-preguntas-off'
-            	/*setBurbujaText(params.bienvenida,function(){
-					setRuleta(split,function(p){
-						setPregunta(questions[p])
+            	setBurbujaText(params.bienvenida,function(){
+					
+				})
+            },function(){
+				unsetBurbujaText(function(){
+					setBurbujaText(params.bienvenida2,function(){
+						setRuleta(split,function(p){
+							setPregunta(questions[p])
+						})
 					})
-				})*/
+				})
             })
             //quitar alfa... lo de quitar alfa va, en la funcion setEppStands
 		}else{
@@ -1352,6 +1366,10 @@ function setRuleta(split,callBack){
 					animacion_ruleta = setTimeout(function(){
 						clearTimeout(animacion_ruleta)
 						animacion_ruleta = null
+						getE('ruleta-img').style.transform = 'rotate(0deg)'
+						getE('ruleta-img').style.webkitTransform = 'rotate(0deg)'
+						getE('ruleta-img').style.oTransform = 'rotate(0deg)'
+						getE('ruleta-img').className = ''
 
 						callBack(p)
 					},500)
@@ -1452,11 +1470,14 @@ function finalRespuesta(r,callBack){
 				if(r==pregunta_data.correcta){
 					//poner empleado como visitado
 					var empleado_div = getE('empleado'+actual_escenario.id)
-					console.log(actual_escenario.id)
+					//console.log(actual_escenario.id)
 					empleado_div.classList.add('icono-empleado-visitado')
 					empleado_div.setAttribute('estado','visitado')
 					var empleado_ind = getEmpleadoData(actual_escenario.id,true)
 					empleados[empleado_ind].estado = 'visitado'
+
+					//poner los empleados no disponibles otra vez en disponibles
+					unlockEmpleados()
 
 					//quitar
 					unsetBurbujaText(null)
@@ -1471,6 +1492,11 @@ function finalRespuesta(r,callBack){
 					var empleado_div = getE('empleado'+actual_escenario.id)
 					empleado_div.classList.add('icono-empleado-visitado')
 					empleado_div.setAttribute('estado','ocupado')
+					var empleado_ind = getEmpleadoData(actual_escenario.id,true)
+					empleados[empleado_ind].estado = 'ocupado'
+
+					//poner los empleados no disponibles otra vez en disponibles
+					unlockEmpleados()
 					
 					//quitar todo
 					unsetBurbujaText(function(){
@@ -1482,6 +1508,22 @@ function finalRespuesta(r,callBack){
 			},3000)
 		})
 	})
+}
+
+function unlockEmpleados(){
+	for(j = 0;j<empleados.length;j++){
+		if(empleados[j].id!=actual_escenario.id){
+			if(empleados[j].estado=='ocupado'){
+				empleados[j].estado = 'disponible'
+				//cambiar el div, si es que estamos en el piso del empleado
+				var employee = getE('empleado'+empleados[j].id)
+				if(employee!=null){
+					employee.classList.remove('icono-empleado-visitado')
+					employee.setAttribute('estado','disponible')
+				}
+			}
+		}
+	}
 }
 
 function clickOpcion(r){
@@ -1543,7 +1585,7 @@ function setVictoriaItem(item,data,callBack,callBack2){
 		spdPlayAnimation({frame:1,stop:0,loop:true},1)
 	}else if(item=='premio'){
 		if(data.ref==null){
-			getE('contenedor-item-msg').innerHTML = 'Felicidades has ganado <span>un trofeo</span>'
+			getE('contenedor-item-msg').innerHTML = 'Felicidades has ganado <span>un trofeo</span> continua reuniendo los demás'
 		}else{
 			//nunca va a entrar aqui
 			getE('contenedor-item-msg').innerHTML = 'Felicidades has ganado <span>'+data.ref+'</span>'

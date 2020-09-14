@@ -358,8 +358,8 @@ var empleados = [
 		idpregunta:4,
 		estado:'disponible',
 		ref:'oficina 14 - pregunta sobre epp + juego de arrastrar',
-		//bienvenida:'Coloca al personaje los equipos de protección que le hacen falta<br />para operar la maquina que esta a su lado.',
-		bienvenida:'Ahora responde la siguiente pregunta',
+		bienvenida:'Coloca al personaje los equipos de protección que le hacen falta<br />para operar la maquina que esta a su lado y luego haz clic en <span>Ver pregunta</span>.',
+		bienvenida2:'¡Muy Bien!. Ahora responde la siguiente pregunta',
 		bien:'¡¡Muy Bien!!. Haz respondido correctamente, aquí tienes una llave.',
 		mal:'¡La respuesta es incorrecta!. Vuelve en otro momento.'
 	},

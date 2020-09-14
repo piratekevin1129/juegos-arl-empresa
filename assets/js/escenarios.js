@@ -93,9 +93,19 @@ var elementos_epp = [
 	}
 ]
 
+var elementos_epp_correcto = [
+	{id:1,value:'no'},
+	{id:2,value:'no'},
+	{id:3,value:'no'},
+	{id:4,value:'yes'},
+	{id:5,value:'yes'},
+	{id:6,value:'no'}
+]
+
 var casilleros_epp = []
 var casilleros_epp_unorder = []
 var areas_epp = []
+var ropas_epp = []
 
 function fillCasilleros(){
 	while(casilleros_epp_unorder.length<9){
@@ -120,12 +130,24 @@ function findElementoInd(id){
 	}
 	return ind
 }
+function findCorrectoInd(id){
+	var ind = -1
+	for(var f = 0;f<elementos_epp_correcto.length;f++){
+		if(elementos_epp_correcto[f].id==id){
+			ind = f
+		}
+	}
+	return ind
+}
 
 var beginGame4 = null
+var finishGame4 = null
+var game4_finished = false
 
-function setEppStands(callback){
+function setEppStands(callback,callback2){
 	fillCasilleros()
 	beginGame4 = callback
+	finishGame4 = callback2
 	loadEpps(0)
 }
 
@@ -153,9 +175,12 @@ function loadEpps(ee){
 				div_ropa.style.left = elementos_epp[u].x+'px'
 				div_ropa.style.top = elementos_epp[u].y+'px'
 				div_ropa.style.backgroundImage = 'url('+elementos_epp[u].img2+')'
-				div_ropa.id = 'ropa-epp-'+elementos_epp[u].id
-				div_ropa.setAttribute('onclick','quitarRopa('+elementos_epp[u].id+')')
+				div_ropa.id = 'ropa-epp-'+elementos_epp[u].ropa
+				div_ropa.setAttribute('ind',elementos_epp[u].ropa)
+				div_ropa.setAttribute('occuped','no')
+				div_ropa.setAttribute('onclick','quitarRopa('+elementos_epp[u].ropa+')')
 				getE('personaje_ropas').appendChild(div_ropa)
+				ropas_epp.push(div_ropa)
 
 				var div_area = document.createElement('div')
 				div_area.className = 'area-epp area-epp-off'
@@ -190,30 +215,32 @@ var posx_epp = 0
 var posy_epp = 0
 
 function downElementoEpp(epp,event){
-	actual_elemento_epp = epp
-	actual_elemento_epp_data = elementos_epp[findElementoInd(epp.getAttribute('ind'))]
+	if(!game4_finished){
+		actual_elemento_epp = epp
+		actual_elemento_epp_data = elementos_epp[findElementoInd(epp.getAttribute('ind'))]
 
-	document.addEventListener('mousemove', moveElementoEpp, false)
-	document.addEventListener('mouseup', upElementoEpp, false)
+		document.addEventListener('mousemove', moveElementoEpp, false)
+		document.addEventListener('mouseup', upElementoEpp, false)
 
-	getE('elemento-epp-move').style.width = actual_elemento_epp_data.w2+'px'
-	getE('elemento-epp-move').style.height = actual_elemento_epp_data.h2+'px'
-	getE('elemento-epp-move').style.backgroundImage = 'url('+actual_elemento_epp_data.img+')'
-	getE('elemento-epp-move').className = 'elemento-epp-move-on'
-	actual_elemento_epp.classList.add('elemento-epp-hide')
+		getE('elemento-epp-move').style.width = actual_elemento_epp_data.w2+'px'
+		getE('elemento-epp-move').style.height = actual_elemento_epp_data.h2+'px'
+		getE('elemento-epp-move').style.backgroundImage = 'url('+actual_elemento_epp_data.img+')'
+		getE('elemento-epp-move').className = 'elemento-epp-move-on'
+		actual_elemento_epp.classList.add('elemento-epp-hide')
 
-	var rect_parent = game.getBoundingClientRect()
-	posx_epp = event.pageX
-	posy_epp = event.pageY
-	var py = posy_epp-rect_parent.top
+		var rect_parent = game.getBoundingClientRect()
+		posx_epp = event.pageX
+		posy_epp = event.pageY
+		var py = posy_epp-rect_parent.top
 
-	getE('elemento-epp-move').style.left = (posx_epp-(actual_elemento_epp_data.w2/2))+'px'
-	getE('elemento-epp-move').style.top = (py-(actual_elemento_epp_data.h2/2))+'px'
+		getE('elemento-epp-move').style.left = (posx_epp-(actual_elemento_epp_data.w2/2))+'px'
+		getE('elemento-epp-move').style.top = (py-(actual_elemento_epp_data.h2/2))+'px'
 
-	//brillar areas
-	var area = getE('area-epp-'+actual_elemento_epp_data.area)
-	area.classList.remove('area-epp-off')
-	area.classList.add('area-epp-on')
+		//brillar areas
+		var area = getE('area-epp-'+actual_elemento_epp_data.area)
+		area.classList.remove('area-epp-off')
+		area.classList.add('area-epp-on')
+	}
 }
 
 function moveElementoEpp(){
@@ -244,15 +271,15 @@ function upElementoEpp(){
 				height:areas_epp[i].offsetHeight
 			}
 			
-			console.log(posx_epp,posy_epp,rect_area.left,rect_area.top)
+			//console.log(posx_epp,posy_epp,rect_area.left,rect_area.top)
 			if(
 				posx_epp>=rect_area.left&&
 				posx_epp<=(rect_area.left+rect_area.width)&&
 				posy_epp>=rect_area.top&&
 				posy_epp<=(rect_area.top+rect_area.height)
 			){
-				console.log("toca")
-				console.log("en el area correcta")
+				//console.log("toca")
+				//console.log("en el area correcta")
 				//puso correctamente
 				correct = true
 			}
@@ -269,18 +296,53 @@ function upElementoEpp(){
 		var ropa = getE('ropa-epp-'+actual_elemento_epp_data.ropa)
 		ropa.classList.remove('ropa-epp-off')
 		ropa.classList.add('ropa-epp-on')
+		ropa.setAttribute('occuped','yes')
 	}else{
 		actual_elemento_epp.classList.remove('elemento-epp-hide')
 	}
-
 }
 
 function quitarRopa(id){
-	//var data = elementos_epp[findElementoInd(epp.getAttribute('ind'))]	
-	var elemento = getE('elemento-epp-'+id).getElementsByTagName('div')[0]
-	elemento.classList.remove('elemento-epp-hide')
+	if(!game4_finished){
+		//var data = elementos_epp[findElementoInd(epp.getAttribute('ind'))]	
+		var elemento = getE('elemento-epp-'+id).getElementsByTagName('div')[0]
+		elemento.classList.remove('elemento-epp-hide')
 
-	var ropa = getE('ropa-epp-'+id).
-	ropa.classList.remove('ropa-epp-on')
-	ropa.classList.add('ropa-epp-off')
+		var ropa = getE('ropa-epp-'+id)
+		ropa.classList.remove('ropa-epp-on')
+		ropa.classList.add('ropa-epp-off')
+		ropa.setAttribute('occuped','no')
+	}
+}
+
+var animacion_mensaje_alerta = null
+function verPreguntaContenedor4(){
+	if(!game4_finished){
+		var correctos = 0
+		for(i = 0;i<ropas_epp.length;i++){
+			var occuped = ropas_epp[i].getAttribute('occuped')
+			var id = ropas_epp[i].getAttribute('ind')
+
+			var ind = findCorrectoInd(id)
+			//console.log(elementos_epp_correcto[ind].value,occuped)
+			if(elementos_epp_correcto[ind].value==occuped){
+				correctos++
+			}
+		}
+
+		if(correctos==ropas_epp.length){
+			//quitar todos los eventos
+			game4_finished = true
+			finishGame4()
+		}else{
+			getE('contenedor-mensaje-alerta-box').innerHTML = 'El personaje no esta con los equipos de protección adecuados, verifica y vuelve a intentar'
+			getE('contenedor-mensaje-alerta').className = "contenedor-mensaje-alerta-on"
+			animacion_mensaje_alerta = setTimeout(function(){
+				clearTimeout(animacion_mensaje_alerta)
+				animacion_mensaje_alerta = null
+
+				getE('contenedor-mensaje-alerta').className = "contenedor-mensaje-alerta-off"
+			},3000)
+		}
+	}
 }

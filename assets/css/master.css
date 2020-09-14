@@ -308,9 +308,9 @@ header{
     -o-transform: rotate(-180deg);
 }
 .avatar-down #avatar-clip{
-    transform: rotate(0deg);
-    -webkit-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
 }
 #avatar-clip{
     position: absolute;
@@ -796,6 +796,39 @@ header{
     left: 15px;
     top: 540px;
 }
+
+#estadisticas{
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 500px;
+    height: 70px;
+    background-color: rgba(255,255,255,0.75);
+    left: 50%;
+    left: calc(50% - 250px);
+    left: -moz-calc(50% - 250px);
+    border-radius: 0px 0px 5px 5px;
+
+    transition: top 1s;
+    -webkit-transition: top 1s;
+}
+.estadisticas-off{
+    top: -70px;
+}
+.estadisticas-on{
+    top: 0px;
+}
+#estadisticas > div{
+    
+}
+
+    <div id="trophy1" class="trophy-off"></div>
+    <div id="trophy2" class="trophy-off"></div>
+    <div id="trophy3" class="trophy-off"></div>
+    <div id="trophy4" class="trophy-off"></div>
+    <div id="llaves-auto" class="llaves-auto-off"></div>
+</div>
 
 /*******************************************/
 
