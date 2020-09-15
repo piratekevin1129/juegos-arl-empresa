@@ -822,7 +822,7 @@ function moveAvatar(back){
 }
 
 function moveAvatar2(){
-	for(var aa = 0;aa<16;aa++){
+	for(var aa = 0;aa<20;aa++){
 		moveAvatar(true)
 		//console.log("move avatar")
 	}
@@ -830,6 +830,7 @@ function moveAvatar2(){
 	direccion_right = false
 	direccion_up = false
 	direccion_down = false
+	avatar_speed = 0
 }
 
 function checkCollision(x,y,a,b){

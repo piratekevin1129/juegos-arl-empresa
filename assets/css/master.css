@@ -308,14 +308,14 @@ header{
     -o-transform: rotate(-180deg);
 }
 .avatar-down #avatar-clip{
-    transform: rotate(360deg);
-    -webkit-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
 }
 #avatar-clip{
     position: absolute;
-    transition: transform 0.1s, -webkit-transform 0.1s, -o-transform 0.1s;
-    -webkit-transition: transform 0.1s, -webkit-transform 0.1s, -o-transform 0.1s;
+    /*transition: transform 0.1s, -webkit-transform 0.1s, -o-transform 0.1s;
+    -webkit-transition: transform 0.1s, -webkit-transform 0.1s, -o-transform 0.1s;*/
 }
 #mensaje{
     position: absolute;
@@ -473,6 +473,7 @@ header{
 }
 
 #contenedor-peliculas,#contenedor-preguntas{
+    opacity: 0.5;
     position: absolute;
     top: 0px;
     left: 0px;
