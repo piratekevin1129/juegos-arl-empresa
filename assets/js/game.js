@@ -431,6 +431,10 @@ var animacion_avatar_2 = null//animacion para animar el avatar detras de escena
 
 var direccion_x = null
 var direccion_y = null
+var direccion_right = false
+var direccion_left = false
+var direccion_up = false
+var direccion_down = false
 
 function gotKey(l){
 	var got_key = false
@@ -445,6 +449,8 @@ function gotKey(l){
 function addEvents(){
 	window.addEventListener('keydown',downTecla, false)
 	window.addEventListener('keyup',upTecla, false)
+	avatar_moving = true
+	animacion_avatar = setInterval(moveAvatar,20)
 	//document.addEventListener("visibilitychange", onchange);
 	//window.addEventListener('mouseout',focusOut, false)
 }
@@ -452,9 +458,15 @@ function removeEvents(){
 	window.removeEventListener('keydown',downTecla, false)
 	window.removeEventListener('keyup',upTecla, false)
 
-	direccion_x = null
-	direccion_y = null
+	direccion_right = false
+	direccion_left = false
+	direccion_up = false
+	direccion_down = false
+
+	avatar_speed = 0
 	clearInterval(animacion_avatar)
+	avatar_moving = false
+	avatar_caminando = false
 	spdStopAnimation(0)
 }
 
@@ -466,283 +478,264 @@ function focusOn(){
 	getE('focus-msg').className = 'focus-off'
 }
 
+var key_pressed = null
+
 function downTecla(e){
 	//console.log(e.keyCode)
 	var put_events = false
+	var new_key = null
+	
 	if(e.keyCode==37){
 		//izquierda
-		resetKeys()
-		direccion_x = 'left'
-		avatar_speed = 0
+		direccion_left = true
+		direccion_right = false
+		direccion_up = false
+		direccion_down = false
+		new_key = 'left'
+
 		put_events = true
 		avatar.className = 'avatar-left'
 	}else if(e.keyCode==39){
 		//derecha
-		resetKeys()
-		direccion_x = 'right'
-		avatar_speed = 0
+		direccion_left = false
+		direccion_right = true
+		direccion_up = false
+		direccion_down = false
+		new_key = 'right'
+
 		put_events = true
 		avatar.className = 'avatar-right'
 	}else if(e.keyCode==38){
 		//arriba
-		resetKeys()
-		direccion_y = 'up'
-		avatar_speed = 0
+		direccion_left = false
+		direccion_right = false
+		direccion_up = true
+		direccion_down = false
+		new_key = 'up'
+		
 		put_events = true
 		avatar.className = 'avatar-up'
 	}else if(e.keyCode==40){
 		//abajo
-		resetKeys()
-		direccion_y = 'down'
-		avatar_speed = 0
+		direccion_left = false
+		direccion_right = false
+		direccion_up = false
+		direccion_down = true
+		new_key = 'down'
+
 		put_events = true
 		avatar.className = 'avatar-down'
 	}
-	if(put_events){
-		animacion_avatar = setInterval(moveAvatar,20)
-		spdPlayAnimation({frame:1,stop:0,loop:true},0)
-		window.removeEventListener('keydown',downTecla, false)
+
+	//si ya hay una tecla presionada, resetear velocidad
+	if(new_key!=key_pressed){
+		//nueva tecla
+		//console.log("nueva tecla")
+		avatar_speed = 0
 	}
-}
-function resetKeys(){
-	direccion_x = null
-	direccion_y = null
+	key_pressed = new_key
+
+	if(put_events){
+		if(!avatar_caminando){
+			avatar_caminando = true
+			//console.log("pone")
+			spdPlayAnimation({frame:1,stop:0,loop:true},0)
+			//window.removeEventListener('keydown',downTecla, false)
+		}
+	}
 }
 
 function upTecla(e){
-	var put_events = false
 	if(e.keyCode==37){
 		//izquierda
-		direccion_x = null
-		put_events = true
-	}else if(e.keyCode==39){
+		direccion_left = false
+		
+	}if(e.keyCode==39){
 		//derecha
-		direccion_x = null
-		put_events = true
-	}else if(e.keyCode==38){
-		//arriba
-		direccion_y = null
-		put_events = true
-	}else if(e.keyCode==40){
-		//abajo
-		direccion_y = null
-		put_events = true
+		direccion_right = false
+		
 	}
+	if(e.keyCode==38){
+		//arriba
+		direccion_up = false
 
-	if(put_events){
-		window.addEventListener('keydown',downTecla, false)
-		clearInterval(animacion_avatar)
+	}
+	if(e.keyCode==40){
+		//abajo
+		direccion_down = false
+		
+	}
+	if(!direccion_left&&!direccion_right&&!direccion_up&&!direccion_down){
+		//window.addEventListener('keydown',downTecla, false)
+		avatar_speed = 0
+		avatar_caminando = false
 		spdStopAnimation(0)
 	}
 }
 
 var movex = 1
 var movey = 1
+var avatar_moving = false
+var avatar_caminando = false
+
 function moveAvatar(back){
-	if(back==undefined||back==null){
-		back = false
-	}
-	//console.log("back: "+back)
-	
-	var new_left = 0
-	var check_collision = null
-
-	if(direccion_x=='left'){
-		if(movex==1){
-			new_left = avatar_data.left-avatar_speed
-			if(new_left<0){
-				new_left = 0
-			}
-			if(
-				new_left<(game_width/2)&&
-				piso_data.left==(0-(piso_data.width-game_width))
-			){
-				movex = 2
-			}
+	if(
+		direccion_left==true||
+		direccion_right==true||
+		direccion_up==true||
+		direccion_down==true
+	){
+		if(back==undefined||back==null){
+			back = false
 		}
-
-		if(movex==2){
-			new_left = piso_data.left+avatar_speed
-			if(new_left>0){
-				piso.style.left = '0px'
-				paredes.style.left = '0px'
-				piso_data.left = 0
-				movex = 1
-				new_left = (game_width/2)
-			}
-		}
-
+		//console.log("back: "+back)
 		
-		if(movex==1){
-			if(back){
-				avatar.style.left = new_left+'px'
-				avatar_data.left = new_left
-			}else{
-				check_collision = checkCollision(new_left,null,true,back)
-				if(!check_collision.collision){
+		var new_left = 0
+		var check_collision = null
+
+		if(direccion_left&&!direccion_right){
+			if(movex==1){
+				new_left = avatar_data.left-avatar_speed
+				if(new_left<0){
+					new_left = 0
+				}
+				if(
+					new_left<(game_width/2)&&
+					piso_data.left==(0-(piso_data.width-game_width))
+				){
+					movex = 2
+				}
+			}
+			if(movex==2){
+				new_left = piso_data.left+avatar_speed
+				if(new_left>0){
+					piso.style.left = '0px'
+					paredes.style.left = '0px'
+					piso_data.left = 0
+					movex = 1
+					new_left = (game_width/2)
+				}
+			}
+
+			if(movex==1){
+				if(back){
 					avatar.style.left = new_left+'px'
 					avatar_data.left = new_left
+				}else{
+					check_collision = checkCollision(new_left,null,true,back)
+					if(!check_collision.collision){
+						avatar.style.left = new_left+'px'
+						avatar_data.left = new_left
+					}
 				}
-			}
-		}else if(movex==2){
-			if(back){
-				piso.style.left = new_left+'px'
-				paredes.style.left = new_left+'px'
-				piso_data.left = new_left
-			}else{
-				check_collision = checkCollision(new_left,null,false,back)
-				if(!check_collision.collision){
+			}else if(movex==2){
+				if(back){
 					piso.style.left = new_left+'px'
 					paredes.style.left = new_left+'px'
 					piso_data.left = new_left
+				}else{
+					check_collision = checkCollision(new_left,null,false,back)
+					if(!check_collision.collision){
+						piso.style.left = new_left+'px'
+						paredes.style.left = new_left+'px'
+						piso_data.left = new_left
+					}
+				}
+			}	
+		}
+		else if(!direccion_left&&direccion_right){
+			if(movex==1){
+				new_left = avatar_data.left+avatar_speed
+				if(
+					new_left>(game_width/2)&&
+					piso_data.left==0
+				){
+					avatar.style.left = (game_width/2)+'px'
+					avatar_data.left = (game_width/2)
+					movex = 2
+				}
+				if(new_left>(game_width-avatar_data.width)){
+					new_left = (game_width-avatar_data.width)
 				}
 			}
-		}	
-	}else if(direccion_x=='right'){
-		if(movex==1){
-			new_left = avatar_data.left+avatar_speed
-			if(
-				new_left>(game_width/2)&&
-				piso_data.left==0
-			){
-				avatar.style.left = (game_width/2)+'px'
-				avatar_data.left = (game_width/2)
-				movex = 2
+			if(movex==2){
+				new_left = piso_data.left-avatar_speed
+				if(new_left<(0-(piso_data.width-game_width))){
+					piso.style.left = (0-(piso_data.width-game_width))+'px'
+					paredes.style.left = (0-(piso_data.width-game_width))+'px'
+					piso_data.left = (0-(piso_data.width-game_width))
+					movex = 1
+					new_left = (game_width/2)
+				}
 			}
-			if(new_left>(game_width-avatar_data.width)){
-				new_left = (game_width-avatar_data.width)
-			}
-		}
-		if(movex==2){
-			new_left = piso_data.left-avatar_speed
-			if(new_left<(0-(piso_data.width-game_width))){
-				piso.style.left = (0-(piso_data.width-game_width))+'px'
-				paredes.style.left = (0-(piso_data.width-game_width))+'px'
-				piso_data.left = (0-(piso_data.width-game_width))
-				movex = 1
-				new_left = (game_width/2)
-			}
-		}
 
-		if(movex==1){
-			if(back){
-				avatar.style.left = new_left+'px'
-				avatar_data.left = new_left	
-			}else{
-				check_collision = checkCollision(new_left,null,true,back)
-				if(!check_collision.collision){
+			if(movex==1){
+				if(back){
 					avatar.style.left = new_left+'px'
 					avatar_data.left = new_left	
-				}
-			}
-				
-		}else if(movex==2){
-			if(back){
-				piso.style.left = new_left+'px'
-				paredes.style.left = new_left+'px'
-				piso_data.left = new_left
-			}else{
-				check_collision = checkCollision(new_left,null,false,back)
-				if(!check_collision.collision){
+				}else{
+					check_collision = checkCollision(new_left,null,true,back)
+					if(!check_collision.collision){
+						avatar.style.left = new_left+'px'
+						avatar_data.left = new_left	
+					}
+				}	
+			}else if(movex==2){
+				if(back){
 					piso.style.left = new_left+'px'
 					paredes.style.left = new_left+'px'
 					piso_data.left = new_left
+				}else{
+					check_collision = checkCollision(new_left,null,false,back)
+					if(!check_collision.collision){
+						piso.style.left = new_left+'px'
+						paredes.style.left = new_left+'px'
+						piso_data.left = new_left
+					}
 				}
-			}
-		}	
-	}
-
-	var new_top = 0
-	
-	if(direccion_y=='up'){
-		if(movey==1){
-			new_top = avatar_data.top-avatar_speed
-			if(new_top<0){
-				new_top = 0
-			}
-			if(
-				new_top<(game_height/2)&&
-				piso_data.top==(0-(piso_data.height-game_height))
-			){
-				movey = 2
-			}
+			}	
 		}
 
-		if(movey==2){
-			new_top = piso_data.top+avatar_speed
-			if(new_top>0){
-				piso.style.top = '0px'
-				paredes.style.top = '0px'
-				piso_data.top = 0
-				movey = 1
-				new_top = (game_height/2)
-			}
-		}
+		var new_top = 0
 		
-		if(movey==1){
-			if(back){
-				avatar.style.top = new_top+'px'
-				avatar_data.top = new_top
-			}else{
-				check_collision = checkCollision(null,new_top,true,back)
-				if(!check_collision.collision){
-					avatar.style.top = new_top+'px'
-					avatar_data.top = new_top
+		if(direccion_up&&!direccion_down){
+			if(movey==1){
+				new_top = avatar_data.top-avatar_speed
+				if(new_top<0){
+					new_top = 0
+				}
+				if(
+					new_top<(game_height/2)&&
+					piso_data.top==(0-(piso_data.height-game_height))
+				){
+					movey = 2
 				}
 			}
-				
-		}else if(movey==2){
-			check_collision = checkCollision(null,new_top,false,back)
-			if(!check_collision.collision){
-				piso.style.top = new_top+'px'
-				paredes.style.top = new_top+'px'
-				piso_data.top = new_top
-			}
-		}
-	}else if(direccion_y=='down'){
-		if(movey==1){
-			new_top = avatar_data.top+avatar_speed
-			if(
-				new_top>(game_height/2)&&
-				piso_data.top==0
-			){
-				avatar.style.top = (game_height/2)+'px'
-				avatar_data.top = (game_height/2)
-				movey = 2
-			}
-			if(new_top>(game_height-avatar_data.height)){
-				new_top = (game_height-avatar_data.height)
-			}
-		}
-		if(movey==2){
-			new_top = piso_data.top-avatar_speed
-			if(new_top<(0-(piso_data.height-game_height))){
-				piso.style.top = (0-(piso_data.height-game_height))+'px'
-				paredes.style.top = (0-(piso_data.height-game_height))+'px'
-				piso_data.top = (0-(piso_data.height-game_height))
-				movey = 1
-				new_top = (game_height/2)
-			}
-		}
 
-		if(movey==1){
-			if(back){
-				avatar.style.top = new_top+'px'
-				avatar_data.top = new_top
-			}else{
-				check_collision = checkCollision(null,new_top,true,back)
-				if(!check_collision.collision){
-					avatar.style.top = new_top+'px'
-					avatar_data.top = new_top
+			if(movey==2){
+				new_top = piso_data.top+avatar_speed
+				if(new_top>0){
+					piso.style.top = '0px'
+					paredes.style.top = '0px'
+					piso_data.top = 0
+					movey = 1
+					new_top = (game_height/2)
 				}
 			}
-				
-		}else if(movey==2){
-			if(back){
-				piso.style.top = new_top+'px'
-				paredes.style.top = new_top+'px'
-				piso_data.top = new_top
-			}else{
+			
+			if(movey==1){
+				if(back){
+					avatar.style.top = new_top+'px'
+					avatar_data.top = new_top
+				}else{
+					check_collision = checkCollision(null,new_top,true,back)
+					if(!check_collision.collision){
+						avatar.style.top = new_top+'px'
+						avatar_data.top = new_top
+					}
+				}
+					
+			}else if(movey==2){
 				check_collision = checkCollision(null,new_top,false,back)
 				if(!check_collision.collision){
 					piso.style.top = new_top+'px'
@@ -751,26 +744,79 @@ function moveAvatar(back){
 				}
 			}
 		}
-	}
-	
-	avatar_speed+=avatar_aceleration
-	if(avatar_speed>top_speed){
-		avatar_speed = top_speed
-	}
-
-	if(!back){
-		if(check_collision.stop){
-			removeEvents()
-			if(check_collision.type=='empleado'){
-				setEscenario(check_collision.params[0])
-			}else if(check_collision.type=='puerta'||check_collision.type=='escaleras'){
-				setPelicula(check_collision.params)	
-			}else if(check_collision.type=='llave'){
-				ganarLLave(check_collision.params)
-			}else if(check_collision.type=='premio'){
-				ganarPremio(check_collision.params)
+		else if(!direccion_up&&direccion_down){
+			if(movey==1){
+				new_top = avatar_data.top+avatar_speed
+				if(
+					new_top>(game_height/2)&&
+					piso_data.top==0
+				){
+					avatar.style.top = (game_height/2)+'px'
+					avatar_data.top = (game_height/2)
+					movey = 2
+				}
+				if(new_top>(game_height-avatar_data.height)){
+					new_top = (game_height-avatar_data.height)
+				}
 			}
-			
+			if(movey==2){
+				new_top = piso_data.top-avatar_speed
+				if(new_top<(0-(piso_data.height-game_height))){
+					piso.style.top = (0-(piso_data.height-game_height))+'px'
+					paredes.style.top = (0-(piso_data.height-game_height))+'px'
+					piso_data.top = (0-(piso_data.height-game_height))
+					movey = 1
+					new_top = (game_height/2)
+				}
+			}
+
+			if(movey==1){
+				if(back){
+					avatar.style.top = new_top+'px'
+					avatar_data.top = new_top
+				}else{
+					check_collision = checkCollision(null,new_top,true,back)
+					if(!check_collision.collision){
+						avatar.style.top = new_top+'px'
+						avatar_data.top = new_top
+					}
+				}
+					
+			}else if(movey==2){
+				if(back){
+					piso.style.top = new_top+'px'
+					paredes.style.top = new_top+'px'
+					piso_data.top = new_top
+				}else{
+					check_collision = checkCollision(null,new_top,false,back)
+					if(!check_collision.collision){
+						piso.style.top = new_top+'px'
+						paredes.style.top = new_top+'px'
+						piso_data.top = new_top
+					}
+				}
+			}
+		}
+		
+		avatar_speed+=avatar_aceleration
+		if(avatar_speed>top_speed){
+			avatar_speed = top_speed
+		}
+
+		if(!back){
+			if(check_collision.stop){
+				removeEvents()
+				if(check_collision.type=='empleado'){
+					setEscenario(check_collision.params[0])
+				}else if(check_collision.type=='puerta'||check_collision.type=='escaleras'){
+					setPelicula(check_collision.params)	
+				}else if(check_collision.type=='llave'){
+					ganarLLave(check_collision.params)
+				}else if(check_collision.type=='premio'){
+					ganarPremio(check_collision.params)
+				}
+				
+			}
 		}
 	}
 }
@@ -780,8 +826,10 @@ function moveAvatar2(){
 		moveAvatar(true)
 		//console.log("move avatar")
 	}
-	direccion_x = null
-	direccion_y = null
+	direccion_left = false
+	direccion_right = false
+	direccion_up = false
+	direccion_down = false
 }
 
 function checkCollision(x,y,a,b){
@@ -1082,35 +1130,45 @@ function setPelicula(params){
 		//animacion de entrada o salida de puerta, meter o sacar al personaje
 		//mirar si lo metemos al norte, sur este o oeste con tatuajes en el pecho
 		if(param1=='horizontal'){
-			direccion_x = null
+			direccion_left = false
+			direccion_right = false
 			//mirar si sube o baja
 			if(param2=='norte'){
 				if(param3=='entra'){
-					direccion_y = 'up'
+					direccion_up = true
+					direccion_down = false
 				}else if(param3=='sale'){
-					direccion_y = 'down'
+					direccion_up = false
+					direccion_down = true
 				}
 			}else if(param2=='sur'){
 				if(param3=='entra'){
-					direccion_y = 'down'
+					direccion_up = false
+					direccion_down = true
 				}else if(param3=='sale'){
-					direccion_y = 'up'
+					direccion_up = true
+					direccion_down = false
 				}
 			}
 		}else if(param1=='vertical'){
-			direccion_y = null
+			direccion_up = false
+			direccion_down = false
 			//mirar si avanza o retrocede
 			if(param2=='oeste'){
 				if(param3=='entra'){
-					direccion_x = 'left'
+					direccion_left = true
+					direccion_right = false
 				}else if(param3=='sale'){
-					direccion_x = 'right'
+					direccion_left = false
+					direccion_right = true
 				}
 			}else if(param2=='este'){
 				if(param3=='entra'){
-					direccion_x = 'right'
+					direccion_left = false
+					direccion_right = true
 				}else if(param3=='sale'){
-					direccion_x = 'left'
+					direccion_left = true
+					direccion_right = false
 				}
 			}
 		}
