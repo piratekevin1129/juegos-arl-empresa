@@ -821,6 +821,7 @@ header{
     top: 0px;
 }
 #estadisticas > div{
+    display: flex;
     
 }
 
