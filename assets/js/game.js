@@ -1719,6 +1719,8 @@ function ganarPremio(params){
 	})
 }
 
+///////////ESTADISTICAS////////////////
+
 function continuarGame(){
 	//poner eventos, etc
 	//poner eventos otra vez
