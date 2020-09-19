@@ -323,7 +323,7 @@ var empleados = [
 	{
 		id:2,
 		piso:1,
-		llave:13,
+		llave:7,
 		posx:785,
 		posy:261,
 		rotation:43,
@@ -337,7 +337,7 @@ var empleados = [
 	{
 		id:3,
 		piso:2,
-		llave:7,
+		llave:13,
 		posx:330,
 		posy:290,
 		rotation:0,

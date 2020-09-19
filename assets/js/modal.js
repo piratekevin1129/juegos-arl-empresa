@@ -99,7 +99,12 @@ var showing_mensaje = false
 function setMensaje(data){
 	if(!showing_mensaje){
 		getE('mensaje').innerHTML = data.content
-		getE('mensaje').className = 'mensaje-on'
+		if(data.posx!=null&&data.posx!=undefined){
+			console.log("left")
+			getE('mensaje').className = 'mensaje-on mensaje-left'
+		}else{
+			getE('mensaje').className = 'mensaje-on'
+		}	
 
 		clearTimeout(animacion_mensaje)
 		showing_mensaje = true

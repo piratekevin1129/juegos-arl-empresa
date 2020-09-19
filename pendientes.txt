@@ -2,3 +2,5 @@ agregar fondo de nubes en las preguntas 5 y 6
 
 poner a cargar lados de la carta y splits de la ruleta, y fondos de los iframes
 poner disponibles despues de preguntarle a otro
+
+prevent clicks despues de dar la respuesta

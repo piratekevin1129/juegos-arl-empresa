@@ -46,7 +46,7 @@ game_scene.style.visibility = 'hidden'
 var game_rect = game.getBoundingClientRect()
 var game_width = game_rect.width
 var game_height = game_rect.height
-console.log(game_width,game_height)
+//console.log(game_width,game_height)
 
 function setInstrucciones(start){
 	var html = ''
@@ -187,7 +187,6 @@ function setFloor(floor,start){
 		//area del carro
 		var carro_area = document.createElement('div')
 		carro_area.className = 'icono-auto-area'
-
 		carro_area.setAttribute('id','carro')
 		carro_area.setAttribute('type','carro')
 		paredes.appendChild(carro_area)
@@ -412,8 +411,8 @@ var avatar_data = {
 	height:28,
 	area:8,
 	subarea:5,
-	llaves:[],
-	premios:[]
+	llaves:[15],
+	premios:[2,4,3,1]
 }
 var piso_data = {
 	left:0,
@@ -444,6 +443,13 @@ function gotKey(l){
 		}
 	}
 	return got_key
+}
+function gotTrophies(){
+	if(avatar_data.premios.includes(1)&&avatar_data.premios.includes(2)&&avatar_data.premios.includes(3)&&avatar_data.premios.includes(4)){
+		return true
+	}else{
+		return false
+	}
 }
 
 function addEvents(){
@@ -814,6 +820,8 @@ function moveAvatar(back){
 					ganarLLave(check_collision.params)
 				}else if(check_collision.type=='premio'){
 					ganarPremio(check_collision.params)
+				}else if(check_collision.type=='carro'){
+					setPelicula(check_collision.params)
 				}
 				
 			}
@@ -1056,6 +1064,20 @@ function checkCollision(x,y,a,b){
 			var premio_data = getOficinaData(premio_id)
 			stop = true
 			params = [premio_data]
+		}else if(type=='carro'){
+			console.log(avatar_data.premios)
+			if(
+				gotKey(15)&&
+				gotTrophies()
+			){
+				stop = true
+				params = [4]
+			}else{
+				stop = null
+				params = []
+				type = ''
+				setMensaje({content:'<p>Necesito los 4 premios y las llaves del auto para subirme al carro</p>',delay:3000,posx:true})
+			}
 		}
 	}
 
@@ -1066,7 +1088,9 @@ var movies = [
 	'abrir-puerta',
 	'cerrar-puerta',
 	'subir-escaleras',
-	'bajar-escaleras'
+	'bajar-escaleras',
+	'prender-carro',
+	'final'
 ]
 
 var animacion_pelicula = null
@@ -1684,6 +1708,16 @@ function setVictoriaItem(item,data,callBack,callBack2){
 					getE('contenedor-item').style.display = 'none'
 					if(callBack2!=null){
 						callBack2()
+
+						//si es premio, ponerlo en la tabal de estadisticas
+						if(item=='premio'){
+							showStadistics(data.trophy,false)
+						}else{
+							//si es llave mirar si es la llave del carro
+							if(data.key==15){
+								showStadistics(null,true)
+							}
+						}
 					}
 				},500)
 			},3000)
@@ -1720,6 +1754,45 @@ function ganarPremio(params){
 }
 
 ///////////ESTADISTICAS////////////////
+function toggleEstadisticas(){
+	var estado_e = getE('estadisticas').className
+	if(estado_e.indexOf('-on')!=-1){
+		//cerrar
+		getE('estadisticas').className = 'estadisticas-off'
+	}else{
+		//abrir
+		getE('estadisticas').className = 'estadisticas-on'
+	}
+}
+var animacion_stadistics = null
+function showStadistics(d,ll){
+	getE('estadisticas').className = 'estadisticas-on'
+	animacion_stadistics = setTimeout(function(){
+		clearTimeout(animacion_stadistics)
+		animacion_stadistics = null
+
+		var div_trofeo = null
+		if(ll){
+			div_trofeo = getE('trophy5')
+		}else{
+			div_trofeo = getE('trophy'+d)
+		}
+		div_trofeo.className = 'trophy-on'
+
+		if(
+			gotKey(15)&&
+			gotTrophies()
+		){
+			setMensaje({content:'<p>Es momento de ir al auto y terminar el juego.</p>',delay:4000})
+		}
+		animacion_stadistics = setTimeout(function(){
+			clearTimeout(animacion_stadistics)
+			animacion_stadistics = null
+
+			getE('estadisticas').className = 'estadisticas-off'
+		},1000)
+	},500)
+}
 
 function continuarGame(){
 	//poner eventos, etc
