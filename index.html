@@ -89,11 +89,11 @@
                             <div class="burbuja-texto-big burbuja-texto-big-off" id="burbuja-texto-pregunta2"></div>
                             <div id="opcion-a">
                                 <div id="opcion-a-pregunta" class="spd_sprite" width="188" height="255" frames="11" src="assets/images/pregunta2/opcion_a_sprite.png"></div>
-                                <div id="opcion_a_btn" onclick="clickOpcion(1)" onmouseover="overOpciona()" onmouseout="outOpciona()"></div>
+                                <button id="opcion_a_btn" onclick="clickOpcion(1,this)" onmouseover="overOpciona()" onmouseout="outOpciona()"></button>
                             </div>
                             <div id="opcion-b">
                                 <div id="opcion-b-pregunta" class="spd_sprite" width="290" height="260" frames="11" src="assets/images/pregunta2/opcion_b_sprite.png"></div>
-                                <div id="opcion_b_btn" onclick="clickOpcion(2)" onmouseover="overOpcionb()" onmouseout="outOpcionb()"></div>
+                                <button id="opcion_b_btn" onclick="clickOpcion(2,this)" onmouseover="overOpcionb()" onmouseout="outOpcionb()"></button>
                             </div>
                         </div>
 
@@ -123,8 +123,17 @@
                         </div>
 
                         <div id="contenedor-preguntas-5" class="contenedor-preguntas-hidden">
-                            <div class="contenedor-preguntas-video">
-                                <video id="contenedor-preguntas-video-5"></video>
+                            <div id="contenedor-preguntas-video">
+                                <div class="cielo"></div>
+                                <div class="nubes"></div>
+                                <div class="contenedor-preguntas-fondo"></div>
+                                <div class="personajes-corriendo-patio">
+                                    <div id="personaje-corriendo-1" class="spd_sprite" width="88" height="193" frames="20" src="assets/images/pregunta5/personaje_corriendo_1_sprite.png"></div>
+                                    <div id="personaje-corriendo-2" class="spd_sprite" width="105" height="240" frames="24" src="assets/images/pregunta5/personaje_corriendo_2_sprite.png"></div>
+                                    <div id="personaje-corriendo-3" class="spd_sprite" width="114" height="245" frames="24" src="assets/images/pregunta5/personaje_corriendo_3_sprite.png"></div>
+                                    <div id="personaje-corriendo-4" class="spd_sprite" width="147" height="172" frames="16" src="assets/images/pregunta5/personaje_corriendo_4_sprite.png"></div>
+                                </div>
+                                <!--<video id="contenedor-preguntas-video-5"></video>-->
                             </div>
                             <div id="alarma-pregunta-5">
                                 <div id="alarma" class="spd_sprite" width="130" height="90" frames="11" src="assets/images/pregunta5/sirena_sprite.png"></div>
@@ -134,6 +143,8 @@
                         </div>
 
                         <div id="contenedor-preguntas-6" class="contenedor-preguntas-hidden">
+                            <div class="cielo"></div>
+                            <div class="nubes"></div>
                             <div class="contenedor-preguntas-fondo"></div>
                             <div class="burbuja-texto-big burbuja-texto-big-off" id="burbuja-texto-pregunta6"></div>
                         </div>
@@ -230,33 +241,61 @@ window.onload = function(){
     underground_mp3 = data
     underground_mp3.addEventListener('ended',function(){underground_mp3.play()},false)
 
-	    //cargar sprites del avatar, la llave y el premio
-	    spdLoadSprite({idname:'avatar-clip',autoplay:'off',callBack:function(){	
-		spdLoadSprite({idname:'llave-animada',autoplay:'off',callBack:function(){
-		spdLoadSprite({idname:'premio-animado',autoplay:'off',callBack:function(){
 
-            //sprites de preguntas 3 y 5
-            spdLoadSprite({idname:'opcion-a-pregunta',autoplay:'off',callBack:function(){
-            spdLoadSprite({idname:'opcion-b-pregunta',autoplay:'off',callBack:function(){
-            spdLoadSprite({idname:'alarma',autoplay:'off',callBack:function(){
+        //cargar imagenes (lados de la carta y de la ruleta)
+        loadImage({url:'assets/images/carta-1.png',callBack:function(){
+        loadImage({url:'assets/images/carta-2.png',callBack:function(){
+        loadImage({url:'assets/images/ruleta-split-2.png',callBack:function(){
+        loadImage({url:'assets/images/ruleta-split-3.png',callBack:function(){
+        loadImage({url:'assets/images/ruleta-split-4.png',callBack:function(){
+            
+    	    //cargar sprites del avatar, la llave y el premio
+    	    spdLoadSprite({idname:'avatar-clip',autoplay:'off',callBack:function(){	
+    		spdLoadSprite({idname:'llave-animada',autoplay:'off',callBack:function(){
+    		spdLoadSprite({idname:'premio-animado',autoplay:'off',callBack:function(){
 
-    			spdCreateAnimation({id:0,sprite:'avatar-clip'})
-    			spdCreateAnimation({id:1,sprite:'llave-animada'})
-    			spdCreateAnimation({id:2,sprite:'premio-animado'})
+                //sprites de preguntas 3 y 5
+                spdLoadSprite({idname:'opcion-a-pregunta',autoplay:'off',callBack:function(){
+                spdLoadSprite({idname:'opcion-b-pregunta',autoplay:'off',callBack:function(){
+                spdLoadSprite({idname:'alarma',autoplay:'off',callBack:function(){
+                spdLoadSprite({idname:'personaje-corriendo-1',autoplay:'off',callBack:function(){
+                spdLoadSprite({idname:'personaje-corriendo-2',autoplay:'off',callBack:function(){
+                spdLoadSprite({idname:'personaje-corriendo-3',autoplay:'off',callBack:function(){
+                spdLoadSprite({idname:'personaje-corriendo-4',autoplay:'off',callBack:function(){
 
-                spdCreateAnimation({id:3,sprite:'opcion-a-pregunta'})
-                spdCreateAnimation({id:4,sprite:'opcion-b-pregunta'})
-                spdCreateAnimation({id:5,sprite:'alarma'})
 
-    			prepareWindow()
-    	        setGame()
+        			spdCreateAnimation({id:0,sprite:'avatar-clip'})
+        			spdCreateAnimation({id:1,sprite:'llave-animada'})
+        			spdCreateAnimation({id:2,sprite:'premio-animado'})
 
-            }})
-            }})
-            }})
-		}})
-		}})
-		}})
+                    spdCreateAnimation({id:3,sprite:'opcion-a-pregunta'})
+                    spdCreateAnimation({id:4,sprite:'opcion-b-pregunta'})
+                    spdCreateAnimation({id:5,sprite:'alarma'})
+
+                    spdCreateAnimation({id:6,sprite:'personaje-corriendo-1'})
+                    spdCreateAnimation({id:7,sprite:'personaje-corriendo-2'})
+                    spdCreateAnimation({id:8,sprite:'personaje-corriendo-3'})
+                    spdCreateAnimation({id:9,sprite:'personaje-corriendo-4'})
+
+        			prepareWindow()
+        	        setGame()
+
+                }})
+                }})
+                }})
+                }})
+                }})
+                }})
+                }})
+    		}})
+    		}})
+    		}})
+
+        }})
+        }})
+        }})
+        }})
+        }})
 
     }})
     }})

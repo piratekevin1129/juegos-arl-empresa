@@ -128,7 +128,7 @@ function empezarJuego(){
 			
 		}
 		addEvents()
-		//setEscenario(empleados[3])
+		setEscenario(empleados[4])
 	})
 }
 
@@ -1225,7 +1225,8 @@ function setEscenario(params){
 		animacion_escenario = null
 
 		if(actual_escenario.id==5){
-			//quitarlo cuando cargue el video
+			//quitarlo cuando cargue el video, pero ya no hay video
+			getE('contenedor-preguntas').className = 'contenedor-preguntas-off'
 		}else if(actual_escenario.id==4){
 			///cargar recursos del escenario 4
             setEppStands(function(){
@@ -1268,7 +1269,9 @@ function setEscenario(params){
 		}else if(actual_escenario.id==4){
 			
 		}else if(actual_escenario.id==5){
-			var video = getE('contenedor-preguntas-video-5');
+			//ya no se carga un video
+			/*var video = getE('contenedor-preguntas-video-5');
+			video.className = 'contenedor-preguntas-video-on'
 			var source = document.createElement('source');
 
 			source.setAttribute('src','assets/images/pregunta5/fondo.mp4');
@@ -1282,15 +1285,20 @@ function setEscenario(params){
 				getE('contenedor-preguntas').className = 'contenedor-preguntas-off'
 				animacion_escenario = setTimeout(function(){
 					clearTimeout(animacion_escenario)
-					animacion_escenario = null
+					animacion_escenario = null*/
 					
 					spdPlayAnimation({frame:1,stop:0,loop:true},5)
+					spdPlayAnimation({frame:1,stop:0,loop:true},6)
+					spdPlayAnimation({frame:1,stop:0,loop:true},7)
+					spdPlayAnimation({frame:1,stop:0,loop:true},8)
+					spdPlayAnimation({frame:1,stop:0,loop:true},9)
+					
 					setBurbujaText(params.bienvenida,function(){
 						getE('alarma_btn').style.display = 'block'
 						getE('alarma_btn').setAttribute('onclick','clickSirena()')
 					})
-				},500)
-			}
+				//},500)
+			//}
 		}else if(actual_escenario.id==6){
 			setBurbujaText(params.bienvenida,function(){
 				setRuleta(split,function(p){
@@ -1496,6 +1504,7 @@ function setPregunta(question){
 		animacion_carta = setTimeout(function(){
 			clearTimeout(animacion_carta)
 			animacion_carta = null
+			respuesta_activa = true
 
 			getE('carta').className = 'carta-front'
 			getE('carta').style.transform = 'rotateY(0deg)'
@@ -1505,33 +1514,37 @@ function setPregunta(question){
 	},500)
 }
 
+var respuesta_activa = false
 function clickRespuesta(r){
-	getE('carta').style.transform = 'rotateY(90deg)'
-	getE('carta').style.webkitTransform = 'rotateY(90deg)'
-	getE('carta').style.oTransform = 'rotateY(90deg)'
+	if(respuesta_activa){
+		respuesta_activa = false
+		getE('carta').style.transform = 'rotateY(90deg)'
+		getE('carta').style.webkitTransform = 'rotateY(90deg)'
+		getE('carta').style.oTransform = 'rotateY(90deg)'
 
-	animacion_carta = setTimeout(function(){
-		clearTimeout(animacion_carta)
-		animacion_carta = null
-
-		getE('carta').className = 'carta-back'
-		getE('carta').style.transform = 'rotateY(0deg)'
-		getE('carta').style.webkitTransform = 'rotateY(0deg)'
-		getE('carta').style.oTransform = 'rotateY(0deg)'
-		
-		getE('carta-wrap').className = 'carta-off'
-		//esperar que se vaya la carta
 		animacion_carta = setTimeout(function(){
 			clearTimeout(animacion_carta)
 			animacion_carta = null
 
-			getE('contenedor-carta').className = 'contenedor-carta-off'
-			//quitar contenedor-preguntas
-			finalRespuesta(r,function(){
-		
-			})
-		},500)
-	},250)
+			getE('carta').className = 'carta-back'
+			getE('carta').style.transform = 'rotateY(0deg)'
+			getE('carta').style.webkitTransform = 'rotateY(0deg)'
+			getE('carta').style.oTransform = 'rotateY(0deg)'
+			
+			getE('carta-wrap').className = 'carta-off'
+			//esperar que se vaya la carta
+			animacion_carta = setTimeout(function(){
+				clearTimeout(animacion_carta)
+				animacion_carta = null
+
+				getE('contenedor-carta').className = 'contenedor-carta-off'
+				//quitar contenedor-preguntas
+				finalRespuesta(r,function(){
+			
+				})
+			},500)
+		},250)
+	}		
 }
 
 function finalRespuesta(r,callBack){
@@ -1609,7 +1622,9 @@ function unlockEmpleados(){
 	}
 }
 
-function clickOpcion(r){
+function clickOpcion(r,butt){
+	getE('opcion_a_btn').disabled = true
+	getE('opcion_b_btn').disabled = true
 	finalRespuesta(r,function(){
 
 	})
@@ -1641,6 +1656,9 @@ function clickSirena(){
 	video.play()
 	video.onended = function(){
 		video.onended = null
+		//quitar video y poner fondo
+		video.className = 'contenedor-preguntas-video-off'
+
 		unsetBurbujaText(function(){
 			//variable de data quemada porque es algo personalizado
 			setBurbujaText(actual_escenario.bienvenida2,function(){
