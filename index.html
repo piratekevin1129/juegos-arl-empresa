@@ -70,6 +70,8 @@
                         <div></div>
                     </div>
                 </div>
+
+                <button id="music-btn" class="music-on" onclick="clickAudio(this)"></button>
         		
                 <div id="contenedor-peliculas" style="display: none">
                     <video id="pelicula"></video>
@@ -128,10 +130,12 @@
                                 <div class="nubes"></div>
                                 <div class="contenedor-preguntas-fondo"></div>
                                 <div class="personajes-corriendo-patio">
+                                    
                                     <div id="personaje-corriendo-1" class="spd_sprite" width="88" height="193" frames="20" src="assets/images/pregunta5/personaje_corriendo_1_sprite.png"></div>
+                                    <div id="personaje-corriendo-4" class="spd_sprite" width="147" height="172" frames="16" src="assets/images/pregunta5/personaje_corriendo_4_sprite.png"></div>
                                     <div id="personaje-corriendo-2" class="spd_sprite" width="105" height="240" frames="24" src="assets/images/pregunta5/personaje_corriendo_2_sprite.png"></div>
                                     <div id="personaje-corriendo-3" class="spd_sprite" width="114" height="245" frames="24" src="assets/images/pregunta5/personaje_corriendo_3_sprite.png"></div>
-                                    <div id="personaje-corriendo-4" class="spd_sprite" width="147" height="172" frames="16" src="assets/images/pregunta5/personaje_corriendo_4_sprite.png"></div>
+                                    
                                 </div>
                                 <!--<video id="contenedor-preguntas-video-5"></video>-->
                             </div>
@@ -192,10 +196,9 @@
                 </div>
         	</div>
         	<div id="home-scene">
-        		<div class="fondo">
-        			<div class="cielo"></div>
-        			<div class="nubes"></div>
-        		</div>
+                <div class="cielo"></div>
+                <div class="nubes"></div>
+        		<div class="fondo"></div>
                 <div id="personaje-home" class="personaje-1"><div class="personaje-ojos"></div></div>
             </div>
         </div>
@@ -205,6 +208,23 @@
                 <button id="modal-close-btn"></button>
                 <h2 id="modal-title">Instrucciones</h2>
                 <div id="modal-content">
+                    <div id="instrucciones-wrapper">
+                        <div id="instrucciones-wrap">
+                            <div class="instrucciones-wrap-page" id="instrucciones-wrap-1">
+                                <p class="modal-content-p">Mueve al personaje por toda la empresa con las teclas de dirección</p>
+                                <div class="instrucciones-graph-1">
+                                    <div class="instrucciones-graph-1-piso"></div>
+                                    <div id="instrucciones-graph-1-avatar" class="spd_sprite" width="30" height="28" frames="13" src="assets/images/avatar_sprite.png"></div>
+                                </div>
+                                <div class="instrucciones-grap-2">
+                                    <div id="instrucciones-tecla-1" class="instrucciones-tecla"></div>
+                                    <div id="instrucciones-tecla-2" class="instrucciones-tecla"></div>
+                                    <div id="instrucciones-tecla-3" class="instrucciones-tecla"></div>
+                                    <div id="instrucciones-tecla-4" class="instrucciones-tecla"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <button id="modal-button">jugar</button>
             </div>
@@ -215,7 +235,7 @@
         </div>
         <div id="cargador" class="cargador-on">
             <div class="cargador-img"></div>
-            <div class="cargador-txt">Cargando...</div>
+            <div id="cargador-txt">Cargando...</div>
         </div>
     </div>
 
@@ -232,37 +252,95 @@
 
 var underground_mp3 = null
 var boton_mp3 = null
+var ruleta_cae_mp3 = null
+var ruleta_rodando_mp3 = null
+var ruleta_fin_mp3 = null
+var puerta_con_llave_mp3 = null
+var respuesta_correcta_mp3 = null
+var respuesta_incorrecta_mp3 = null
+var voltear_carta_mp3 = null
+var estadisticas_show_mp3 = null
+var ganar_premio_mp3 = null
+var sirena_mp3 = null
 
 var animation_start = null
 window.onload = function(){
 	loadAudio({src:'assets/media/boton.mp3',callBack:function(data){
-	boton_mp3 = data
+    boton_mp3 = data
+    setCargadorText(true)
+    loadAudio({src:'assets/media/ruleta_rodando.mp3',callBack:function(data){
+    ruleta_rodando_mp3 = data
+    setCargadorText(true)
+    loadAudio({src:'assets/media/ruleta_cae.mp3',callBack:function(data){
+    ruleta_cae_mp3 = data
+    setCargadorText(true)
+    loadAudio({src:'assets/media/ruleta_fin.mp3',callBack:function(data){
+    ruleta_fin_mp3 = data
+    setCargadorText(true)
+    loadAudio({src:'assets/media/puerta_con_llave.mp3',callBack:function(data){
+    puerta_con_llave_mp3 = data
+    setCargadorText(true)
+    loadAudio({src:'assets/media/respuesta_correcta.mp3',callBack:function(data){
+    respuesta_correcta_mp3 = data
+    setCargadorText(true)
+    loadAudio({src:'assets/media/respuesta_incorrecta.mp3',callBack:function(data){
+    respuesta_incorrecta_mp3 = data
+    setCargadorText(true)
+    loadAudio({src:'assets/media/voltear_carta.mp3',callBack:function(data){
+    voltear_carta_mp3 = data
+    setCargadorText(true)
+    loadAudio({src:'assets/media/estadisticas_show.mp3',callBack:function(data){
+    estadisticas_show_mp3 = data
+    setCargadorText(true)
+    loadAudio({src:'assets/media/ganar_premio.mp3',callBack:function(data){
+    ganar_premio_mp3 = data
+    setCargadorText(true)
+    loadAudio({src:'assets/media/sirena.mp3',callBack:function(data){
+    sirena_mp3 = data
+    setCargadorText(true)
+    
     loadAudio({src:'assets/media/underground.mp3',callBack:function(data){
     underground_mp3 = data
+    setCargadorText(true)
     underground_mp3.addEventListener('ended',function(){underground_mp3.play()},false)
-
 
         //cargar imagenes (lados de la carta y de la ruleta)
         loadImage({url:'assets/images/carta-1.png',callBack:function(){
+        setCargadorText(true)
         loadImage({url:'assets/images/carta-2.png',callBack:function(){
+        setCargadorText(true)
         loadImage({url:'assets/images/ruleta-split-2.png',callBack:function(){
+        setCargadorText(true)
         loadImage({url:'assets/images/ruleta-split-3.png',callBack:function(){
+        setCargadorText(true)
         loadImage({url:'assets/images/ruleta-split-4.png',callBack:function(){
-            
+        setCargadorText(true)
+
     	    //cargar sprites del avatar, la llave y el premio
     	    spdLoadSprite({idname:'avatar-clip',autoplay:'off',callBack:function(){	
+            spdLoadSprite({idname:'instrucciones-graph-1-avatar',autoplay:'off',callBack:function(){ 
+
+            setCargadorText(true)
     		spdLoadSprite({idname:'llave-animada',autoplay:'off',callBack:function(){
+            setCargadorText(true)
     		spdLoadSprite({idname:'premio-animado',autoplay:'off',callBack:function(){
+            setCargadorText(true)
 
                 //sprites de preguntas 3 y 5
                 spdLoadSprite({idname:'opcion-a-pregunta',autoplay:'off',callBack:function(){
+                setCargadorText(true)
                 spdLoadSprite({idname:'opcion-b-pregunta',autoplay:'off',callBack:function(){
+                setCargadorText(true)
                 spdLoadSprite({idname:'alarma',autoplay:'off',callBack:function(){
+                setCargadorText(true)
                 spdLoadSprite({idname:'personaje-corriendo-1',autoplay:'off',callBack:function(){
+                setCargadorText(true)
                 spdLoadSprite({idname:'personaje-corriendo-2',autoplay:'off',callBack:function(){
+                setCargadorText(true)
                 spdLoadSprite({idname:'personaje-corriendo-3',autoplay:'off',callBack:function(){
+                setCargadorText(true)
                 spdLoadSprite({idname:'personaje-corriendo-4',autoplay:'off',callBack:function(){
-
+                setCargadorText(null,'100%')
 
         			spdCreateAnimation({id:0,sprite:'avatar-clip'})
         			spdCreateAnimation({id:1,sprite:'llave-animada'})
@@ -277,6 +355,8 @@ window.onload = function(){
                     spdCreateAnimation({id:8,sprite:'personaje-corriendo-3'})
                     spdCreateAnimation({id:9,sprite:'personaje-corriendo-4'})
 
+                    spdCreateAnimation({id:10,sprite:'instrucciones-graph-1-avatar'})
+
         			prepareWindow()
         	        setGame()
 
@@ -290,6 +370,7 @@ window.onload = function(){
     		}})
     		}})
     		}})
+            }})
 
         }})
         }})
@@ -299,6 +380,38 @@ window.onload = function(){
 
     }})
     }})
+    }})
+    }})
+    }})
+    }})
+    }})
+    }})
+    }})
+    }})
+    }})
+    }})
+}
+
+function clickAudio(btn){
+	if(btn.className=='music-on'){
+		underground_mp3.volume = 0
+		btn.className = 'music-off'
+	}else{
+		underground_mp3.volume = 1
+		btn.className = 'music-on'
+	}
+}
+var loader_cont = Math.round((100/27))
+var loader_counter = 1
+function setCargadorText(load,txt){
+    var t = ''
+    if(load!=null&&load!=undefined){
+        t = (loader_counter*loader_cont)+'%'
+        loader_counter++
+    }else{
+        t = txt
+    }
+    getE('cargador-txt').innerHTML = String(t)
 }
     
 </script>

@@ -181,16 +181,16 @@
     width: 188px;
     height: 255px;
     box-sizing: border-box;
-    top: 34%;
-    left: 4.4%;
+    top: 33.4%;
+    left: 4.3%;
 }
 #opcion-b{
     position: absolute;
     width: 290px;
     height: 260px;
     box-sizing: border-box;
-    top: 35.7%;
-    left: 54%;
+    top: 34.6%;
+    left: 53%;
 }
 #opcion_a_btn,#opcion_b_btn{
     position: absolute;
@@ -469,25 +469,48 @@
     box-sizing: border-box;
     padding: 0px;
     margin: 0px;
+    overflow: hidden;
 }
+
 #personaje-corriendo-1{
     top: 50px;
     left: -88px;
 }
 #personaje-corriendo-2{
     top: 0px;
-    left: 0px;
+    left: -105px;
 }
 #personaje-corriendo-3{
     top: 0px;
-    left: 0px;
+    left: -114px;
 }
 #personaje-corriendo-4{
     top: 50px;
-    left: 0px;
+    left: -147px;
 }
 .personaje-corriendo-left-1{
-    left: 100%;
+    left: 100% !important;
+    top: 50px !important;
+    transition: left 4s linear, top 4s linear;
+    -webkit-transition: left 4s linear, top 4s linear;
+}
+.personaje-corriendo-left-2{
+    left: 100% !important;
+    top: 0px !important;
+    transition: left 3.5s linear, top 3.5s linear;
+    -webkit-transition: left 3.5s linear, top 3.5s linear;
+}
+.personaje-corriendo-left-3{
+    left: 100% !important;
+    top: 0px !important;
+    transition: left 3s linear, top 3s linear;
+    -webkit-transition: left 3s linear, top 3s linear;
+}
+.personaje-corriendo-left-4{
+    left: 100% !important;
+    top: 50px !important;
+    transition: left 2.5s linear, top 2.5s linear;
+    -webkit-transition: left 2.5s linear, top 2.5s linear;
 }
 #alarma-pregunta-5{
     position: absolute;

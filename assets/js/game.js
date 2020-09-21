@@ -128,7 +128,7 @@ function empezarJuego(){
 			
 		}
 		addEvents()
-		setEscenario(empleados[4])
+		//setEscenario(empleados[4])
 	})
 }
 
@@ -151,8 +151,8 @@ function setGame(){
 				animation_start = null
 
 				getE('cargador').className = 'cargador-off'	
-				//setInstrucciones(true)
-				empezarJuego()
+				setInstrucciones(true)
+				//empezarJuego()
 			},1000)
 		}})		
 	}})
@@ -195,7 +195,7 @@ function setFloor(floor,start){
 		//put avatar
 		if(start){
 			avatar_data.left = 250
-			avatar_data.top = 60
+			avatar_data.top = 70
 			piso_data.left = 0
 			piso_data.top = 0
 			movex = 1
@@ -221,8 +221,8 @@ function setFloor(floor,start){
 		//put avatar
 		if(start){
 			//nunca va a entrar aqui pero bueno
-			avatar_data.left = 250
-			avatar_data.top = 60
+			avatar_data.left = 0
+			avatar_data.top = 0
 			piso_data.left = 0
 			piso_data.top = 0
 			movex = 1
@@ -1001,6 +1001,8 @@ function checkCollision(x,y,a,b){
 					//preguntar por llave
 					if(!gotKey(oficina_id)){
 						//normalmente esto es cuando entra, porque si va a salir es porque ya entró
+						//puerta_con_llave_mp3.currentTime = 0
+						puerta_con_llave_mp3.play()
 						setMensaje({content:'<p>Necesito la llave de esta oficina</p>',delay:3000})
 					}else{
 						if(entrar_o_salir=='entra'){
@@ -1065,7 +1067,7 @@ function checkCollision(x,y,a,b){
 			stop = true
 			params = [premio_data]
 		}else if(type=='carro'){
-			console.log(avatar_data.premios)
+			//console.log(avatar_data.premios)
 			if(
 				gotKey(15)&&
 				gotTrophies()
@@ -1118,8 +1120,14 @@ function setPelicula(params){
 			getE('contenedor-peliculas').style.display = 'none'
 			getE('contenedor-peliculas').className = ''
 
-			//poner eventos otra vez
-			addEvents()
+			if(movie==4){
+				setPelicula([5])
+			}else{
+				//poner eventos otra vez
+				addEvents()
+			}
+
+			
 		},500)
 	}
 	getE('contenedor-peliculas').style.display = 'block'
@@ -1127,6 +1135,65 @@ function setPelicula(params){
 
 	//esperar a que cargue
 	animacion_pelicula = setTimeout(function(){
+		if(movie==0||movie==1){
+			param1 = params[1]
+			param2 = params[2]
+			param3 = params[3]
+			//animacion de entrada o salida de puerta, meter o sacar al personaje
+			//mirar si lo metemos al norte, sur este o oeste con tatuajes en el pecho
+			if(param1=='horizontal'){
+				direccion_left = false
+				direccion_right = false
+				//mirar si sube o baja
+				if(param2=='norte'){
+					if(param3=='entra'){
+						direccion_up = true
+						direccion_down = false
+					}else if(param3=='sale'){
+						direccion_up = false
+						direccion_down = true
+					}
+				}else if(param2=='sur'){
+					if(param3=='entra'){
+						direccion_up = false
+						direccion_down = true
+					}else if(param3=='sale'){
+						direccion_up = true
+						direccion_down = false
+					}
+				}
+			}else if(param1=='vertical'){
+				direccion_up = false
+				direccion_down = false
+				//mirar si avanza o retrocede
+				if(param2=='oeste'){
+					if(param3=='entra'){
+						direccion_left = true
+						direccion_right = false
+					}else if(param3=='sale'){
+						direccion_left = false
+						direccion_right = true
+					}
+				}else if(param2=='este'){
+					if(param3=='entra'){
+						direccion_left = false
+						direccion_right = true
+					}else if(param3=='sale'){
+						direccion_left = true
+						direccion_right = false
+					}
+				}
+			}
+			//console.log(param1,param2,param3)
+			moveAvatar2()
+		}else if(movie==2){
+			setFloor(2,false)
+		}else if(movie==3){
+			setFloor(1,false)
+		}else if(movie==4){
+			
+		}
+
 		clearTimeout(animacion_pelicula)
 		animacion_pelicula = null
 
@@ -1148,63 +1215,7 @@ function setPelicula(params){
 		}
 	},500)
 
-	if(movie==0||movie==1){
-		param1 = params[1]
-		param2 = params[2]
-		param3 = params[3]
-		//animacion de entrada o salida de puerta, meter o sacar al personaje
-		//mirar si lo metemos al norte, sur este o oeste con tatuajes en el pecho
-		if(param1=='horizontal'){
-			direccion_left = false
-			direccion_right = false
-			//mirar si sube o baja
-			if(param2=='norte'){
-				if(param3=='entra'){
-					direccion_up = true
-					direccion_down = false
-				}else if(param3=='sale'){
-					direccion_up = false
-					direccion_down = true
-				}
-			}else if(param2=='sur'){
-				if(param3=='entra'){
-					direccion_up = false
-					direccion_down = true
-				}else if(param3=='sale'){
-					direccion_up = true
-					direccion_down = false
-				}
-			}
-		}else if(param1=='vertical'){
-			direccion_up = false
-			direccion_down = false
-			//mirar si avanza o retrocede
-			if(param2=='oeste'){
-				if(param3=='entra'){
-					direccion_left = true
-					direccion_right = false
-				}else if(param3=='sale'){
-					direccion_left = false
-					direccion_right = true
-				}
-			}else if(param2=='este'){
-				if(param3=='entra'){
-					direccion_left = false
-					direccion_right = true
-				}else if(param3=='sale'){
-					direccion_left = true
-					direccion_right = false
-				}
-			}
-		}
-		//console.log(param1,param2,param3)
-		moveAvatar2()
-	}
-	else if(movie==2){
-		setFloor(2,false)
-	}else if(movie==3){
-		setFloor(1,false)
-	}
+	
 }
 
 var animacion_escenario = null
@@ -1320,15 +1331,19 @@ function unsetEscenario(callBack){
 		animacion_escenario = null
 		
 		if(actual_escenario.id==5){
-			//tumbar el video
-			var video = getE('contenedor-preguntas-video-5');
-			var source = video.getElementsByTagName('source')[0]
+			//tumbar el video, ya no es video
+			//var video = getE('contenedor-preguntas-video-5');
+			//var source = video.getElementsByTagName('source')[0]
 
-			video.pause()
-			video.removeChild(source);
-			video.load()
+			//video.pause()
+			//video.removeChild(source);
+			//video.load()
 			spdStopAnimation(5)
-		}		
+			spdStopAnimation(6)
+			spdStopAnimation(7)
+			spdStopAnimation(8)
+			spdStopAnimation(9)
+		}
 
 		getE('contenedor-preguntas-'+actual_escenario.id).className = "contenedor-preguntas-hidden"
 		getE('contenedor-preguntas').style.display = 'none'
@@ -1385,6 +1400,7 @@ var animacion_ruleta2 = null
 function setRuleta(split,callBack){
 	getE('ruleta-img').className = 'ruleta-split-'+split
 	getE('ruleta').className = 'ruleta-on'
+	ruleta_cae_mp3.play()
 	animacion_ruleta = setTimeout(function(){
 		clearTimeout(animacion_ruleta)
 		animacion_ruleta = null
@@ -1396,6 +1412,8 @@ function setRuleta(split,callBack){
 		var random_frames = getRand(25,100)
 		var estado = 'acelerando'
 		var termina = false
+		ruleta_rodando_mp3.currentTime = 0
+		ruleta_rodando_mp3.play()
 
 		animacion_ruleta2 = setInterval(function(){
 			rotacion+=aceleracion
@@ -1429,6 +1447,9 @@ function setRuleta(split,callBack){
 			if(termina){
 				clearInterval(animacion_ruleta2)
 				animacion_ruleta2 = null
+				ruleta_rodando_mp3.pause()
+				ruleta_fin_mp3.play()
+
 				var fragmentos = []
 				var fragmento = (360/split)
 				var partes = []
@@ -1470,6 +1491,7 @@ function setRuleta(split,callBack){
 	},1500)
 }
 
+
 var pregunta_data = null
 var animacion_carta = null
 var animacion_carta2 = null
@@ -1478,7 +1500,7 @@ var respuestas_opciones = ['a','b','c','d','e']
 function setPregunta(question){
 	//build pregunta
 	pregunta_data = question
-	console.log(pregunta_data)
+	//console.log(pregunta_data)
 	var h = ''
 	h+='<div class="carta-enunciado">'
         h+='<p>'+pregunta_data.pregunta+'</p>'
@@ -1493,6 +1515,9 @@ function setPregunta(question){
 
 	getE('contenedor-carta').className = 'contenedor-carta-on'
 	getE('carta-wrap').className = 'carta-on'
+	voltear_carta_mp3.currentTime = 0
+	voltear_carta_mp3.play()
+
 	animacion_carta = setTimeout(function(){
 		clearTimeout(animacion_carta)
 		animacion_carta = null
@@ -1517,6 +1542,12 @@ function setPregunta(question){
 var respuesta_activa = false
 function clickRespuesta(r){
 	if(respuesta_activa){
+		if(r==pregunta_data.correcta){
+			respuesta_correcta_mp3.play()
+		}else{
+			respuesta_incorrecta_mp3.play()
+		}
+
 		respuesta_activa = false
 		getE('carta').style.transform = 'rotateY(90deg)'
 		getE('carta').style.webkitTransform = 'rotateY(90deg)'
@@ -1645,29 +1676,47 @@ function overOpcionb(){
 function outOpcionb(){
 	spdPlayAnimation({frame:7,stop:0,loop:false},4)
 }
+
+var animacion_personajes_corriendo = null
 function clickSirena(){
 	var questions = getPreguntasData(actual_escenario.idpregunta).preguntas
 	var split = questions.length
 
 	getE('alarma_btn').style.display = 'none'
 	getE('alarma_btn').removeAttribute('onclick')
+	sirena_mp3.play()
 
-	var video = getE('contenedor-preguntas-video-5')
-	video.play()
-	video.onended = function(){
-		video.onended = null
+	//ya no hay video
+	//var video = getE('contenedor-preguntas-video-5')
+	//video.play()
+	//video.onended = function(){
+		//video.onended = null
 		//quitar video y poner fondo
-		video.className = 'contenedor-preguntas-video-off'
+		//video.className = 'contenedor-preguntas-video-off'
+		getE('personaje-corriendo-1').classList.add('personaje-corriendo-left-1')
+		getE('personaje-corriendo-2').classList.add('personaje-corriendo-left-2')
+		getE('personaje-corriendo-3').classList.add('personaje-corriendo-left-3')
+		getE('personaje-corriendo-4').classList.add('personaje-corriendo-left-4')
 
-		unsetBurbujaText(function(){
-			//variable de data quemada porque es algo personalizado
-			setBurbujaText(actual_escenario.bienvenida2,function(){
-				setRuleta(split,function(p){
-					setPregunta(questions[p])
+		animacion_personajes_corriendo = setTimeout(function(){
+			clearTimeout(animacion_personajes_corriendo)
+			animacion_personajes_corriendo = null
+
+			getE('personaje-corriendo-1').classList.remove('personaje-corriendo-left-1')
+			getE('personaje-corriendo-2').classList.remove('personaje-corriendo-left-2')
+			getE('personaje-corriendo-3').classList.remove('personaje-corriendo-left-3')
+			getE('personaje-corriendo-4').classList.remove('personaje-corriendo-left-4')
+
+			unsetBurbujaText(function(){
+				//variable de data quemada porque es algo personalizado
+				setBurbujaText(actual_escenario.bienvenida2,function(){
+					setRuleta(split,function(p){
+						setPregunta(questions[p])
+					})
 				})
 			})
-		})
-	}
+		},4000)
+	//}
 }
 
 var animacion_item = null
@@ -1701,6 +1750,8 @@ function setVictoriaItem(item,data,callBack,callBack2){
 		animacion_item = null
 
 		getE('contenedor-item').className = 'contenedor-item-on'
+		ganar_premio_mp3.currentTime = 0
+		ganar_premio_mp3.play()
 
 		//esperar a que este puesto del todo
 		animacion_item = setTimeout(function(){
@@ -1779,11 +1830,15 @@ function toggleEstadisticas(){
 		getE('estadisticas').className = 'estadisticas-off'
 	}else{
 		//abrir
+		estadisticas_show_mp3.currentTime = 0
+		estadisticas_show_mp3.play()
 		getE('estadisticas').className = 'estadisticas-on'
 	}
 }
 var animacion_stadistics = null
 function showStadistics(d,ll){
+	estadisticas_show_mp3.currentTime = 0
+	estadisticas_show_mp3.play()
 	getE('estadisticas').className = 'estadisticas-on'
 	animacion_stadistics = setTimeout(function(){
 		clearTimeout(animacion_stadistics)
