@@ -130,6 +130,7 @@ function prevInstrucciones(){
 
 var animacion_swipe = null
 function empezarJuego(){
+	underground_mp3.play()
 	boton_mp3.play()
 	getE('cargador').className = 'cargador-on'
 	unsetModal(function(){
@@ -232,8 +233,8 @@ function setFloor(floor,start){
 
 		//put avatar
 		if(start){
-			avatar_data.left = 250
-			avatar_data.top = 70
+			avatar_data.left = 132
+			avatar_data.top = 85
 			piso_data.left = 0
 			piso_data.top = 0
 			movex = 1
@@ -483,7 +484,7 @@ function gotKey(l){
 	return got_key
 }
 function gotTrophies(){
-	if(avatar_data.premios.includes(1)&&avatar_data.premios.includes(2)&&avatar_data.premios.includes(3)&&avatar_data.premios.includes(4)){
+	if(avatar_data.premios.includes(1)&&avatar_data.premios.includes(2)&&avatar_data.premios.includes(3)&&avatar_data.premios.includes(4)&&avatar_data.premios.includes(5)){
 		return true
 	}else{
 		return false
@@ -868,7 +869,14 @@ function moveAvatar(back){
 }
 
 function moveAvatar2(){
-	for(var aa = 0;aa<20;aa++){
+	var steps = 0
+	if(direccion_left||direccion_right){
+		steps = 22
+	}else if(direccion_up||direccion_down){
+		steps = 20
+	}
+	
+	for(var aa = 0;aa<steps;aa++){
 		moveAvatar(true)
 		//console.log("move avatar")
 	}
@@ -953,11 +961,23 @@ function checkCollision(x,y,a,b){
 	if(!b){//si esta detras de camaras, no detectar colisiones con objetos
 		for(var c = 0;c<piso_data.elementos.length;c++){
 			var rect = piso_data.elementos[c].getBoundingClientRect()
-			var rect_elemento = {
-				w:rect.width,
-				h:rect.height,
+			var pre_type = piso_data.elementos[c].getAttribute('type')
+			var rect_elemento = rect_elemento = {
+				w:piso_data.elementos[c].offsetWidth,
+				h:piso_data.elementos[c].offsetHeight,
 				x:(rect.left-rect_parent.left),
 				y:(rect.top-rect_parent.top)
+			}
+			if(pre_type=='empleado'){
+				//rect mas pequeño
+				rect_elemento = {
+					w:20,
+					h:20,
+					x:(rect.left-rect_parent.left)+5,
+					y:(rect.top-rect_parent.top)+5
+				}
+			}else{
+				
 			}
 
 			if(
@@ -1116,7 +1136,7 @@ function checkCollision(x,y,a,b){
 				stop = null
 				params = []
 				type = ''
-				setMensaje({content:'<p>Necesito los 4 premios y las llaves del auto para subirme al carro</p>',delay:3000,posx:true})
+				setMensaje({content:'<p>Necesito los 5 premios y las llaves del auto para subirme al carro</p>',delay:3000,posx:true})
 			}
 		}
 	}
@@ -1146,27 +1166,34 @@ function setPelicula(params){
 	video.onended = function(){
 		video.onended = null
 		
-		getE('contenedor-peliculas').className = 'contenedor-peliculas-onn'
-		animacion_pelicula = setTimeout(function(){
-			clearTimeout(animacion_pelicula)
-			animacion_pelicula = null
-			
-			video.pause()
-			video.removeChild(source);
-			video.load()
+		if(movie==5){
+			//es la pelicula final, no hacer nada
+		}else{
+			//quitar escenario
+			getE('contenedor-peliculas').className = 'contenedor-peliculas-onn'
+			animacion_pelicula = setTimeout(function(){
+				clearTimeout(animacion_pelicula)
+				animacion_pelicula = null
+				
+				video.pause()
+				video.removeChild(source);
+				video.load()
 
-			getE('contenedor-peliculas').style.display = 'none'
-			getE('contenedor-peliculas').className = ''
+				getE('contenedor-peliculas').style.display = 'none'
+				getE('contenedor-peliculas').className = ''
 
-			if(movie==4){
-				setPelicula([5])
-			}else{
-				//poner eventos otra vez
-				addEvents()
-			}
-
-			
-		},500)
+				if(movie==4){
+					setPelicula([5])
+				}else{
+					//poner eventos otra vez
+					addEvents()
+				}
+				if(toggle_audio){
+					underground_mp3.volume = 1
+				}
+			},500)
+		}
+		
 	}
 	getE('contenedor-peliculas').style.display = 'block'
 	getE('contenedor-peliculas').className = 'contenedor-peliculas-on'
@@ -1229,7 +1256,7 @@ function setPelicula(params){
 		}else if(movie==3){
 			setFloor(1,false)
 		}else if(movie==4){
-			
+			underground_mp3.pause()
 		}
 
 		clearTimeout(animacion_pelicula)
@@ -1253,7 +1280,9 @@ function setPelicula(params){
 		}
 	},500)
 
-	
+	if(toggle_audio){
+		underground_mp3.volume = 0.1
+	}
 }
 
 var animacion_escenario = null
@@ -1359,6 +1388,10 @@ function setEscenario(params){
 
 	//poner escenario visible
 	getE('contenedor-preguntas-'+actual_escenario.id).className = "contenedor-preguntas-visible"
+
+	if(toggle_audio){
+		underground_mp3.volume = 0.1
+	}
 }
 function unsetEscenario(callBack){
 	//poner alfa en negro
@@ -1368,7 +1401,9 @@ function unsetEscenario(callBack){
 		clearTimeout(animacion_escenario)
 		animacion_escenario = null
 		
-		if(actual_escenario.id==5){
+		if(actual_escenario.id==4){
+			resetGame4()
+		}else if(actual_escenario.id==5){
 			//tumbar el video, ya no es video
 			//var video = getE('contenedor-preguntas-video-5');
 			//var source = video.getElementsByTagName('source')[0]
@@ -1390,6 +1425,7 @@ function unsetEscenario(callBack){
 			callBack()
 		}
 	},500)
+
 }
 
 var animacion_burbuja = null
@@ -1473,8 +1509,9 @@ function setRuleta(split,callBack){
 				}
 			}
 			
+			//console.log(rotacion)
 			if(rotacion>360){
-				var dif = 360-rotacion
+				var dif = rotacion-360
 				rotacion = dif
 			}
 
@@ -1654,14 +1691,28 @@ function finalRespuesta(r,callBack){
 					})
 				}else{
 					//poner empleado como no disponible, mientras tanto
-					var empleado_div = getE('empleado'+actual_escenario.id)
-					empleado_div.classList.add('icono-empleado-visitado')
-					empleado_div.setAttribute('estado','ocupado')
-					var empleado_ind = getEmpleadoData(actual_escenario.id,true)
-					empleados[empleado_ind].estado = 'ocupado'
+					//si es el unico que queda, entonces no
+					var empleados_faltantes = 0
+					for(j = 0;j<empleados.length;j++){
+						if(empleados[j].estado=='disponible'){
+							empleados_faltantes++
+						}
+					}
+					if(empleados_faltantes==1){
+						//si, es el ultimo, no poner ocupado
+						//console.log("ultimo")
+					}else{
+						//hay más de donde agarrar
+						var empleado_div = getE('empleado'+actual_escenario.id)
+						empleado_div.classList.add('icono-empleado-visitado')
+						empleado_div.setAttribute('estado','ocupado')
+						var empleado_ind = getEmpleadoData(actual_escenario.id,true)
+						empleados[empleado_ind].estado = 'ocupado'
 
-					//poner los empleados no disponibles otra vez en disponibles
-					unlockEmpleados()
+						//poner los empleados no disponibles otra vez en disponibles
+						unlockEmpleados()
+					}
+					
 					
 					//quitar todo
 					unsetBurbujaText(function(){
@@ -1694,6 +1745,11 @@ function unlockEmpleados(){
 function clickOpcion(r,butt){
 	getE('opcion_a_btn').disabled = true
 	getE('opcion_b_btn').disabled = true
+	if(r==pregunta_data.correcta){
+		respuesta_correcta_mp3.play()
+	}else{
+		respuesta_incorrecta_mp3.play()
+	}
 	finalRespuesta(r,function(){
 
 	})
@@ -1788,6 +1844,7 @@ function setVictoriaItem(item,data,callBack,callBack2){
 		animacion_item = null
 
 		getE('contenedor-item').className = 'contenedor-item-on'
+		
 		ganar_premio_mp3.currentTime = 0
 		ganar_premio_mp3.play()
 
@@ -1841,6 +1898,10 @@ function ganarLLave(params){
 	llave_div.setAttribute('recogida','si')
 	llave_div.classList.add('icono-llave-recogida')
 
+	if(toggle_audio){
+		underground_mp3.volume = 0.1
+	}
+
 	setVictoriaItem('llave',{ref:llave_data.ref,key:llave_data.key},function(){},function(){
 		continuarGame()
 	})
@@ -1854,6 +1915,10 @@ function ganarPremio(params){
 	premio_div.classList.add('icono-premio-recogido')
 	var oficina_ind = getOficinaData(oficina_data.id,true)
 	oficinas[oficina_ind].premio.recogido = 'si'
+
+	if(toggle_audio){
+		underground_mp3.volume = 0.1
+	}
 
 	setVictoriaItem('premio',{ref:oficina_data.premio.ref,trophy:oficina_data.premio.id},function(){},function(){
 		continuarGame()
@@ -1884,7 +1949,7 @@ function showStadistics(d,ll){
 
 		var div_trofeo = null
 		if(ll){
-			div_trofeo = getE('trophy5')
+			div_trofeo = getE('trophy6')
 		}else{
 			div_trofeo = getE('trophy'+d)
 		}
@@ -1909,6 +1974,9 @@ function continuarGame(){
 	//poner eventos, etc
 	//poner eventos otra vez
 	addEvents()
+	if(toggle_audio){
+		underground_mp3.volume = 1
+	}
 }
 
 /////////////////COMPROBAR////////////////

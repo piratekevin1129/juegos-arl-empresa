@@ -416,10 +416,22 @@
     transition: margin-top 0.5s;
     -webkit-transition: margin-top 0.5s;
 }
-.contenedor-mensaje-alerta-on{
+#contenedor-mensaje-alerta-box p{
+    display: block;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Barlow-Medium';
+    font-size: 16px;
+    color: #000000;
+    text-align: center;
+    font-weight: normal;
+    line-height: normal;
+}
+.contenedor-mensaje-alerta-on #contenedor-mensaje-alerta-box{
     margin-top: 0px;
 }
-.contenedor-mensaje-alerta-off{
+.contenedor-mensaje-alerta-off #contenedor-mensaje-alerta-box{
     margin-top: -20px;
 }
 

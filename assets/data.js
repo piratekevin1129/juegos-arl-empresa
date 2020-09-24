@@ -32,8 +32,14 @@ var oficinas = [
 	{
 		id:3,
 		piso:1,
-		llave:1,
-		premio:null,
+		llave:null,
+		premio:{
+			id:1,
+			x:451,
+			y:280,
+			recogido:'no',
+			ref:null
+		},
 		empleado:null,
 		posx:430,
 		posy:229,
@@ -42,32 +48,26 @@ var oficinas = [
 			x:449,
 			y:343,
 			w:30,
-			h:20,
+			h:15,
 			direccion:'horizontal',
 			orientacion:'norte'
 		},
-		ref:'Oficina con llave de la oficina x'
+		ref:'Oficina sin nada'
 	},
 	{
 		id:4,
 		piso:1,
 		llave:null,
-		premio:{
-			id:1,
-			x:486,
-			y:420,
-			recogido:'no',
-			ref:null
-		},
+		premio:null,
 		empleado:null,
 		posx:458,
 		posy:526,
 		puerta:{
-			locked:true,
+			locked:false,
 			x:514,
-			y:393,
+			y:398,
 			w:30,
-			h:20,
+			h:15,
 			direccion:'horizontal',
 			orientacion:'sur'
 		},
@@ -84,9 +84,9 @@ var oficinas = [
 		puerta:{
 			locked:false,
 			x:630,
-			y:285,
+			y:287,
 			w:30,
-			h:20,
+			h:15,
 			direccion:'horizontal',
 			orientacion:'norte'
 		},
@@ -120,9 +120,9 @@ var oficinas = [
 		puerta:{
 			locked:true,
 			x:751,
-			y:377,
+			y:380,
 			w:30,
-			h:20,
+			h:15,
 			direccion:'horizontal',
 			orientacion:'sur'
 		},
@@ -144,7 +144,7 @@ var oficinas = [
 		posy:180,
 		puerta:{
 			locked:true,
-			x:905,
+			x:908,
 			y:293,
 			w:20,
 			h:30,
@@ -156,7 +156,7 @@ var oficinas = [
 	{
 		id:9,
 		piso:1,
-		llave:2,
+		llave:1,
 		premio:null,
 		empleado:null,
 		posx:970,
@@ -164,13 +164,13 @@ var oficinas = [
 		puerta:{
 			locked:true,
 			x:935,
-			y:412,
+			y:416,
 			w:30,
-			h:20,
+			h:15,
 			direccion:'horizontal',
 			orientacion:'sur'
 		},
-		ref:'Oficina con llave de la oficina x'
+		ref:'Oficina con llaves del auto'
 	},
 
 	////////piso 2///////
@@ -183,7 +183,7 @@ var oficinas = [
 		posx:52,
 		posy:180,
 		puerta:{
-			locked:true,
+			locked:false,
 			x:348,
 			y:89,
 			w:20,
@@ -207,12 +207,26 @@ var oficinas = [
 	{
 		id:12,
 		piso:2,
-		llave:3,
-		premio:null,
+		llave:null,
+		premio:{
+			id:5,
+			x:525,
+			y:86,
+			recogido:'no',
+			ref:null
+		},
 		empleado:null,
 		posx:441,
 		posy:171,
-		puerta:null,
+		puerta:{
+			locked:true,
+			x:679,
+			y:99,
+			w:20,
+			h:40,
+			direccion:'vertical',
+			orientacion:'oeste'
+		},
 		ref:'Concineta'
 	},
 	{
@@ -282,26 +296,10 @@ var oficinas = [
 var llaves = [
 	{
 		id:1,
-		x:456,
-		y:290,
-		key:9,
-		ref:null,
-		recogida:'no'
-	},
-	{
-		id:2,
 		x:888,
 		y:435,
 		key:15,//llaves del auto
 		ref:'del auto',
-		recogida:'no'
-	},
-	{
-		id:3,
-		x:530,
-		y:83,
-		key:8,
-		ref:null,
 		recogida:'no'
 	}
 ]
@@ -310,7 +308,7 @@ var empleados = [
 	{
 		id:1,
 		piso:1,
-		llave:4,
+		llave:3,
 		posx:299,
 		posy:457,
 		rotation:-90,
@@ -367,7 +365,7 @@ var empleados = [
 	{
 		id:5,
 		piso:1,
-		llave:10,
+		llave:8,
 		posx:85,
 		posy:170,
 		rotation:-130,
@@ -382,7 +380,7 @@ var empleados = [
 	{
 		id:6,
 		piso:1,
-		llave:3,
+		llave:9,
 		posx:130,
 		posy:520,
 		rotation:56,

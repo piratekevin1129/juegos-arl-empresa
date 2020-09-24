@@ -148,6 +148,7 @@ function setEppStands(callback,callback2){
 	fillCasilleros()
 	beginGame4 = callback
 	finishGame4 = callback2
+	game4_finished = false
 	loadEpps(0)
 }
 
@@ -345,4 +346,24 @@ function verPreguntaContenedor4(){
 			},3000)
 		}
 	}
+}
+
+function resetGame4(){
+	beginGame4 = null
+	finishGame4 = null
+	game4_finished = false
+
+	casilleros_epp = []
+	casilleros_epp_unorder = []
+	areas_epp = []
+	ropas_epp = []
+
+	getE('elementos-epp').innerHTML = ''
+	getE('personaje_ropas').innerHTML = ''
+	getE('personaje_areas').innerHTML = ''
+
+	actual_elemento_epp = null
+	actual_elemento_epp_data = null
+	posx_epp = 0
+	posy_epp = 0
 }

@@ -53,27 +53,6 @@
         			<div id="mensaje" class="mensaje-off"></div>
         		</div>
 
-                <div id="estadisticas" class="estadisticas-off">
-                    <button id="estadisticas-icon" onclick="toggleEstadisticas()"></button>
-                    <div id="trophy1" class="trophy-off">
-                        <div></div>
-                    </div>
-                    <div id="trophy2" class="trophy-off">
-                        <div></div>
-                    </div>
-                    <div id="trophy3" class="trophy-off">
-                        <div></div>
-                    </div>
-                    <div id="trophy4" class="trophy-off">
-                        <div></div>
-                    </div>
-                    <div id="trophy5" class="trophy-off">
-                        <div></div>
-                    </div>
-                </div>
-
-                <button id="music-btn" class="music-on" onclick="clickAudio(this)"></button>
-        		
                 <div id="contenedor-peliculas" style="display: none">
                     <video id="pelicula" width="780" height="516"></video>
                     <div id="contenedor-peliculas-alfa"></div>
@@ -186,6 +165,29 @@
                     <div id="contenedor-preguntas-cargador"></div><!--cargador solo para videos-->
                 </div>
 
+                <div id="estadisticas" class="estadisticas-off">
+                    <button id="estadisticas-icon" onclick="toggleEstadisticas()"></button>
+                    <div id="trophy1" class="trophy-off">
+                        <div></div>
+                    </div>
+                    <div id="trophy2" class="trophy-off">
+                        <div></div>
+                    </div>
+                    <div id="trophy3" class="trophy-off">
+                        <div></div>
+                    </div>
+                    <div id="trophy4" class="trophy-off">
+                        <div></div>
+                    </div>
+                    <div id="trophy5" class="trophy-off">
+                        <div></div>
+                    </div>
+                    <div id="trophy6" class="trophy-off">
+                        <div></div>
+                    </div>
+                </div>
+                <button id="music-btn" class="music-on" onclick="clickAudio(this)"></button>
+
                 <div id="contenedor-item" style="display: none;" class="contenedor-item-off">
                     <div class="contenedor-item-img"></div>
                     <div id="contenedor-item-title"></div>
@@ -233,7 +235,7 @@
                                 </div>
                             </div>
                             <div class="instrucciones-wrap-page">
-                                <p class="modal-content-p">Reune los 4 premios que hay en los pisos del edificio</p>
+                                <p class="modal-content-p">Reune los 5 premios que hay en los <span>2</span> pisos del edificio</p>
                                 <div class="instrucciones-graph-4">
                                     <div class="instrucciones-graph-piso"></div>
                                     <div class="instrucciones-graph-premio">
@@ -248,7 +250,7 @@
                                 </div>
                             </div>
                             <div class="instrucciones-wrap-page">
-                                <p class="modal-content-p">Cuando hallas reunido todos los premios y las <span>llaves del auto</span>. Dirígete al auto que está en el parqueadero del edificio para terminar el juego</p>
+                                <p class="modal-content-p">Cuando hayas reunido todos los premios y las <span>llaves del auto</span>. Dirígete al auto que está en el parqueadero del edificio para terminar el juego</p>
                                 <div class="instrucciones-graph-5">
                                     <video id="video-instrucciones-5" loop width="284" height="252">
                                         <source src="assets/animations/instrucciones-5.mp4" type="video/mp4" />
@@ -423,13 +425,16 @@ window.onload = function(){
     }})
 }
 
+var toggle_audio = true
 function clickAudio(btn){
 	if(btn.className=='music-on'){
 		underground_mp3.volume = 0
-		btn.className = 'music-off'
+        btn.className = 'music-off'
+        toggle_audio = false
 	}else{
 		underground_mp3.volume = 1
-		btn.className = 'music-on'
+        btn.className = 'music-on'
+        toggle_audio = true
 	}
 }
 var loader_cont = Math.round((100/27))

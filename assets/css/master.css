@@ -622,7 +622,7 @@ header{
 }
 .icono-puerta{
     position: absolute;
-    background-color: rgba(255,255,0,1);
+    background-color: rgba(255,255,0,0);
     box-sizing: border-box;
     /*border: #000 solid 1px;*/
 }
@@ -642,9 +642,10 @@ header{
     height: 25px;
 }
 
-.icono-empleado-light{background-color: #2cbe10;}
-.icono-llave-light{background-color: #00CCFF;}
-.icono-premio-light{background-color: #FFFF00;}
+.icono-empleado-light{background-color: #00CCFF;animation-delay: 0s;-webkit-animation-delay: 0s;}
+.icono-llave-light{background-color: #FFFFFF;animation-delay: 1s;-webkit-animation-delay: 1s;}
+/*2cbe10->old color*/
+.icono-premio-light{background-color: #FFFF00;animation-delay: 2s;-webkit-animation-delay: 2s;}
 
 .icono-empleado-light,
 .icono-llave-light,
@@ -691,6 +692,7 @@ header{
         opacity: 0;
     }
 }
+
 .icono-empleado-img,
 .icono-llave-img,
 .icono-premio-img,
@@ -860,20 +862,7 @@ header{
 #estadisticas-icon:hover{
     height: 35px;
 }
-/*#estadisticas-icon::before{
-    content: "";
-    position: absolute;
-    width: 15px;
-    height: 15px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-image: url(../images/trophy.png);
-    top: 50%;
-    top: calc(50% - 9px);
-    top: -moz-calc(50% - 9px);
-    left: 2.5px;
-}*/
+
 #estadisticas-icon::after{
     content: "";
     position: absolute;
@@ -915,7 +904,7 @@ header{
     -o-transform: rotate(180deg);
 }
 
-#trophy1,#trophy2,#trophy3,#trophy4,#trophy5{
+#trophy1,#trophy2,#trophy3,#trophy4,#trophy5,#trophy6{
     display: flex;
     width: 50px;
     height: 50px;
@@ -925,10 +914,11 @@ header{
 #trophy1 > div,
 #trophy2 > div,
 #trophy3 > div,
-#trophy4 > div{
+#trophy4 > div,
+#trophy5 > div{
     background-image: url(../images/trophy.png);
 }
-#trophy5 > div{
+#trophy6 > div{
     background-image: url(../images/llave-auto.png);
 }
 
