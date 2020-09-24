@@ -51,15 +51,6 @@ var game_height = game_rect.height
 function setInstrucciones(start){
 	var html = ''
 	
-	//html+='<div class="modal-instrucciones-gif"><div onclick="setVideoInstrucciones(this)"><video loop><source type="video/mp4" src="assets/images/instrucciones_sp.mp4" /></video><button></button></div></div>'
-	
-	
-	html+='<p>Bienvenido, <span>ARL SURA</span> te invita a poner a prueba tu nivel de conocimiento por medio del juego interactivo:</p>'
-	html+='<p><span>"Arma las parejas de los equipo de protección personal"</span></p>'
-	
-	html+='<p>Para hacerlo debes hacer clic en las cajas que se encuentran en el escenario, pero no te apresures y concéntrate, para que lo realices en el tiempo previsto.</p>'
-	html+='<p><span>¡Animo! empieza a jugar.</span></p>'
-
     if(ismobile){
     	
     }else{
@@ -91,8 +82,55 @@ function setInstrucciones(start){
     }
 }
 
+var actual_page_inst = 1
+var total_pages_inst = 4
+//boton prev instrucciones oculto por defecto
+getE('instrucciones-prev-btn').style.visibility = 'hidden'
+var video_instrucciones_2 = getE('video-instrucciones-2')
+var video_instrucciones_5 = getE('video-instrucciones-5')
+
+function nextInstrucciones(){
+	boton_mp3.play()
+	actual_page_inst++
+	getE('instrucciones-wrap').className = 'instrucciones-wrap-left-'+actual_page_inst
+	if(actual_page_inst==total_pages_inst){
+		getE('instrucciones-next-btn').style.visibility = 'hidden'
+	}
+	if(actual_page_inst>1){
+		getE('instrucciones-prev-btn').style.visibility = 'visible'
+	}
+
+	if(actual_page_inst==2){
+		video_instrucciones_2.currentTime = 0
+		video_instrucciones_2.play()
+	}else if(actual_page_inst==4){
+		video_instrucciones_5.currentTime = 0
+		video_instrucciones_5.play()
+	}
+}
+function prevInstrucciones(){
+	boton_mp3.play()
+	actual_page_inst--
+	getE('instrucciones-wrap').className = 'instrucciones-wrap-left-'+actual_page_inst
+	if(actual_page_inst==1){
+		getE('instrucciones-prev-btn').style.visibility = 'hidden'
+	}
+	if(actual_page_inst<total_pages_inst){
+		getE('instrucciones-next-btn').style.visibility = 'visible'
+	}
+
+	if(actual_page_inst==2){
+		video_instrucciones_2.currentTime = 0
+		video_instrucciones_2.play()
+	}else if(actual_page_inst==4){
+		video_instrucciones_5.currentTime = 0
+		video_instrucciones_5.play()
+	}
+}
+
 var animacion_swipe = null
 function empezarJuego(){
+	boton_mp3.play()
 	getE('cargador').className = 'cargador-on'
 	unsetModal(function(){
 		game_scene.style.visibility = 'visible'
@@ -410,9 +448,9 @@ var avatar_data = {
 	width:30,
 	height:28,
 	area:8,
-	subarea:5,
-	llaves:[15],
-	premios:[2,4,3,1]
+	subarea:8,
+	llaves:[],
+	premios:[]
 }
 var piso_data = {
 	left:0,
@@ -897,7 +935,7 @@ function checkCollision(x,y,a,b){
 			){
 				//colision
 				//type = 'pared'
-				//collision = true
+				collision = true
 				//console.log("colision con "+c)
 			}
 		}

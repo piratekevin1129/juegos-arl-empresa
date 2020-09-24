@@ -21,7 +21,9 @@ function setModal(data){
 	}else{
 		getE('modal-title').style.display = 'none'
 	}
-	getE('modal-content').innerHTML = data.content
+	if(data.content!=""){
+		getE('modal-content').innerHTML = data.content
+	}	
 
 	if(data.button){
 		if(data.value!=null){
@@ -66,12 +68,19 @@ var animacion_modal = null
 function unsetModal(callBack){
 	var modal = getE('modal')
 	modal.className = 'modal-off'
-	
-	//boton_mp3.play()
 
 	animacion_modal = setTimeout(function(){
 		clearTimeout(animacion_modal)
 		animacion_modal = null
+
+		//el modal solo muestra las instrucciones, por lo tanto, cada vez que se oculte el modal, se paran las animaciones de las instrucciones y los videos
+
+		video_instrucciones_2.currentTime = 0
+		video_instrucciones_2.play()
+		video_instrucciones_5.currentTime = 0
+		video_instrucciones_5.play()
+		getE('instrucciones-wrap').className = 'instrucciones-wrap-left-1'
+		actual_page_inst = 1
 
 		if(callBack!=null){
 			callBack()

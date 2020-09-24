@@ -173,6 +173,7 @@ var oficinas = [
 		ref:'Oficina con llave de la oficina x'
 	},
 
+	////////piso 2///////
 	{
 		id:10,
 		piso:2,

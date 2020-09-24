@@ -308,11 +308,11 @@
 
 #elementos-epp{
     position: absolute;
-    width: 210px;
-    height: 210px;
+    width: 205px;
+    height: 205px;
     box-sizing: border-box;
-    top: 42px;
-    left: 290px;
+    top: 41px;
+    left: 287px;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;

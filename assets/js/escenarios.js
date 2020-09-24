@@ -335,7 +335,7 @@ function verPreguntaContenedor4(){
 			game4_finished = true
 			finishGame4()
 		}else{
-			getE('contenedor-mensaje-alerta-box').innerHTML = 'El personaje no esta con los equipos de protección adecuados, verifica y vuelve a intentar'
+			getE('contenedor-mensaje-alerta-box').innerHTML = '<p>El personaje no esta con los equipos de protección adecuados, verifica y vuelve a intentar</p>'
 			getE('contenedor-mensaje-alerta').className = "contenedor-mensaje-alerta-on"
 			animacion_mensaje_alerta = setTimeout(function(){
 				clearTimeout(animacion_mensaje_alerta)

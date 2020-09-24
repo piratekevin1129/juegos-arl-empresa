@@ -13,6 +13,7 @@
     <link href="assets/css/reset.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/master.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/escenarios.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/instrucciones.css" rel="stylesheet" type="text/css" />
     <!--<link href="assets/css/responsive.css" rel="stylesheet" type="text/css" />-->
 
     <!--Libreria spider-->
@@ -74,7 +75,7 @@
                 <button id="music-btn" class="music-on" onclick="clickAudio(this)"></button>
         		
                 <div id="contenedor-peliculas" style="display: none">
-                    <video id="pelicula"></video>
+                    <video id="pelicula" width="780" height="516"></video>
                     <div id="contenedor-peliculas-alfa"></div>
                     <div id="contenedor-peliculas-cargador"></div>
                 </div>
@@ -209,21 +210,55 @@
                 <h2 id="modal-title">Instrucciones</h2>
                 <div id="modal-content">
                     <div id="instrucciones-wrapper">
-                        <div id="instrucciones-wrap">
-                            <div class="instrucciones-wrap-page" id="instrucciones-wrap-1">
+                        <div id="instrucciones-wrap" class="instrucciones-wrap-left-1">
+                            <div class="instrucciones-wrap-page">
                                 <p class="modal-content-p">Mueve al personaje por toda la empresa con las teclas de dirección</p>
                                 <div class="instrucciones-graph-1">
-                                    <div class="instrucciones-graph-1-piso"></div>
-                                    <div id="instrucciones-graph-1-avatar" class="spd_sprite" width="30" height="28" frames="13" src="assets/images/avatar_sprite.png"></div>
+                                    <div class="instrucciones-graph-piso"></div>
+                                    <div class="instrucciones-avatar-gif"></div>
                                 </div>
-                                <div class="instrucciones-grap-2">
+                                <div class="instrucciones-keyboard">
                                     <div id="instrucciones-tecla-1" class="instrucciones-tecla"></div>
                                     <div id="instrucciones-tecla-2" class="instrucciones-tecla"></div>
                                     <div id="instrucciones-tecla-3" class="instrucciones-tecla"></div>
                                     <div id="instrucciones-tecla-4" class="instrucciones-tecla"></div>
                                 </div>
                             </div>
+                            <div class="instrucciones-wrap-page">
+                                <p class="modal-content-p">Reúnete con los funcionarios y contesta las preguntas que te hagan para ganar llaves y abrir las puertas de las oficinas</p>
+                                <div class="instrucciones-graph-3">
+                                    <video id="video-instrucciones-2" loop width="284" height="252">
+                                        <source src="assets/animations/instrucciones-2.mp4" type="video/mp4" />
+                                    </video>
+                                </div>
+                            </div>
+                            <div class="instrucciones-wrap-page">
+                                <p class="modal-content-p">Reune los 4 premios que hay en los pisos del edificio</p>
+                                <div class="instrucciones-graph-4">
+                                    <div class="instrucciones-graph-piso"></div>
+                                    <div class="instrucciones-graph-premio">
+                                        <div class="instrucciones-graph-premio-shadow"></div>
+                                        <div class="instrucciones-graph-premio-trophy"></div>
+                                    </div>
+                                    <div class="instrucciones-avatar-gif"></div>
+                                    <div class="instrucciones-graph-copa">
+                                        <img src="assets/images/trophy.png" />
+                                        <p>!Muy bien!</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="instrucciones-wrap-page">
+                                <p class="modal-content-p">Cuando hallas reunido todos los premios y las <span>llaves del auto</span>. Dirígete al auto que está en el parqueadero del edificio para terminar el juego</p>
+                                <div class="instrucciones-graph-5">
+                                    <video id="video-instrucciones-5" loop width="284" height="252">
+                                        <source src="assets/animations/instrucciones-5.mp4" type="video/mp4" />
+                                    </video>
+                                </div>
+                            </div>
+                            
                         </div>
+                        <button id="instrucciones-next-btn" onclick="nextInstrucciones()"></button>
+                        <button id="instrucciones-prev-btn" onclick="prevInstrucciones()"></button>
                     </div>
                 </div>
                 <button id="modal-button">jugar</button>
@@ -299,6 +334,7 @@ window.onload = function(){
     sirena_mp3 = data
     setCargadorText(true)
     
+
     loadAudio({src:'assets/media/underground.mp3',callBack:function(data){
     underground_mp3 = data
     setCargadorText(true)
@@ -318,8 +354,6 @@ window.onload = function(){
 
     	    //cargar sprites del avatar, la llave y el premio
     	    spdLoadSprite({idname:'avatar-clip',autoplay:'off',callBack:function(){	
-            spdLoadSprite({idname:'instrucciones-graph-1-avatar',autoplay:'off',callBack:function(){ 
-
             setCargadorText(true)
     		spdLoadSprite({idname:'llave-animada',autoplay:'off',callBack:function(){
             setCargadorText(true)
@@ -355,8 +389,6 @@ window.onload = function(){
                     spdCreateAnimation({id:8,sprite:'personaje-corriendo-3'})
                     spdCreateAnimation({id:9,sprite:'personaje-corriendo-4'})
 
-                    spdCreateAnimation({id:10,sprite:'instrucciones-graph-1-avatar'})
-
         			prepareWindow()
         	        setGame()
 
@@ -370,7 +402,6 @@ window.onload = function(){
     		}})
     		}})
     		}})
-            }})
 
         }})
         }})
