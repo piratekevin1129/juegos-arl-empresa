@@ -354,6 +354,16 @@ window.onload = function(){
         loadImage({url:'assets/images/ruleta-split-4.png',callBack:function(){
         setCargadorText(true)
 
+        //fondos de los escenarios, y de victoria
+        loadImage({url:'assets/images/pregunta1/fondo.jpg',callBack:function(){
+        loadImage({url:'assets/images/pregunta2/fondo.jpg',callBack:function(){
+        loadImage({url:'assets/images/pregunta3/fondo.jpg',callBack:function(){
+        loadImage({url:'assets/images/pregunta4/fondo.jpg',callBack:function(){
+        loadImage({url:'assets/images/pregunta5/fondo.png',callBack:function(){
+        loadImage({url:'assets/images/pregunta6/fondo.png',callBack:function(){
+        loadImage({url:'assets/images/fondo-premios.jpg',callBack:function(){
+        setCargadorText(true)
+        
     	    //cargar sprites del avatar, la llave y el premio
     	    spdLoadSprite({idname:'avatar-clip',autoplay:'off',callBack:function(){	
             setCargadorText(true)
@@ -410,6 +420,14 @@ window.onload = function(){
         }})
         }})
         }})
+        }})
+        }})
+
+        }})
+        }})
+        }})
+        }})
+        }})
 
     }})
     }})
@@ -437,7 +455,7 @@ function clickAudio(btn){
         toggle_audio = true
 	}
 }
-var loader_cont = Math.round((100/27))
+var loader_cont = Math.round((100/28))
 var loader_counter = 1
 function setCargadorText(load,txt){
     var t = ''
