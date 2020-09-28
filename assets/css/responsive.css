@@ -32,7 +32,16 @@
         width: 80%;
         left: 10%;
     }
-
+    #opcion-a{
+        top: 200px;
+        left: 15px;
+    }
+    #opcion-b{
+        top: 200px;
+        left: initial;
+        right: 20px;
+    }
+    
     /************MODAL**************/
     #modal-box{
         width: 350px;

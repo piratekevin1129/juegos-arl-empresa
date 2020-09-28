@@ -44,22 +44,38 @@
 
 #contenedor-preguntas-1 .contenedor-preguntas-fondo{
     background-image: url(../images/pregunta1/fondo.jpg);
-    transform: translateX(-521);
-    -webkit-transform: translateX(-521);
-    -o-transform: translateX(-521);
-    left: 67%;
+    transform: translateX(-780px);
+    -webkit-transform: translateX(-780px);
+    -o-transform: translateX(-780px);
+    left: 100%;
 }
 #contenedor-preguntas-2 .contenedor-preguntas-fondo{
     background-image: url(../images/pregunta2/fondo.jpg);
+    transform: translateX(-390px);
+    -webkit-transform: translateX(-390px);
+    -o-transform: translateX(-390px);
+    left: 50%;
 }
 #contenedor-preguntas-3 .contenedor-preguntas-fondo{
     background-image: url(../images/pregunta3/fondo.jpg);
+    transform: translateX(-780px);
+    -webkit-transform: translateX(-780px);
+    -o-transform: translateX(-780px);
+    left: 100%;
 }
 #contenedor-preguntas-4 .contenedor-preguntas-fondo{
     background-image: url(../images/pregunta4/fondo.jpg);
+    transform: translateX(-780px);
+    -webkit-transform: translateX(-780px);
+    -o-transform: translateX(-780px);
+    left: 100%;
 }
 #contenedor-preguntas-5 .contenedor-preguntas-fondo{
     background-image: url(../images/pregunta5/fondo.png);
+    transform: translateX(-780px);
+    -webkit-transform: translateX(-780px);
+    -o-transform: translateX(-780px);
+    left: 100%;
 }
 #contenedor-preguntas-6 .contenedor-preguntas-fondo{
     background-image: url(../images/pregunta6/fondo.png);
@@ -67,7 +83,7 @@
 
 .burbuja-texto{
     position: absolute;
-    width: 380px;
+    width: 400px;
     height: auto;
     border-radius: 10px;
     background-color: #FFFFFF;
@@ -99,6 +115,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box;
 
     transition: opacity 0.5s linear;
     -webkit-transition: opacity 0.5s linear;
@@ -110,9 +127,9 @@
     width: 0px;
     height: 0px;
     top: 100%;
-    left: 50%;
-    left: calc(50% - 10px);
-    left: -moz-calc(50% - 10px);
+    left: 45%;
+    left: calc(45% - 10px);
+    left: -moz-calc(45% - 10px);
     border-right: 10px solid rgba(0,0,0,0);
     border-left: 10px solid rgba(0,0,0,0);
     border-top: 10px solid #FFFFFF;
@@ -158,44 +175,98 @@
 #burbuja-texto-pregunta1{
     top: 50px;
     left: 50%;
-    left: calc(50% - (380px / 2));
-    left: -moz-calc(50% - (380px / 2));
+    left: calc(50% - (400px / 2));
+    left: -moz-calc(50% - (400px / 2));
 }
 #burbuja-texto-pregunta2{
-    top: 20px;
+    top: 40px;
 }
 #burbuja-texto-pregunta3{
-    top: 20px;
+    top: 40px;
 }
 #burbuja-texto-pregunta4{
     bottom: 15px;
-    width: 65%;
+    width: 100%;
+    width: calc(100% - (130px + 15px + 15px + 15px));
+    width: -moz-calc(100% - (130px + 15px + 15px + 15px));
     left: 15px;
 }
 #burbuja-texto-pregunta5{
-    top: 20px;
-    left: 3%;
+    bottom: 15px;
+    width: 100%;
+    width: calc(100% - (130px + 15px + 15px + 15px));
+    width: -moz-calc(100% - (130px + 15px + 15px + 15px));
+    left: 15px;
 }
 #burbuja-texto-pregunta6{
-    top: 20px;
+    top: 40px;
 }
 
 /********ESCENARIO 3**********/
 #opcion-a{
     position: absolute;
-    width: 188px;
-    height: 255px;
+    width: 218px;
+    height: 229px;
     box-sizing: border-box;
-    top: 33.4%;
-    left: 4.3%;
+    top: 196px;
+    left: 53px;
 }
+#opcion-a-img{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    top: 0px;
+    left: 0px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-image: url(../images/pregunta2/opcion_a_img.png);
+}
+#opcion-a-pregunta{
+    top: -20px;
+    left: -19px;
+}
+
 #opcion-b{
     position: absolute;
-    width: 290px;
-    height: 260px;
+    width: 258px;
+    height: 230px;
     box-sizing: border-box;
-    top: 34.6%;
-    left: 53%;
+    top: 199px;
+    left: 433px;
+}
+#opcion-b-img{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    top: 0px;
+    left: 0px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-image: url(../images/pregunta2/opcion_b_img.png);
+}
+#opcion-b-pregunta{
+    top: -16px;
+    left: -18px;
+}
+
+#opcion-a::before,#opcion-b::before{
+    position: absolute;
+    content: "";
+    width: 90%;
+    height: 40px;
+    background-color: #000000;
+    filter: blur(10px);
+    -webkit-filter: blur(10px);
+    -o-filter: blur(10px);
+    opacity: 0.5;
+    top: 100%;
+    top: calc(100% - 40px);
+    top: -moz-calc(100% - 40px);
+    left: 5%;
 }
 #opcion_a_btn,#opcion_b_btn{
     position: absolute;
@@ -203,6 +274,7 @@
     height: 100%;
     top: 0px;
     left: 0px;
+    padding: 0px;
     opacity: 0;
     cursor: pointer;
     background-color: rgba(0,0,0,0);
@@ -221,7 +293,7 @@
     background-position: center;
     background-repeat: no-repeat;
     top: 13%;
-    left: 74%;
+    right: 6%;
 }
 
 #personaje-main{
@@ -316,13 +388,17 @@
     width: 205px;
     height: 205px;
     box-sizing: border-box;
-    top: 41px;
-    left: 287px;
+    top: 60px;
+    right: 270px;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: space-around;
     align-content: space-around;
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    background-size: 100% 100%;
+    background-image: url(../images/pregunta4/casilleros.jpg);
 }
 .elemento-epp{
     position: relative;
@@ -428,7 +504,7 @@
     padding: 0px;
     font-family: 'Barlow-Medium';
     font-size: 16px;
-    color: #000000;
+    color: #0033A0;
     text-align: center;
     font-weight: normal;
     line-height: normal;
@@ -477,12 +553,25 @@
 }
 
 /***********ESCENARIO 5***********/
+.fondo-edificio-5{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 208px;
+    height: 515px;
+    margin: 0px;
+    padding: 0px;
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    background-size: contain;
+    background-image: url(../images/pregunta5/fondo_edificio.png);
+}
 .personajes-corriendo-patio{
     position: absolute;
     width: 590px;
     height: 287px;
     top: 161px;
-    left: 186px;
+    right: 0px;
     box-sizing: border-box;
     padding: 0px;
     margin: 0px;
@@ -534,8 +623,8 @@
     width: 130px;
     height: 90px;
     box-sizing: border-box;
-    top: 0%;
-    right: 60px;
+    bottom: 10px;
+    right: 15px;
 }
 #alarma_btn{
     position: absolute;

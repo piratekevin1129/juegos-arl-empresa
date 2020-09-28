@@ -269,10 +269,10 @@
 	-webkit-animation-iteration-count: infinite;
 }
 
-.instrucciones-graph-2 #instrucciones-tecla-1,
-.instrucciones-graph-2 #instrucciones-tecla-2,
-.instrucciones-graph-2 #instrucciones-tecla-3,
-.instrucciones-graph-2 #instrucciones-tecla-4{
+.instrucciones-keyboard #instrucciones-tecla-1,
+.instrucciones-keyboard #instrucciones-tecla-2,
+.instrucciones-keyboard #instrucciones-tecla-3,
+.instrucciones-keyboard #instrucciones-tecla-4{
 	animation-duration: 8s;
 	animation-timing-function: linear;
 	animation-iteration-count: infinite;
@@ -280,19 +280,19 @@
 	-webkit-animation-timing-function: linear;
 	-webkit-animation-iteration-count: infinite;
 }
-.instrucciones-graph-2 #instrucciones-tecla-1{
+.instrucciones-keyboard #instrucciones-tecla-1{
 	animation-name: animacion-flecha-1;
 	-webkit-animation-name: animacion-flecha-1;
 }
-.instrucciones-graph-2 #instrucciones-tecla-2{
+.instrucciones-keyboard #instrucciones-tecla-2{
 	animation-name: animacion-flecha-2;
 	-webkit-animation-name: animacion-flecha-2;
 }
-.instrucciones-graph-2 #instrucciones-tecla-3{
+.instrucciones-keyboard #instrucciones-tecla-3{
 	animation-name: animacion-flecha-3;
 	-webkit-animation-name: animacion-flecha-3;
 }
-.instrucciones-graph-2 #instrucciones-tecla-4{
+.instrucciones-keyboard #instrucciones-tecla-4{
 	animation-name: animacion-flecha-4;
 	-webkit-animation-name: animacion-flecha-4;
 }
@@ -768,10 +768,10 @@
 /**********************MODAL OFF*************************/
 .modal-off .instrucciones-avatar-gif::after,
 .modal-off .instrucciones-graph-1 .instrucciones-avatar-gif,
-.modal-off .instrucciones-graph-2 #instrucciones-tecla-1,
-.modal-off .instrucciones-graph-2 #instrucciones-tecla-2,
-.modal-off .instrucciones-graph-2 #instrucciones-tecla-3,
-.modal-off .instrucciones-graph-2 #instrucciones-tecla-4,
+.modal-off .instrucciones-keyboard #instrucciones-tecla-1,
+.modal-off .instrucciones-keyboard #instrucciones-tecla-2,
+.modal-off .instrucciones-keyboard #instrucciones-tecla-3,
+.modal-off .instrucciones-keyboard #instrucciones-tecla-4,
 .modal-off .instrucciones-graph-premio-shadow,
 .modal-off .instrucciones-graph-copa,
 .modal-off .instrucciones-graph-4 .instrucciones-avatar-gif{

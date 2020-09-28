@@ -167,7 +167,7 @@ function empezarJuego(){
 			
 		}
 		addEvents()
-		//setEscenario(empleados[4])
+		setEscenario(empleados[4])
 	})
 }
 
@@ -1371,7 +1371,9 @@ function setEscenario(params){
 					clearTimeout(animacion_escenario)
 					animacion_escenario = null*/
 					
-					spdPlayAnimation({frame:1,stop:0,loop:true},5)
+					if(!ismobile){
+						spdPlayAnimation({frame:1,stop:0,loop:true},5)	
+					}					
 					spdPlayAnimation({frame:1,stop:0,loop:true},6)
 					spdPlayAnimation({frame:1,stop:0,loop:true},7)
 					spdPlayAnimation({frame:1,stop:0,loop:true},8)
@@ -1417,7 +1419,9 @@ function unsetEscenario(callBack){
 			//video.pause()
 			//video.removeChild(source);
 			//video.load()
-			spdStopAnimation(5)
+			if(!ismobile){
+				spdStopAnimation(5)
+			}			
 			spdStopAnimation(6)
 			spdStopAnimation(7)
 			spdStopAnimation(8)
@@ -1762,19 +1766,27 @@ function clickOpcion(r,butt){
 }
 function overOpciona(){
 	//pararla primero
-	spdStopAnimation(3)
-	spdPlayAnimation({frame:1,stop:6,loop:false},3)
+	if(!ismobile){
+		spdStopAnimation(3)
+		spdPlayAnimation({frame:1,stop:6,loop:false},3)
+	}	
 }
 function outOpciona(){
-	spdPlayAnimation({frame:7,stop:0,loop:false},3)
+	if(!ismobile){
+		spdPlayAnimation({frame:7,stop:0,loop:false},3)
+	}
 }
 function overOpcionb(){
 	//pararla primero
-	spdStopAnimation(4)
-	spdPlayAnimation({frame:1,stop:6,loop:false},4)
+	if(!ismobile){
+		spdStopAnimation(4)
+		spdPlayAnimation({frame:1,stop:6,loop:false},4)
+	}
 }
 function outOpcionb(){
-	spdPlayAnimation({frame:7,stop:0,loop:false},4)
+	if(!ismobile){
+		spdPlayAnimation({frame:7,stop:0,loop:false},4)
+	}
 }
 
 var animacion_personajes_corriendo = null

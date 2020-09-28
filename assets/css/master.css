@@ -943,16 +943,16 @@ header{
 #estadisticas-icon::after{
     content: "";
     position: absolute;
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    background-image: url(../images/premio-icon.png);
-    bottom: 2px;
+    background-image: url(../images/premio-icon-2.png);
+    bottom: 3px;
     left: 50%;
-    left: calc(50% - 10px);
-    left: -moz-calc(50% - 10px);
+    left: calc(50% - 9px);
+    left: -moz-calc(50% - 9px);
 
     transition: transform 0.5s, -webkit-transform 0.5s, -o-transform 0.5s;
     -webkit-transition: transform 0.5s, -webkit-transform 0.5s, -o-transform 0.5s;

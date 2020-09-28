@@ -342,9 +342,9 @@ var empleados = [
 		rotation:0,
 		idpregunta:3,
 		estado:'disponible',
-		ref:'oficina 6 - pregunta sobre salud ocupacional',
+		ref:'oficina 11 - pregunta sobre salud ocupacional',
 		bienvenida:'¡Hola! en este momento nos encontramos en un comite paritario de salud, por lo tanto te preguntaremos sobre el programa de salud ocupacional.',
-		bien:'¡¡Muy Bien!!, haz respondido correctamente.<br />Aqui tienes una llave.',
+		bien:'¡¡Muy Bien!!, haz respondido correctamente, aqui tienes una llave.',
 		mal:'¡¡La respuesta es incorrecta!!, vuelve en otro momento.'
 	},
 	{
@@ -357,7 +357,7 @@ var empleados = [
 		idpregunta:4,
 		estado:'disponible',
 		ref:'oficina 14 - pregunta sobre epp + juego de arrastrar',
-		bienvenida:'Coloca al personaje los equipos de protección que le hacen falta<br />para operar la maquina que esta a su lado y luego haz clic en <span>Ver pregunta</span>.',
+		bienvenida:'Coloca al personaje los equipos de protección que le hacen falta para operar una maquinaria y luego haz clic en <span>Ver pregunta</span>.',
 		bienvenida2:'¡Muy Bien!. Ahora responde la siguiente pregunta',
 		bien:'¡¡Muy Bien!!. Haz respondido correctamente, aquí tienes una llave.',
 		mal:'¡La respuesta es incorrecta!. Vuelve en otro momento.'
@@ -388,7 +388,7 @@ var empleados = [
 		estado:'disponible',
 		ref:'afueras de la empresa - pregunta sobre seguridad vial',
 		bienvenida:'La seguridad vial también es un factor importante en las empresas. Contesta correctamente y seguro que irás por buen camino.',
-		bien:'¡¡Muy Bien!!. Haz respondido correctamente, <br />aquí tienes una llave.',
+		bien:'¡¡Muy Bien!!. Haz respondido correctamente, aquí tienes una llave.',
 		mal:'¡La respuesta es incorrecta!. Vuelve en otro momento.'
 	}
 ]

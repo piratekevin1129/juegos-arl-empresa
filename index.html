@@ -72,10 +72,12 @@
                             <div class="contenedor-preguntas-fondo"></div>
                             <div class="burbuja-texto-big burbuja-texto-big-off" id="burbuja-texto-pregunta2"></div>
                             <div id="opcion-a">
+                                <div id="opcion-a-img"></div>
                                 <div id="opcion-a-pregunta" class="spd_sprite" width="188" height="255" frames="11" src="assets/images/pregunta2/opcion_a_sprite.png"></div>
                                 <button id="opcion_a_btn" onclick="clickOpcion(1,this)" onmouseover="overOpciona()" onmouseout="outOpciona()"></button>
                             </div>
                             <div id="opcion-b">
+                                <div id="opcion-b-img"></div>
                                 <div id="opcion-b-pregunta" class="spd_sprite" width="290" height="260" frames="11" src="assets/images/pregunta2/opcion_b_sprite.png"></div>
                                 <button id="opcion_b_btn" onclick="clickOpcion(2,this)" onmouseover="overOpcionb()" onmouseout="outOpcionb()"></button>
                             </div>
@@ -107,20 +109,20 @@
                         </div>
 
                         <div id="contenedor-preguntas-5" class="contenedor-preguntas-hidden">
-                            <div id="contenedor-preguntas-video">
-                                <div class="cielo"></div>
-                                <div class="nubes"></div>
-                                <div class="contenedor-preguntas-fondo"></div>
-                                <div class="personajes-corriendo-patio">
-                                    
-                                    <div id="personaje-corriendo-1" class="spd_sprite" width="88" height="193" frames="20" src="assets/images/pregunta5/personaje_corriendo_1_sprite.png"></div>
-                                    <div id="personaje-corriendo-4" class="spd_sprite" width="147" height="172" frames="16" src="assets/images/pregunta5/personaje_corriendo_4_sprite.png"></div>
-                                    <div id="personaje-corriendo-2" class="spd_sprite" width="105" height="240" frames="24" src="assets/images/pregunta5/personaje_corriendo_2_sprite.png"></div>
-                                    <div id="personaje-corriendo-3" class="spd_sprite" width="114" height="245" frames="24" src="assets/images/pregunta5/personaje_corriendo_3_sprite.png"></div>
-                                    
-                                </div>
-                                <!--<video id="contenedor-preguntas-video-5"></video>-->
+                            <div class="cielo"></div>
+                            <div class="nubes"></div>
+                            <div class="contenedor-preguntas-fondo"></div>
+                            <div class="personajes-corriendo-patio">
+                                <div id="personaje-corriendo-1" class="spd_sprite" width="88" height="193" frames="20" src="assets/images/pregunta5/personaje_corriendo_1_sprite.png"></div>
+                                <div id="personaje-corriendo-4" class="spd_sprite" width="147" height="172" frames="16" src="assets/images/pregunta5/personaje_corriendo_4_sprite.png"></div>
+                                <div id="personaje-corriendo-2" class="spd_sprite" width="105" height="240" frames="24" src="assets/images/pregunta5/personaje_corriendo_2_sprite.png"></div>
+                                <div id="personaje-corriendo-3" class="spd_sprite" width="114" height="245" frames="24" src="assets/images/pregunta5/personaje_corriendo_3_sprite.png"></div>
                             </div>
+                            <div class="fondo-edificio-5"></div>
+
+                            <!--<div id="contenedor-preguntas-video">
+                                <video id="contenedor-preguntas-video-5"></video>
+                            </div>-->
                             <div id="alarma-pregunta-5">
                                 <div id="alarma" class="spd_sprite" width="130" height="90" frames="11" src="assets/images/pregunta5/sirena_sprite.png"></div>
                                 <div id="alarma_btn" style="display: none;"></div>
@@ -359,9 +361,13 @@ window.onload = function(){
         //fondos de los escenarios, y de victoria
         loadImage({url:'assets/images/pregunta1/fondo.jpg',callBack:function(){
         loadImage({url:'assets/images/pregunta2/fondo.jpg',callBack:function(){
+        loadImage({url:'assets/images/pregunta2/opcion_a_img.png',callBack:function(){
+        loadImage({url:'assets/images/pregunta2/opcion_b_img.png',callBack:function(){
         loadImage({url:'assets/images/pregunta3/fondo.jpg',callBack:function(){
         loadImage({url:'assets/images/pregunta4/fondo.jpg',callBack:function(){
+        loadImage({url:'assets/images/pregunta4/casilleros.jpg',callBack:function(){
         loadImage({url:'assets/images/pregunta5/fondo.png',callBack:function(){
+        loadImage({url:'assets/images/pregunta5/fondo_edificio.png',callBack:function(){
         loadImage({url:'assets/images/pregunta6/fondo.png',callBack:function(){
         loadImage({url:'assets/images/fondo-premios.jpg',callBack:function(){
         setCargadorText(true)
@@ -417,6 +423,10 @@ window.onload = function(){
     		}})
     		}})
 
+        }})
+        }})
+        }})
+        }})
         }})
         }})
         }})
