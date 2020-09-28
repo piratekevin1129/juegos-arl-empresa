@@ -1,3 +1,10 @@
+body{
+    position: relative;
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
 #container{
     position: relative;
     margin: 0px;
@@ -674,7 +681,7 @@ header{
 }
 .icono-puerta{
     position: absolute;
-    background-color: rgba(255,255,0,0.5);
+    background-color: rgba(255,255,0,0);
     box-sizing: border-box;
     /*border: #000 solid 1px;*/
 }
@@ -1073,7 +1080,7 @@ header{
 }
 
 #keys-pad-cont{
-    position: absolute;
+    position: fixed;
     height: 150px;
     background-color: #000000;
     bottom: 0px;

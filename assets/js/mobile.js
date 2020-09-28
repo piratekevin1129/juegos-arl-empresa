@@ -8,7 +8,7 @@ var url_casilleros = 'casilleros'//imagen de los casilleros de la oficina 14
 
 function prepareWindow(){
     ismobile = isMobileDevice()
-    //ismobile = true
+    ismobile = true
 
     if(window.innerWidth<560){
     	isresponsive = true
@@ -27,7 +27,6 @@ function prepareWindow(){
         //game_scene.style.height = game_height+'px'
         top_speed = 2
         avatar_aceleration = 2
-        getE('keys-pad-cont').className = "keys-pad-on keys-pad-show"
         instrucciones_label = "Mueve al personaje por toda la empresa haciendo tap en las flechas de dirección"
     }
     if(isresponsive){

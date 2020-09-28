@@ -166,6 +166,10 @@ function empezarJuego(){
 		}else{
 			
 		}
+
+		if(ismobile){
+			getE('keys-pad-cont').className = "keys-pad-on keys-pad-show"
+		}
 		addEvents()
 		//setEscenario(empleados[3])
 	})
@@ -995,7 +999,7 @@ function checkCollision(x,y,a,b){
 			){
 				//colision
 				//type = 'pared'
-				//collision = true
+				collision = true
 				//console.log("colision con "+c)
 			}
 		}
