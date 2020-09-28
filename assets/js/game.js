@@ -465,8 +465,8 @@ var avatar_data = {
 	height:28,
 	area:8,
 	subarea:8,
-	llaves:[15],
-	premios:[1,2,3,4,5]
+	llaves:[],
+	premios:[]
 }
 var piso_data = {
 	left:0,
@@ -921,18 +921,11 @@ function moveAvatar(back){
 
 function moveAvatar2(){
 	var steps = 0
-	if(ismobile){
-		if(direccion_left||direccion_right){
-			steps = 25
-		}else if(direccion_up||direccion_down){
-			steps = 23
-		}
-	}else{
-		if(direccion_left||direccion_right){
-			steps = 22
-		}else if(direccion_up||direccion_down){
-			steps = 20
-		}
+	
+	if(direccion_left||direccion_right){
+		steps = 22
+	}else if(direccion_up||direccion_down){
+		steps = 20
 	}
 	
 	for(var aa = 0;aa<steps;aa++){
