@@ -6,6 +6,11 @@
         width: 100%;
         height: 578px;
     }
+    #game{
+        height: 100%;
+        height: calc(100% - 73px);
+        height: -moz-calc(100% - 73px);
+    }
     .logo-sura{
         margin-left: 10px;
     }
@@ -19,6 +24,15 @@
         margin-right: 10px;
     }
 
+    /************ESCENARIO***********/
+    .burbuja-texto{
+        width: 400px;
+    }
+    .burbuja-texto-big{
+        width: 80%;
+        left: 10%;
+    }
+
     /************MODAL**************/
     #modal-box{
         width: 350px;
@@ -29,6 +43,9 @@
     }
     #modal-title{
         font-size: 18px;
+    }
+    #modal-content > p,.modal-content-p{
+        font-size: 13px;
     }
 
     

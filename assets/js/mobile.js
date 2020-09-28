@@ -14,6 +14,14 @@ function prepareWindow(){
     //ismobile = true
     console.log(ismobile,isresponsive)
     //document.getElementById('instrucciones_txt').innerHTML = instrucciones_label
+
+    
+    game_width = game.offsetWidth
+    game_height = game.offsetHeight
+    game.style.width = game_width+'px'
+    game.style.height = game_height+'px'
+
+    game_rect = game.getBoundingClientRect()
 }
 
 function isMobileDevice() {

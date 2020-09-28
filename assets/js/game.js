@@ -198,6 +198,7 @@ function setGame(){
 }
 
 var actual_floor = 0
+var container = getE('container')
 var piso_container = getE('piso-container')
 var piso_container_rect = piso_container.getBoundingClientRect()
 var piso = getE('piso')
@@ -450,8 +451,8 @@ var avatar_data = {
 	height:28,
 	area:8,
 	subarea:8,
-	llaves:[],
-	premios:[]
+	llaves:[15],
+	premios:[1,2,3,4,5]
 }
 var piso_data = {
 	left:0,
@@ -943,7 +944,7 @@ function checkCollision(x,y,a,b){
 			){
 				//colision
 				//type = 'pared'
-				collision = true
+				//collision = true
 				//console.log("colision con "+c)
 			}
 		}
@@ -1195,8 +1196,13 @@ function setPelicula(params){
 		}
 		
 	}
+	video.className = 'pelicula-'+movie
 	getE('contenedor-peliculas').style.display = 'block'
 	getE('contenedor-peliculas').className = 'contenedor-peliculas-on'
+	if(movie==5){
+		getE('pelicula_txt').style.opacity = '1'
+		getE('pelicula_fin').style.opacity = '1'
+	}
 
 	//esperar a que cargue
 	animacion_pelicula = setTimeout(function(){

@@ -536,17 +536,98 @@ header{
 
 #contenedor-peliculas video{
     position: relative;
-    width: 100%;
-    width: calc(100% + 5px);
-    width: -moz-calc(100% + 5px);
-    height: 100%;
-    height: calc(100% + 5px);
-    height: -moz-calc(100% + 5px);
-    top: -2px;
-    left: -2px;
+    top: -2.5px;
+    
     margin: 0px;
     padding: 0px;
 }
+.pelicula-0,.pelicula-1{
+    transform: translateX(-569px);
+    transform: -webkit-translateX(-569px);
+    transform: -o-translateX(-569px);
+    left: 72%;
+}
+.pelicula-2{
+    transform: translateX(-580px);
+    transform: -webkit-translateX(-580px);
+    transform: -o-translateX(-580px);
+    left: 73.4%;
+}
+.pelicula-3{
+    transform: translateX(-416px);
+    transform: -webkit-translateX(-416px);
+    transform: -o-translateX(-416px);
+    left: 52.6%;
+}
+.pelicula-4{
+    transform: translateX(-300px);
+    transform: -webkit-translateX(-300px);
+    transform: -o-translateX(-300px);
+    left: 37.9%;
+}
+.pelicula-5{
+    transform: translateX(-395px);
+    transform: -webkit-translateX(-395px);
+    transform: -o-translateX(-395px);
+    left: 50%;
+}
+#pelicula_txt{
+    position: absolute;
+    width: 100%;
+    height: 70px;
+    bottom: 0px;
+    left: 0px;
+    background-color: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+
+    transition: opacity 1s;
+    -webkit-transition: opacity 1s;
+}
+#pelicula_txt p{
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Barlow-Bold';
+    font-size: 15px;
+    color: #FFFFFF;
+    text-align: center;
+    font-weight: normal;
+    line-height: normal;
+    display: block;
+    width: 100%;
+}
+#pelicula_fin{
+    position: absolute;
+    width: 100%;
+    height: 70px;
+    bottom: 0px;
+    left: 0px;
+    margin: 0px;
+    padding: 0px;
+    background-color: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    box-sizing: border-box;
+    padding-right: 20px;
+    
+    font-family: 'Barlow-Bold';
+    font-size: 18px;
+    color: #FFFFFF;
+    text-align: right;
+    font-weight: normal;
+    line-height: normal;
+    opacity: 0;
+
+    transition: opacity 1s;
+    transition-delay: 17s;
+    -webkit-transition: opacity 1s;
+    transition-delay: 17s;
+}
+
 #contenedor-peliculas-alfa,
 #contenedor-preguntas-alfa{
     position: absolute;
@@ -843,18 +924,14 @@ header{
     height: 25px;
     border-radius: 0px 0px 5px 5px;
     background-color: #b91c24;
-    border: #FFF solid 2px;
+    border: none;
     box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.5);
     border-top: none;
     cursor: pointer;
     padding: 0px;
     margin: 0px;
 
-    background: #dd242f;
-    background: radial-gradient(#a6171e, #e02530);
-    background: -moz-radial-gradient(#a6171e, #e02530);
-    background: -webkit-radial-gradient(#a6171e, #e02530);
-    background: -o-radial-gradient(#a6171e, #e02530);
+    background-color: #78BE20;
 
     transition: top 0.5s, height 0.5s;
     -webkit-transition: top 0.5s, height 0.5s;
@@ -866,16 +943,16 @@ header{
 #estadisticas-icon::after{
     content: "";
     position: absolute;
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    background-image: url(../images/trophy-list-icon.svg);
-    bottom: 4px;
+    background-image: url(../images/premio-icon.png);
+    bottom: 2px;
     left: 50%;
-    left: calc(50% - 7.5px);
-    left: -moz-calc(50% - 7.5px);
+    left: calc(50% - 10px);
+    left: -moz-calc(50% - 10px);
 
     transition: transform 0.5s, -webkit-transform 0.5s, -o-transform 0.5s;
     -webkit-transition: transform 0.5s, -webkit-transform 0.5s, -o-transform 0.5s;
@@ -890,19 +967,19 @@ header{
 .estadisticas-off #estadisticas-icon{
     top: 100%;
 }
-.estadisticas-off #estadisticas-icon::after{
+/*.estadisticas-off #estadisticas-icon::after{
     transform: rotate(0deg);
     -webkit-transform: rotate(0deg);
     -o-transform: rotate(0deg);
-}
+}*/
 .estadisticas-on #estadisticas-icon{
     top: 0%;
 }
-.estadisticas-on #estadisticas-icon::after{
+/*.estadisticas-on #estadisticas-icon::after{
     transform: rotate(180deg);
     -webkit-transform: rotate(180deg);
     -o-transform: rotate(180deg);
-}
+}*/
 
 #trophy1,#trophy2,#trophy3,#trophy4,#trophy5,#trophy6{
     display: flex;
@@ -1027,6 +1104,7 @@ header{
     background-position: center -moz-calc(100% - 7px);
     background-size: 22px 22px;
     cursor: pointer;
+    box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.5);
 
     transition: box-shadow 0.3s, transform 0.3s, -webkit-transform 0.3s, -o-transform 0.3s, padding 0.3s;
     -webkit-transition: box-shadow 0.3s, transform 0.3s, -webkit-transform 0.3s, -o-transform 0.3s, padding 0.3s;
@@ -1038,7 +1116,7 @@ header{
 
 #music-btn:hover{
     padding-top: 10px;
-    box-shadow: -1px 1px 2px 1px rgba(0,0,0,0.3);
+    /*box-shadow: -1px 1px 2px 1px rgba(0,0,0,0.3);*/
 }
 .music-on{
     background-image: url(../images/music-on-icon.svg);
