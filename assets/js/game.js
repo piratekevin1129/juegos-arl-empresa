@@ -167,7 +167,7 @@ function empezarJuego(){
 			
 		}
 		addEvents()
-		setEscenario(empleados[4])
+		setEscenario(empleados[3])
 	})
 }
 

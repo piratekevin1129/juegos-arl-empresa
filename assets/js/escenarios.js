@@ -160,7 +160,12 @@ function loadEpps(ee){
 			div_epp.className = 'elemento-epp'
 
 			if(u<=5){
-				var h = '<div ind="'+elementos_epp[u].id+'" style="background-image:url('+elementos_epp[u].img+'); width:'+elementos_epp[u].w1+'px; height:'+elementos_epp[u].h1+'px" onmousedown="downElementoEpp(this,event)"</div>'
+				var h = ""
+				if(ismobile){
+					h = '<div ind="'+elementos_epp[u].id+'" style="background-image:url('+elementos_epp[u].img+'); width:'+elementos_epp[u].w1+'px; height:'+elementos_epp[u].h1+'px" onclick="clickElementoEpp(this)"></div>'
+				}else{
+					h = '<div ind="'+elementos_epp[u].id+'" style="background-image:url('+elementos_epp[u].img+'); width:'+elementos_epp[u].w1+'px; height:'+elementos_epp[u].h1+'px" onmousedown="downElementoEpp(this,event)"></div>'
+				}
 				div_epp.innerHTML = h
 				div_epp.id = 'elemento-epp-'+elementos_epp[u].id
 				//div_epp.setAttribute('area',elementos_epp[i].area)
@@ -187,6 +192,9 @@ function loadEpps(ee){
 				div_area.className = 'area-epp area-epp-off'
 				div_area.id = 'area-epp-'+elementos_epp[u].area
 				getE('personaje_areas').appendChild(div_area)
+				if(ismobile){
+					div_area.setAttribute('onclick','clickAreaEpp('+elementos_epp[u].area+')')
+				}
 				areas_epp.push(div_area)
 			}else{
 				getE('elementos-epp').appendChild(div_epp)
@@ -214,6 +222,59 @@ var actual_elemento_epp = null
 var actual_elemento_epp_data = null
 var posx_epp = 0
 var posy_epp = 0
+
+function clickElementoEpp(epp){
+	if(!game4_finished){
+		if(actual_elemento_epp!=null){
+			actual_elemento_epp.classList.remove('elemento-epp-clicked')
+		}
+		actual_elemento_epp = epp
+		actual_elemento_epp_data = elementos_epp[findElementoInd(epp.getAttribute('ind'))]
+
+		actual_elemento_epp.classList.add('elemento-epp-clicked')
+
+		//brillar areas
+		var area = getE('area-epp-'+actual_elemento_epp_data.area)
+		area.classList.remove('area-epp-off')
+		area.classList.add('area-epp-on')
+	}
+}
+
+function clickAreaEpp(aa){
+	var correct = false
+
+	actual_elemento_epp.classList.remove('elemento-epp-clicked')
+
+	var clase = getE('area-epp-'+aa).className
+	console.log(aa)
+
+	if(clase.indexOf('area-epp-on')!=-1){
+		correct = true
+	}
+	
+	//ocultar areas
+	var area = getE('area-epp-'+actual_elemento_epp_data.area)
+	area.classList.remove('area-epp-on')
+	area.classList.add('area-epp-off')
+
+	if(correct){
+		var ropa = getE('ropa-epp-'+actual_elemento_epp_data.ropa)
+		ropa.classList.remove('ropa-epp-off')
+		ropa.classList.add('ropa-epp-on')
+		ropa.setAttribute('occuped','yes')
+		actual_elemento_epp.classList.add('elemento-epp-hide')
+	}else{
+		//en caso de que le de click a un área no alumbrante o ocupada
+		getE('contenedor-mensaje-alerta-box').innerHTML = '<p>Este Epp no hace parte de esta zona del cuerpo</p>'
+		getE('contenedor-mensaje-alerta').className = "contenedor-mensaje-alerta-on"
+		animacion_mensaje_alerta = setTimeout(function(){
+			clearTimeout(animacion_mensaje_alerta)
+			animacion_mensaje_alerta = null
+
+			getE('contenedor-mensaje-alerta').className = "contenedor-mensaje-alerta-off"
+		},3000)
+	}
+}
 
 function downElementoEpp(epp,event){
 	if(!game4_finished){

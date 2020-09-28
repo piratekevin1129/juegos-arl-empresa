@@ -79,6 +79,10 @@
 }
 #contenedor-preguntas-6 .contenedor-preguntas-fondo{
     background-image: url(../images/pregunta6/fondo.png);
+    transform: translateX(-780px);
+    -webkit-transform: translateX(-780px);
+    -o-transform: translateX(-780px);
+    left: 100%;
 }
 
 .burbuja-texto{
@@ -308,7 +312,12 @@
     background-repeat: no-repeat;
 }
 
-#personaje_areas,#personaje_ropas{
+#personaje_areas{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+#personaje_ropas{
     position: absolute;
     width: 100%;
     height: 100%;
@@ -316,6 +325,8 @@
     left: 0px;
 }
 .area-epp{
+    background-color: rgba(0,0,0,0);
+    cursor: pointer;
     position: absolute;
     width: 30px;
     height: 30px;
@@ -376,12 +387,12 @@
         border: #FFFFFF solid 1px;
     }
 }
-#area-epp-1{top: 4%;left: 46%;}
-#area-epp-2{top: 12%;left: 47%;}
-#area-epp-3{top: 17%;left: 47%;}
-#area-epp-4{top: 56%;left: 82%;}
-#area-epp-5{top: 56%;left: 13%;}
-#area-epp-6{top: 92%;left: 50%;}
+#area-epp-1{top: 15px;left: 62px;}
+#area-epp-2{top: 42px;left: 62px;}
+#area-epp-3{top: 62px;left: 62px;}
+#area-epp-4{top: 208px;left: 110px;}
+#area-epp-5{top: 208px;left: 20px;}
+#area-epp-6{top: 330px;left: 65px;}
 
 #elementos-epp{
     position: absolute;
@@ -426,6 +437,33 @@
 }
 .elemento-epp-show{
     visibility: visible;
+}
+.elemento-epp-clicked{
+    animation-name: animation-epp-active;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    -webkit-animation-name: animation-epp-active;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+}
+@keyframes animation-epp-active{
+    0%{
+        transform: scale(1);
+        -webkit-transform: scale(1);
+        -o-transform: scale(1);
+    }
+    50%{
+        transform: scale(1.2);
+        -webkit-transform: scale(1.2);
+        -o-transform: scale(1.2);
+    }
+    100%{
+        transform: scale(1);
+        -webkit-transform: scale(1);
+        -o-transform: scale(1);
+    }
 }
 
 #elemento-epp-move{

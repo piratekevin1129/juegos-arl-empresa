@@ -158,12 +158,12 @@ header{
 }
 .nubes{
     position: absolute;
-    width: 1536px;
+    width: 1560px;
     height: 310px;
-    left: 0px;
+    top: 0px;
     background-repeat: no-repeat;
     background-position: center;
-    background-size: contain;
+    background-size: 100% 100%;
     background-image: url(../images/nubes.png);
 
     animation-name: animacion-nubes;
@@ -180,7 +180,7 @@ header{
         left: 0px;
     }
     100%{
-        left: -100%;
+        left: -780px;
     }
 }
 #personaje-home{
