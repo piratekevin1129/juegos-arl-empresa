@@ -180,12 +180,12 @@ function setGame(){
 	loadImage({url:'assets/images/piso1.jpg',callBack:function(data){
 		piso1_data = {width:data.width,height:data.height,src:data.src}
 		if(ismobile){
-			piso1_data.height = (piso1_data.height+150)
+			piso1_data.height = (piso1_data.height+120)
 		}
 		loadImage({url:'assets/images/piso2.jpg',callBack:function(data){
 			piso2_data = {width:data.width,height:data.height,src:data.src}
 			if(ismobile){
-				piso2_data.height = (piso2_data.height+150)
+				piso2_data.height = (piso2_data.height+120)
 			}
 
 			setFloor(1,true)
@@ -297,7 +297,7 @@ function setFloor(floor,start){
 
 	//put avatar
 	avatar.style.top = avatar_data.top+'px'
-	avatar.style.left = avatar_data.left+'px'//150
+	avatar.style.left = avatar_data.left+'px'
 	//set piso coords
 	piso.style.top = piso_data.top+'px'
 	piso.style.left = piso_data.left+'px'
@@ -524,12 +524,12 @@ function addEvents(){
 		getE('key-pad-down').addEventListener('touchend',upKeyPad,false)
 		key_pad_pressed = null
 		key_pad_pressed_code = 0
-	}//else{
+	}else{
 		window.addEventListener('keydown',downTecla, false)
 		window.addEventListener('keyup',upTecla, false)
 		//document.addEventListener("visibilitychange", onchange);
 		//window.addEventListener('mouseout',focusOut, false)
-	//}
+	}
 	avatar_moving = true
 	animacion_avatar = setInterval(moveAvatar,20)
 }
@@ -553,10 +553,10 @@ function removeEvents(){
 
 		key_pad_pressed = null
 		key_pad_pressed_code = 0
-	}//else{
+	}else{
 		window.removeEventListener('keydown',downTecla, false)
 		window.removeEventListener('keyup',upTecla, false)
-	//}
+	}
 
 	direccion_right = false
 	direccion_left = false
@@ -582,6 +582,7 @@ var key_pressed = null
 
 function downTecla(e){
 	//console.log(e.keyCode)
+	//console.log("llamando")
 	var put_events = false
 	var new_key = null
 	

@@ -62,6 +62,9 @@
         -webkit-animation-timing-function: linear;
         -webkit-animation-iteration-count: 1;
     }
+    #keys-pad-cont{
+        width: 768px;
+    }
 
     /******ESCENARIOS******/
     .burbuja-texto-off{

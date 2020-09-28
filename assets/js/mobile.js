@@ -8,12 +8,12 @@ var url_casilleros = 'casilleros'//imagen de los casilleros de la oficina 14
 
 function prepareWindow(){
     ismobile = isMobileDevice()
-    ismobile = true
+    //ismobile = true
 
     if(window.innerWidth<560){
     	isresponsive = true
     }
-    //ismobile = true
+    //isresponsive = true
     console.log(ismobile,isresponsive)
     
 
