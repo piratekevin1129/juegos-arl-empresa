@@ -329,7 +329,7 @@ var empleados = [
 		idpregunta:2,
 		estado:'disponible',
 		ref:'oficina 6 - pregunta sobre ergonomía',
-		bienvenida:'Ahora estás observando a dos personas en su puesto de trabajo. Haz clic en la que tiene la postura correcta de trabajo.',
+		bienvenida:'Ahora estás observando a dos personas en su puesto de trabajo. Selecciona la que tiene la postura correcta de trabajo.',
 		bien:'¡¡Muy Bien!!. Haz respondido correctamente, aquí tienes una llave',
 		mal:'¡¡La respuesta es incorrecta!!. Vuelve en otro momento'
 	},
@@ -372,7 +372,7 @@ var empleados = [
 		idpregunta:5,
 		estado:'disponible',
 		ref:'afueras de la empresa - pregunta sobre simulacros de emergencia + interactividad de simulacro',
-		bienvenida:'Plan de emergencias. En este tema veremos un simulacro de evacuación. Haz clic en la sirena  del lado derecho  de tu pantalla.',
+		bienvenida:'Plan de emergencias. En este tema veremos un simulacro de evacuación. Toca la sirena.',
 		bienvenida2:'Luego de ver el simulacro de evacuación responde la siguiente pregunta.',
 		bien:'¡¡Muy Bien!!. Haz respondido correctamente, aquí tienes una llave.',
 		mal:'¡La respuesta es incorrecta!. Regresa en otro momento.'

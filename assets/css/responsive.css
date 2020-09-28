@@ -1,15 +1,100 @@
 @media (min-width: 768px){
+    #container{
+        width: 768px;
+        height: 578px;
+    }
 
+    /********MASTER*******/
+    .mensaje-off{
+        visibility: hidden;
+        opacity: 0;
+        top: 50%;
+        box-shadow: none;
+
+        transition: visibility 0.2s, opacity 0.2s, top 0.2s, left 0.2s, box-shadow 0.2s;
+        -webkit-transition: visibility 0.2s, opacity 0.2s, top 0.2s, left 0.2s, box-shadow 0.2s;
+    }
+    .mensaje-on{
+        visibility: visible;
+        opacity: 1;
+        top: -10px;
+        box-shadow: 0px 4px 4px -5px rgba(0,0,0,0.5);
+
+        transition: visibility 0s, opacity 0.2s, top 0.2s, left 0.2s, box-shadow 0.2s;
+        -webkit-transition: visibility 0s, opacity 0.2s, top 0.2s, left 0.2s, box-shadow 0.2s;
+    }
+    .nubes{
+        animation-name: animacion-nubes;
+        animation-duration: 20s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+        -webkit-animation-name: animacion-nubes;
+        -webkit-animation-duration: 20s;
+        -webkit-animation-iteration-count: infinite;
+        -webkit-animation-timing-function: linear;
+    }
+    #music-btn:hover{
+        padding-top: 10px;
+        /*box-shadow: -1px 1px 2px 1px rgba(0,0,0,0.3);*/
+    }
+    #estadisticas-icon:hover{
+        height: 35px;
+    }
+    .estadisticas-off{
+        top: -70px;
+    }
+    .estadisticas-on{
+        top: 0px;
+    }
+    .trophy-on > div{
+        animation-name: animacion-trophy-won;
+        animation-duration: 0.75s;
+        animation-fill-mode: forwards;
+        animation-timing-function: linear;
+        animation-iteration-count: 1;
+        -webkit-animation-name: animacion-trophy-won;
+        -webkit-animation-duration: 0.75s;
+        -webkit-animation-fill-mode: forwards;
+        -webkit-animation-timing-function: linear;
+        -webkit-animation-iteration-count: 1;
+    }
+
+    /******ESCENARIOS******/
+    .burbuja-texto-off{
+        transform: scale(0.2);
+        -webkit-transform: scale(0.2);
+        -o-transform: scale(0.2);
+        opacity: 0;
+    }
+    .burbuja-texto-on{
+        transform: scale(1);
+        -webkit-transform: scale(1);
+        -o-transform: scale(1);
+        opacity: 1;
+    }
+
+    /*********MODAL**********/
+    #modal-button:hover{
+        transform: scale(1.1);
+        -webkit-transform: scale(1.1);
+        -o-transform: scale(1.1);
+        background-color: #0097A3;
+    }
+
+    /********INSTRUCCIONES*******/
+    #instrucciones-next-btn:hover,
+    #instrucciones-prev-btn:hover{
+        transform: scale(1.1);
+        -webkit-transform: scale(1.1);
+        -o-transform: scale(1.1);
+        box-shadow: -1px 1px 2px 1px rgba(0,0,0,0.5);
+    }
 }
+
 @media (min-width: 560px) and (max-width: 767px){
 	#container{
         width: 100%;
         height: 578px;
-    }
-    #game{
-        height: 100%;
-        height: calc(100% - 73px);
-        height: -moz-calc(100% - 73px);
     }
     .logo-sura{
         margin-left: 10px;
@@ -24,13 +109,90 @@
         margin-right: 10px;
     }
 
+    #key-pad-left,
+    #key-pad-right,
+    #key-pad-up,
+    #key-pad-down{
+        transition: transform 0.1s, -webkit-transform 0.1s, -o-transform 0.1s;
+        -webkit-transition: transform 0.1s, -webkit-transform 0.1s, -o-transform 0.1s;
+    }
+
+    /********MASTER*******/
+    .mensaje-off{
+        visibility: hidden;
+        opacity: 0;
+        top: 50%;
+        box-shadow: none;
+
+        transition: visibility 0.2s, opacity 0.2s, top 0.2s, left 0.2s, box-shadow 0.2s;
+        -webkit-transition: visibility 0.2s, opacity 0.2s, top 0.2s, left 0.2s, box-shadow 0.2s;
+    }
+    .mensaje-on{
+        visibility: visible;
+        opacity: 1;
+        top: -10px;
+        box-shadow: 0px 4px 4px -5px rgba(0,0,0,0.5);
+
+        transition: visibility 0s, opacity 0.2s, top 0.2s, left 0.2s, box-shadow 0.2s;
+        -webkit-transition: visibility 0s, opacity 0.2s, top 0.2s, left 0.2s, box-shadow 0.2s;
+    }
+    .nubes{
+        animation-name: animacion-nubes;
+        animation-duration: 20s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+        -webkit-animation-name: animacion-nubes;
+        -webkit-animation-duration: 20s;
+        -webkit-animation-iteration-count: infinite;
+        -webkit-animation-timing-function: linear;
+    }
+    #music-btn:hover{
+        padding-top: 10px;
+        /*box-shadow: -1px 1px 2px 1px rgba(0,0,0,0.3);*/
+    }
+    #estadisticas-icon:hover{
+        height: 35px;
+    }
+    .estadisticas-off{
+        top: -70px;
+    }
+    .estadisticas-on{
+        top: 0px;
+    }
+    .trophy-on > div{
+        animation-name: animacion-trophy-won;
+        animation-duration: 0.75s;
+        animation-fill-mode: forwards;
+        animation-timing-function: linear;
+        animation-iteration-count: 1;
+        -webkit-animation-name: animacion-trophy-won;
+        -webkit-animation-duration: 0.75s;
+        -webkit-animation-fill-mode: forwards;
+        -webkit-animation-timing-function: linear;
+        -webkit-animation-iteration-count: 1;
+    }
+
     /************ESCENARIO***********/
-    .burbuja-texto{
-        width: 400px;
+    .burbuja-texto-off{
+        transform: scale(0.2);
+        -webkit-transform: scale(0.2);
+        -o-transform: scale(0.2);
+        opacity: 0;
+    }
+    .burbuja-texto-on{
+        transform: scale(1);
+        -webkit-transform: scale(1);
+        -o-transform: scale(1);
+        opacity: 1;
     }
     .burbuja-texto-big{
         width: 80%;
         left: 10%;
+    }
+    .burbuja-texto::after{
+        left: 30%;
+        left: calc(30% - 10px);
+        left: -moz-calc(30% - 10px);
     }
     #opcion-a{
         top: 200px;
@@ -56,6 +218,228 @@
     #modal-content > p,.modal-content-p{
         font-size: 13px;
     }
+    #modal-button:hover{
+        transform: scale(1.1);
+        -webkit-transform: scale(1.1);
+        -o-transform: scale(1.1);
+        background-color: #0097A3;
+    }
 
+    /********INSTRUCCIONES*******/
+    #instrucciones-next-btn:hover,
+    #instrucciones-prev-btn:hover{
+        transform: scale(1.1);
+        -webkit-transform: scale(1.1);
+        -o-transform: scale(1.1);
+        box-shadow: -1px 1px 2px 1px rgba(0,0,0,0.5);
+    }
+   
+}
+
+@media (min-width: 280px) and (max-width: 559px){
+    #container{
+        width: 100%;
+        height: 578px;
+    }
+    .logo-sura{
+        margin-left: 10px;
+    }
+    .titulo{
+        margin-right: 10px;
+        width: 200px;
+        width: calc(100% - (73px + 30px));
+        width: -moz-calc(100% - (73px + 30px));
+    }
+    .logo-arl{
+        margin-left: 10px;
+    }
+    #oficio-title{
+        margin-right: 10px;
+    }
+
+    /******HOME*****/
+    #personaje-home{
+        display: none;
+    }
+
+    /*****MASTER***/
+    .mensaje-off{
+        visibility: hidden;
+        opacity: 0;
+        top: 50%;
+        box-shadow: none;
+    }
+    .mensaje-on{
+        visibility: visible;
+        opacity: 1;
+        top: -10px;
+    }
+    #mensaje p{
+        font-size: 13px;
+    }
+    .nubes{
+        animation: none;
+        animation: unset;
+        -webkit-animation: none;
+        -webkit-animation: unset;
+    }
+    #music-btn{
+        cursor: default;
+    }
+    #estadisticas{
+        width: 100%;
+        width: calc(100% - 100px);
+        width: -moz-calc(100% - 100px);
+        height: 50px;
+    }
+    #estadisticas-icon{
+        cursor: default;
+    }
+    .estadisticas-off{
+        top: -50px;
+    }
+    .estadisticas-on{
+        top: 0px;
+    }
+    #trophy1,#trophy2,#trophy3,#trophy4,#trophy5,#trophy6{
+        width: 40px;
+        width: calc(100% / 6);
+        width: -moz-calc(100% / 6);
+        height: 40px;
+    }
+    #estadisticas > div > div{
+        width: 80%;
+        height: 40px;
+    }
+    .trophy-on > div{
+        filter: brightness(100%);
+        -webkit-filter: brightness(100%);
+        -o-filter: brightness(100%);
+        transform: scale(1);
+        -webkit-transform: scale(1);
+        -o-transform: scale(1);
+    }
+
+    /************ESCENARIO***********/
+    .burbuja-texto-off{
+        opacity: 0;
+    }
+    .burbuja-texto-on{
+        opacity: 1;
+    }
+    .burbuja-texto{
+        padding: 7px;
+    }
+    .burbuja-texto-big{
+        width: 95%;
+        left: 2.5%;
+        padding: 7px;
+    }
+    .burbuja-texto::after{
+        left: 15%;
+        left: calc(15% - 10px);
+        left: -moz-calc(15% - 10px);
+    }
+    .burbuja-texto p,
+    .burbuja-texto-big p{
+        font-size: 13px;
+    }
+
+    .fondo-edificio-5{
+        display: none;
+    }
+    #alarma-pregunta-5{
+        bottom: 5px;
+        right: 0px;
+    }
+    #burbuja-texto-pregunta5{
+        bottom: 10px;
+        width: 100%;
+        width: calc(100% - (130px + 10px));
+        width: -moz-calc(100% - (130px + 10px));
+        left: 10px;
+    }
+    #burbuja-texto-pregunta1{
+        width: 95%;
+        left: 2.5%;
+    }
     
+    #contenedor-preguntas-2 .contenedor-preguntas-fondo{
+        background-image: url(../images/pregunta2/fondo_m.jpg);
+        transform: none;
+        -webkit-transform: none;
+        -o-transform: none;
+        left: 0%;
+    }
+    #opcion-a{
+        width: 143px;
+        height: 150px;
+        top: 120px;
+        left: 50%;
+        left: calc(50% - (143px / 2));
+        left: -moz-calc(50% - (143px / 2));
+    }
+    #opcion-a-pregunta{
+        display: none;
+    }
+    #opcion-b{
+        width: 168px;
+        height: 150px;
+        top: 330px;
+        left: 50%;
+        left: calc(50% - (143px / 2));
+        left: -moz-calc(50% - (143px / 2));
+    }
+    #opcion-b-pregunta{
+        display: none;
+    }
+    #opcion_a_btn,#opcion_b_btn{
+        cursor: default;
+    }
+
+    #elementos-epp{
+        width: 139px;
+        height: 277px;
+        
+        top: 0px;
+        right: initial;
+        left: 20px;
+        background-image: url(../images/pregunta4/casilleros_m.jpg);
+    }
+    #contenedor-mensaje-alerta-box{
+        width: 90%;
+        padding: 5px;
+    }
+    #contenedor-mensaje-alerta-box p{
+        font-size: 14px;
+    }
+
+    .carta-respuesta{
+        cursor: default;
+    }
+
+    /************MODAL**************/
+    #modal-box{
+        width: 95%;
+        min-width: 320px;
+        padding: 10px;
+    }
+    .modal-box-left{
+        left: initial;
+    }
+    #modal-title{
+        font-size: 18px;
+    }
+    #instrucciones-wrapper{
+        height: 380px;
+    }
+    #modal-button{
+        cursor: default;
+    }
+
+    /******INSTRUCCIONES*****/
+    #instrucciones-next-btn,
+    #instrucciones-prev-btn{
+        cursor: default;
+    }
 }

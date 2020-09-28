@@ -167,7 +167,7 @@ function empezarJuego(){
 			
 		}
 		addEvents()
-		setEscenario(empleados[3])
+		//setEscenario(empleados[3])
 	})
 }
 
@@ -175,8 +175,14 @@ function setGame(){
 	//cargar imagen de los pisos
 	loadImage({url:'assets/images/piso1.jpg',callBack:function(data){
 		piso1_data = {width:data.width,height:data.height,src:data.src}
+		if(ismobile){
+			piso1_data.height = (piso1_data.height+150)
+		}
 		loadImage({url:'assets/images/piso2.jpg',callBack:function(data){
 			piso2_data = {width:data.width,height:data.height,src:data.src}
+			if(ismobile){
+				piso2_data.height = (piso2_data.height+150)
+			}
 
 			setFloor(1,true)
 			/*jQuery("body").mouseleave(function() {
@@ -229,7 +235,8 @@ function setFloor(floor,start){
 		carro_area.className = 'icono-auto-area'
 		carro_area.setAttribute('id','carro')
 		carro_area.setAttribute('type','carro')
-		paredes.appendChild(carro_area)
+		//paredes.appendChild(carro_area)
+		piso.appendChild(carro_area)
 		piso_data.elementos.push(carro_area)
 
 		//put avatar
@@ -242,12 +249,23 @@ function setFloor(floor,start){
 			movey = 1
 		}else{
 			//al pie de las escaleras
-			avatar_data.left = 300
-			avatar_data.top = 252
-			piso_data.left = 0
-			piso_data.top = -87
-			movex = 1
-			movey = 2
+
+			//en mobile, hay otras coordenadas
+			if(ismobile){
+				avatar_data.left = 180
+				avatar_data.top = 252
+				piso_data.left = -125
+				piso_data.top = -87
+				movex = 2
+				movey = 2
+			}else{
+				avatar_data.left = 300
+				avatar_data.top = 252
+				piso_data.left = 0
+				piso_data.top = -87
+				movex = 1
+				movey = 2
+			}
 		}
 		
 	}else if(floor==2){
@@ -261,12 +279,7 @@ function setFloor(floor,start){
 		//put avatar
 		if(start){
 			//nunca va a entrar aqui pero bueno
-			avatar_data.left = 0
-			avatar_data.top = 0
-			piso_data.left = 0
-			piso_data.top = 0
-			movex = 1
-			movey = 1
+			
 		}else{
 			//al pie de las escaleras
 			avatar_data.left = 85
@@ -415,7 +428,8 @@ function setFloor(floor,start){
 	escaleras.setAttribute('id','escaleras')
 	escaleras.setAttribute('type','escaleras')
 
-	paredes.appendChild(escaleras)
+	//paredes.appendChild(escaleras)
+	piso.appendChild(escaleras)
 	piso_data.elementos.push(escaleras)
 }
 
@@ -493,16 +507,52 @@ function gotTrophies(){
 }
 
 function addEvents(){
-	window.addEventListener('keydown',downTecla, false)
-	window.addEventListener('keyup',upTecla, false)
+	if(ismobile){
+		getE('keys-pad-cont').className = 'keys-pad-on keys-pad-show'
+		getE('key-pad-left').addEventListener('touchstart',downKeyPad,false)
+		getE('key-pad-right').addEventListener('touchstart',downKeyPad,false)
+		getE('key-pad-up').addEventListener('touchstart',downKeyPad,false)
+		getE('key-pad-down').addEventListener('touchstart',downKeyPad,false)
+
+		getE('key-pad-left').addEventListener('touchend',upKeyPad,false)
+		getE('key-pad-right').addEventListener('touchend',upKeyPad,false)
+		getE('key-pad-up').addEventListener('touchend',upKeyPad,false)
+		getE('key-pad-down').addEventListener('touchend',upKeyPad,false)
+		key_pad_pressed = null
+		key_pad_pressed_code = 0
+	}//else{
+		window.addEventListener('keydown',downTecla, false)
+		window.addEventListener('keyup',upTecla, false)
+		//document.addEventListener("visibilitychange", onchange);
+		//window.addEventListener('mouseout',focusOut, false)
+	//}
 	avatar_moving = true
 	animacion_avatar = setInterval(moveAvatar,20)
-	//document.addEventListener("visibilitychange", onchange);
-	//window.addEventListener('mouseout',focusOut, false)
 }
 function removeEvents(){
-	window.removeEventListener('keydown',downTecla, false)
-	window.removeEventListener('keyup',upTecla, false)
+	if(ismobile){
+		getE('keys-pad-cont').className = 'keys-pad-on keys-pad-hide'
+		getE('key-pad-left').removeEventListener('touchstart',downKeyPad,false)
+		getE('key-pad-right').removeEventListener('touchstart',downKeyPad,false)
+		getE('key-pad-up').removeEventListener('touchstart',downKeyPad,false)
+		getE('key-pad-down').removeEventListener('touchstart',downKeyPad,false)
+
+		getE('key-pad-left').removeEventListener('touchend',upKeyPad,false)
+		getE('key-pad-right').removeEventListener('touchend',upKeyPad,false)
+		getE('key-pad-up').removeEventListener('touchend',upKeyPad,false)
+		getE('key-pad-down').removeEventListener('touchend',upKeyPad,false)
+
+		getE('key-pad-left').className = ''
+		getE('key-pad-right').className = ''
+		getE('key-pad-up').className = ''
+		getE('key-pad-down').className = ''
+
+		key_pad_pressed = null
+		key_pad_pressed_code = 0
+	}//else{
+		window.removeEventListener('keydown',downTecla, false)
+		window.removeEventListener('keyup',upTecla, false)
+	//}
 
 	direccion_right = false
 	direccion_left = false
@@ -871,10 +921,18 @@ function moveAvatar(back){
 
 function moveAvatar2(){
 	var steps = 0
-	if(direccion_left||direccion_right){
-		steps = 22
-	}else if(direccion_up||direccion_down){
-		steps = 20
+	if(ismobile){
+		if(direccion_left||direccion_right){
+			steps = 25
+		}else if(direccion_up||direccion_down){
+			steps = 23
+		}
+	}else{
+		if(direccion_left||direccion_right){
+			steps = 22
+		}else if(direccion_up||direccion_down){
+			steps = 20
+		}
 	}
 	
 	for(var aa = 0;aa<steps;aa++){
@@ -1373,11 +1431,7 @@ function setEscenario(params){
 					
 					if(!ismobile){
 						spdPlayAnimation({frame:1,stop:0,loop:true},5)	
-					}					
-					spdPlayAnimation({frame:1,stop:0,loop:true},6)
-					spdPlayAnimation({frame:1,stop:0,loop:true},7)
-					spdPlayAnimation({frame:1,stop:0,loop:true},8)
-					spdPlayAnimation({frame:1,stop:0,loop:true},9)
+					}
 					
 					setBurbujaText(params.bienvenida,function(){
 						getE('alarma_btn').style.display = 'block'
@@ -1421,11 +1475,7 @@ function unsetEscenario(callBack){
 			//video.load()
 			if(!ismobile){
 				spdStopAnimation(5)
-			}			
-			spdStopAnimation(6)
-			spdStopAnimation(7)
-			spdStopAnimation(8)
-			spdStopAnimation(9)
+			}
 		}
 
 		getE('contenedor-preguntas-'+actual_escenario.id).className = "contenedor-preguntas-hidden"
@@ -1603,24 +1653,36 @@ function setPregunta(question){
 	voltear_carta_mp3.currentTime = 0
 	voltear_carta_mp3.play()
 
+	//poner carta volteada de una vez
+	if(ismobile){
+		getE('carta').className = 'carta-front'
+		getE('carta').style.transform = 'rotateY(0deg)'
+		getE('carta').style.webkitTransform = 'rotateY(0deg)'
+		getE('carta').style.oTransform = 'rotateY(0deg)'
+	}
+
 	animacion_carta = setTimeout(function(){
 		clearTimeout(animacion_carta)
 		animacion_carta = null
 
-		getE('carta').style.transform = 'rotateY(90deg)'
-		getE('carta').style.webkitTransform = 'rotateY(90deg)'
-		getE('carta').style.oTransform = 'rotateY(90deg)'
-
-		animacion_carta = setTimeout(function(){
-			clearTimeout(animacion_carta)
-			animacion_carta = null
+		if(ismobile){
 			respuesta_activa = true
+		}else{
+			getE('carta').style.transform = 'rotateY(90deg)'
+			getE('carta').style.webkitTransform = 'rotateY(90deg)'
+			getE('carta').style.oTransform = 'rotateY(90deg)'
 
-			getE('carta').className = 'carta-front'
-			getE('carta').style.transform = 'rotateY(0deg)'
-			getE('carta').style.webkitTransform = 'rotateY(0deg)'
-			getE('carta').style.oTransform = 'rotateY(0deg)'
-		},250)
+			animacion_carta = setTimeout(function(){
+				clearTimeout(animacion_carta)
+				animacion_carta = null
+				respuesta_activa = true
+
+				getE('carta').className = 'carta-front'
+				getE('carta').style.transform = 'rotateY(0deg)'
+				getE('carta').style.webkitTransform = 'rotateY(0deg)'
+				getE('carta').style.oTransform = 'rotateY(0deg)'
+			},250)
+		}
 	},500)
 }
 
@@ -1634,19 +1696,9 @@ function clickRespuesta(r){
 		}
 
 		respuesta_activa = false
-		getE('carta').style.transform = 'rotateY(90deg)'
-		getE('carta').style.webkitTransform = 'rotateY(90deg)'
-		getE('carta').style.oTransform = 'rotateY(90deg)'
 
-		animacion_carta = setTimeout(function(){
-			clearTimeout(animacion_carta)
-			animacion_carta = null
-
-			getE('carta').className = 'carta-back'
-			getE('carta').style.transform = 'rotateY(0deg)'
-			getE('carta').style.webkitTransform = 'rotateY(0deg)'
-			getE('carta').style.oTransform = 'rotateY(0deg)'
-			
+		//no voltear carta
+		if(ismobile){
 			getE('carta-wrap').className = 'carta-off'
 			//esperar que se vaya la carta
 			animacion_carta = setTimeout(function(){
@@ -1659,7 +1711,35 @@ function clickRespuesta(r){
 			
 				})
 			},500)
-		},250)
+		}else{
+			getE('carta').style.transform = 'rotateY(90deg)'
+			getE('carta').style.webkitTransform = 'rotateY(90deg)'
+			getE('carta').style.oTransform = 'rotateY(90deg)'
+
+			animacion_carta = setTimeout(function(){
+				clearTimeout(animacion_carta)
+				animacion_carta = null
+
+				getE('carta').className = 'carta-back'
+				getE('carta').style.transform = 'rotateY(0deg)'
+				getE('carta').style.webkitTransform = 'rotateY(0deg)'
+				getE('carta').style.oTransform = 'rotateY(0deg)'
+				
+				getE('carta-wrap').className = 'carta-off'
+				//esperar que se vaya la carta
+				animacion_carta = setTimeout(function(){
+					clearTimeout(animacion_carta)
+					animacion_carta = null
+
+					getE('contenedor-carta').className = 'contenedor-carta-off'
+					//quitar contenedor-preguntas
+					finalRespuesta(r,function(){
+				
+					})
+				},500)
+			},250)
+		}
+			
 	}		
 }
 
@@ -1791,6 +1871,11 @@ function outOpcionb(){
 
 var animacion_personajes_corriendo = null
 function clickSirena(){
+	spdPlayAnimation({frame:1,stop:0,loop:true},6)
+	spdPlayAnimation({frame:1,stop:0,loop:true},7)
+	spdPlayAnimation({frame:1,stop:0,loop:true},8)
+	spdPlayAnimation({frame:1,stop:0,loop:true},9)
+
 	var questions = getPreguntasData(actual_escenario.idpregunta).preguntas
 	var split = questions.length
 
@@ -1814,6 +1899,10 @@ function clickSirena(){
 			clearTimeout(animacion_personajes_corriendo)
 			animacion_personajes_corriendo = null
 
+			spdStopAnimation(6)
+			spdStopAnimation(7)
+			spdStopAnimation(8)
+			spdStopAnimation(9)
 			getE('personaje-corriendo-1').classList.remove('personaje-corriendo-left-1')
 			getE('personaje-corriendo-2').classList.remove('personaje-corriendo-left-2')
 			getE('personaje-corriendo-3').classList.remove('personaje-corriendo-left-3')

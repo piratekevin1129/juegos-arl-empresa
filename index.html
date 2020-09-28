@@ -201,7 +201,25 @@
                     </div>
                     <div id="contenedor-item-msg"></div>
                 </div>
+
+                <div id="keys-pad-cont" class="keys-pad-off keys-pad-hide">
+                    <div id="keys-pad">
+                        <div id="key-pad-left" key="37">
+                            <div class="key-pad-arrow"></div>
+                        </div>
+                        <div id="key-pad-right" key="39">
+                            <div class="key-pad-arrow"></div>
+                        </div>
+                        <div id="key-pad-up" key="38">
+                            <div class="key-pad-arrow"></div>
+                        </div>
+                        <div id="key-pad-down" key="40">
+                            <div class="key-pad-arrow"></div>
+                        </div>
+                    </div>
+                </div>
         	</div>
+            
         	<div id="home-scene">
                 <div class="cielo"></div>
                 <div class="nubes"></div>
@@ -218,7 +236,7 @@
                     <div id="instrucciones-wrapper">
                         <div id="instrucciones-wrap" class="instrucciones-wrap-left-1">
                             <div class="instrucciones-wrap-page">
-                                <p class="modal-content-p">Mueve al personaje por toda la empresa con las teclas de dirección</p>
+                                <p class="modal-content-p" id="instrucciones-txt-1"></p>
                                 <div class="instrucciones-graph-1">
                                     <div class="instrucciones-graph-piso"></div>
                                     <div class="instrucciones-avatar-gif"></div>
@@ -360,12 +378,12 @@ window.onload = function(){
 
         //fondos de los escenarios, y de victoria
         loadImage({url:'assets/images/pregunta1/fondo.jpg',callBack:function(){
-        loadImage({url:'assets/images/pregunta2/fondo.jpg',callBack:function(){
+        loadImage({url:'assets/images/pregunta2/'+url_fondo_2+'.jpg',callBack:function(){
         loadImage({url:'assets/images/pregunta2/opcion_a_img.png',callBack:function(){
         loadImage({url:'assets/images/pregunta2/opcion_b_img.png',callBack:function(){
         loadImage({url:'assets/images/pregunta3/fondo.jpg',callBack:function(){
         loadImage({url:'assets/images/pregunta4/fondo.jpg',callBack:function(){
-        loadImage({url:'assets/images/pregunta4/casilleros.jpg',callBack:function(){
+        loadImage({url:'assets/images/pregunta4/'+url_casilleros+'.jpg',callBack:function(){
         loadImage({url:'assets/images/pregunta5/fondo.png',callBack:function(){
         loadImage({url:'assets/images/pregunta5/fondo_edificio.png',callBack:function(){
         loadImage({url:'assets/images/pregunta6/fondo.png',callBack:function(){

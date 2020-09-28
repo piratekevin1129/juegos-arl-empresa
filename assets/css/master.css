@@ -3,8 +3,6 @@
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
-    width: 768px;
-    height: 578px;
     overflow: hidden;
 }
 header{
@@ -165,15 +163,6 @@ header{
     background-position: center;
     background-size: 100% 100%;
     background-image: url(../images/nubes.png);
-
-    animation-name: animacion-nubes;
-    animation-duration: 20s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-    -webkit-animation-name: animacion-nubes;
-    -webkit-animation-duration: 20s;
-    -webkit-animation-iteration-count: infinite;
-    -webkit-animation-timing-function: linear;
 }
 @keyframes animacion-nubes{
     0%{
@@ -366,24 +355,6 @@ header{
     padding: 0px;
 }
 
-.mensaje-off{
-    visibility: hidden;
-    opacity: 0;
-    top: 50%;
-    box-shadow: none;
-
-    transition: visibility 0.2s, opacity 0.2s, top 0.2s, left 0.2s, box-shadow 0.2s;
-    -webkit-transition: visibility 0.2s, opacity 0.2s, top 0.2s, left 0.2s, box-shadow 0.2s;
-}
-.mensaje-on{
-    visibility: visible;
-    opacity: 1;
-    top: -10px;
-    box-shadow: 0px 4px 4px -5px rgba(0,0,0,0.5);
-
-    transition: visibility 0s, opacity 0.2s, top 0.2s, left 0.2s, box-shadow 0.2s;
-    -webkit-transition: visibility 0s, opacity 0.2s, top 0.2s, left 0.2s, box-shadow 0.2s;
-}
 .mensaje-left{
     left: 100% !important;
 }
@@ -703,7 +674,7 @@ header{
 }
 .icono-puerta{
     position: absolute;
-    background-color: rgba(255,255,0,0);
+    background-color: rgba(255,255,0,0.5);
     box-sizing: border-box;
     /*border: #000 solid 1px;*/
 }
@@ -936,9 +907,6 @@ header{
     transition: top 0.5s, height 0.5s;
     -webkit-transition: top 0.5s, height 0.5s;
 }
-#estadisticas-icon:hover{
-    height: 35px;
-}
 
 #estadisticas-icon::after{
     content: "";
@@ -956,12 +924,6 @@ header{
 
     transition: transform 0.5s, -webkit-transform 0.5s, -o-transform 0.5s;
     -webkit-transition: transform 0.5s, -webkit-transform 0.5s, -o-transform 0.5s;
-}
-.estadisticas-off{
-    top: -70px;
-}
-.estadisticas-on{
-    top: 0px;
 }
 
 .estadisticas-off #estadisticas-icon{
@@ -1003,7 +965,7 @@ header{
     position: relative;
     width: 47px;
     height: 47px;
-    margin: 0px;
+    margin: 0px auto;
     padding: 0px;
     background-repeat: no-repeat;
     background-size: contain;
@@ -1014,18 +976,7 @@ header{
     -webkit-filter: brightness(0%);
     -o-filter: brightness(0%);
 }
-.trophy-on > div{
-    animation-name: animacion-trophy-won;
-    animation-duration: 0.75s;
-    animation-fill-mode: forwards;
-    animation-timing-function: linear;
-    animation-iteration-count: 1;
-    -webkit-animation-name: animacion-trophy-won;
-    -webkit-animation-duration: 0.75s;
-    -webkit-animation-fill-mode: forwards;
-    -webkit-animation-timing-function: linear;
-    -webkit-animation-iteration-count: 1;
-}
+
 @keyframes animacion-trophy-won{
     0%{
         filter: brightness(0%);
@@ -1114,16 +1065,131 @@ header{
     right: 10px;
 }
 
-#music-btn:hover{
-    padding-top: 10px;
-    /*box-shadow: -1px 1px 2px 1px rgba(0,0,0,0.3);*/
-}
 .music-on{
     background-image: url(../images/music-on-icon.svg);
 }
 .music-off{
     background-image: url(../images/music-off-icon.svg);
 }
+
+#keys-pad-cont{
+    position: absolute;
+    height: 150px;
+    background-color: #000000;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+.keys-pad-off{
+    display: none;
+}
+.keys-pad-hide{
+    visibility: hidden;
+    opacity: 0;
+}
+.keys-pad-show{
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.3s, visibility 0s;
+    -webkit-transition: opacity 0.3s, visibility 0s;
+}
+.keys-pad-on{
+    display: block;
+}
+
+#keys-pad{
+    position: absolute;
+    width: 200px;
+    height: 130px;
+    top: 10px;
+    left: 50%;
+    left: calc(50% - 100px);
+    left: -moz-calc(50% - 100px);
+}
+#key-pad-left,
+#key-pad-right,
+#key-pad-up,
+#key-pad-down{
+    position: absolute;
+    content: "";
+    width: 60px;
+    height: 60px;
+    border-radius: 2px;
+    background: #656565;
+    background: linear-gradient(to right, #656565, #4C4C4C);
+    background: -moz-linear-gradient(to right, #656565, #4C4C4C);
+    background: -webkit-linear-gradient(to right, #656565, #4C4C4C);
+    background: -o-linear-gradient(to right, #656565, #4C4C4C);
+    /*box-shadow: 0px 5px 5px -1px rgba(0,0,0,0.9);*/
+}
+.key-pad-pressed{
+    transform: scale(0.9);
+    -webkit-transform: scale(0.9);
+    -o-transform: scale(0.9);
+}
+
+.key-pad-arrow{
+    position: absolute;
+    content: "";
+
+    width: 30px;
+    height: 30px;
+    top: 50%;
+    top: calc(50% - 15px);
+    top: -moz-calc(50% - 15px);
+    left: 50%;
+    left: calc(50% - 15px);
+    left: -moz-calc(50% - 15px);
+    
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-image: url(../images/cursor-arrow.svg);
+}
+#key-pad-up .key-pad-arrow{
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+}
+#key-pad-left .key-pad-arrow{
+    transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+}
+#key-pad-down .key-pad-arrow{
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+}
+#key-pad-right .key-pad-arrow{
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+}
+
+#key-pad-left{
+    left: 0px;
+    bottom: 0px;
+}
+#key-pad-right{
+    right: 0px;
+    bottom: 0px;
+}
+#key-pad-up{
+    left: 50%;
+    left: calc(50% - 30px);
+    left: -moz-calc(50% - 30px);
+    top: 0px;
+}
+#key-pad-down{
+    left: 50%;
+    left: calc(50% - 30px);
+    left: -moz-calc(50% - 30px);
+    bottom: 0px;
+}
+
 
 /*******************************************/
 
@@ -1310,13 +1376,6 @@ header{
 
     transition: background-color 0.3s, transform 0.3s, -webkit-transform 0.3s, -o-transform 0.3s;
     -webkit-transition: background-color 0.3s, transform 0.3s, -webkit-transform 0.3s, -o-transform 0.3s;
-}
-#modal-button:hover{
-    transform: scale(1.1);
-    -webkit-transform: scale(1.1);
-    -o-transform: scale(1.1);
-    background-color: #0097A3;
-    
 }
 
 /****************FOCUS***************/

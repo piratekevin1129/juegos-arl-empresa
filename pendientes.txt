@@ -1,1 +1,2 @@
-no desabilitar a un funcionario, si es el ultimo que queda
+vaciar llaves 
+quitar ismobile = true

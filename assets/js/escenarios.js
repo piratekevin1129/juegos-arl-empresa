@@ -106,10 +106,11 @@ var casilleros_epp = []
 var casilleros_epp_unorder = []
 var areas_epp = []
 var ropas_epp = []
+var length_casilleros = 9
 
 function fillCasilleros(){
-	while(casilleros_epp_unorder.length<9){
-		var c = getRand(0,8)
+	while(casilleros_epp_unorder.length<length_casilleros){
+		var c = getRand(0,(length_casilleros-1))
 		if(!casilleros_epp_unorder.includes(c)){
 			casilleros_epp_unorder.push(c)
 		}
