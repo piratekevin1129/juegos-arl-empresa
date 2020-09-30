@@ -316,7 +316,7 @@ var empleados = [
 		estado:'disponible',
 		ref:'oficina 2 - preguna sobre sistema de gestión de riesgos laborales',
 		bienvenida:'¡Hola! te preguntaré acerca del tema Sistema de Riesgos Laborales.',
-		bien:'¡¡Muy Bien!!, has respondido correctamente, aqui tienes una llave.',
+		bien:'¡¡Muy bien!!, has respondido correctamente, aqui tienes una llave.',
 		mal:'La respuesta es incorrecta, vuelve en otro momento.'
 	},
 	{
@@ -330,7 +330,7 @@ var empleados = [
 		estado:'disponible',
 		ref:'oficina 6 - pregunta sobre ergonomía',
 		bienvenida:'Ahora estás observando a dos personas en su puesto de trabajo. Selecciona la que tiene la postura correcta de trabajo.',
-		bien:'¡¡Muy Bien!!. Haz respondido correctamente, aquí tienes una llave',
+		bien:'¡¡Muy bien!!. Haz respondido correctamente, aquí tienes una llave',
 		mal:'¡¡La respuesta es incorrecta!!. Vuelve en otro momento'
 	},
 	{
@@ -344,7 +344,7 @@ var empleados = [
 		estado:'disponible',
 		ref:'oficina 11 - pregunta sobre salud ocupacional',
 		bienvenida:'¡Hola! en este momento nos encontramos en un comite paritario de salud, por lo tanto te preguntaremos sobre el programa de salud ocupacional.',
-		bien:'¡¡Muy Bien!!, haz respondido correctamente, aqui tienes una llave.',
+		bien:'¡¡Muy bien!!, haz respondido correctamente, aqui tienes una llave.',
 		mal:'¡¡La respuesta es incorrecta!!, vuelve en otro momento.'
 	},
 	{
@@ -358,8 +358,8 @@ var empleados = [
 		estado:'disponible',
 		ref:'oficina 14 - pregunta sobre epp + juego de arrastrar',
 		bienvenida:'Coloca al personaje los equipos de protección que le hacen falta para operar una maquinaria y luego haz clic en <span>Ver pregunta</span>.',
-		bienvenida2:'¡Muy Bien!. Ahora responde la siguiente pregunta',
-		bien:'¡¡Muy Bien!!. Haz respondido correctamente, aquí tienes una llave.',
+		bienvenida2:'¡Muy bien!. Ahora responde la siguiente pregunta',
+		bien:'¡¡Muy bien!!. Haz respondido correctamente, aquí tienes una llave.',
 		mal:'¡La respuesta es incorrecta!. Vuelve en otro momento.'
 	},
 	{
@@ -374,7 +374,7 @@ var empleados = [
 		ref:'afueras de la empresa - pregunta sobre simulacros de emergencia + interactividad de simulacro',
 		bienvenida:'Plan de emergencias. En este tema veremos un simulacro de evacuación. Toca la sirena.',
 		bienvenida2:'Luego de ver el simulacro de evacuación responde la siguiente pregunta.',
-		bien:'¡¡Muy Bien!!. Haz respondido correctamente, aquí tienes una llave.',
+		bien:'¡¡Muy bien!!. Haz respondido correctamente, aquí tienes una llave.',
 		mal:'¡La respuesta es incorrecta!. Regresa en otro momento.'
 	},
 	{
@@ -388,7 +388,7 @@ var empleados = [
 		estado:'disponible',
 		ref:'afueras de la empresa - pregunta sobre seguridad vial',
 		bienvenida:'La seguridad vial también es un factor importante en las empresas. Contesta correctamente y seguro que irás por buen camino.',
-		bien:'¡¡Muy Bien!!. Haz respondido correctamente, aquí tienes una llave.',
+		bien:'¡¡Muy bien!!. Haz respondido correctamente, aquí tienes una llave.',
 		mal:'¡La respuesta es incorrecta!. Vuelve en otro momento.'
 	}
 ]
