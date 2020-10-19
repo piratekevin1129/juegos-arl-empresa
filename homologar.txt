@@ -1,0 +1,2 @@
+instrucciones en formato video
+no incluir font-awesome
