@@ -294,9 +294,10 @@ function downElementoEpp(epp,event){
 		var rect_parent = game.getBoundingClientRect()
 		posx_epp = event.pageX
 		posy_epp = event.pageY
+		var px = posx_epp-rect_parent.left
 		var py = posy_epp-rect_parent.top
 
-		getE('elemento-epp-move').style.left = (posx_epp-(actual_elemento_epp_data.w2/2))+'px'
+		getE('elemento-epp-move').style.left = (px-(actual_elemento_epp_data.w2/2))+'px'
 		getE('elemento-epp-move').style.top = (py-(actual_elemento_epp_data.h2/2))+'px'
 
 		//brillar areas
@@ -306,17 +307,18 @@ function downElementoEpp(epp,event){
 	}
 }
 
-function moveElementoEpp(){
+function moveElementoEpp(event){
 	var rect_parent = game.getBoundingClientRect()
 	posx_epp = event.pageX
 	posy_epp = event.pageY
+	var px = posx_epp-rect_parent.left
 	var py = posy_epp-rect_parent.top
 
-	getE('elemento-epp-move').style.left = (posx_epp-(actual_elemento_epp_data.w2/2))+'px'
+	getE('elemento-epp-move').style.left = (px-(actual_elemento_epp_data.w2/2))+'px'
 	getE('elemento-epp-move').style.top = (py-(actual_elemento_epp_data.h2/2))+'px'
 }
 
-function upElementoEpp(){
+function upElementoEpp(event){
 	document.removeEventListener('mousemove', moveElementoEpp, false)
 	document.removeEventListener('mouseup', upElementoEpp, false)
 
@@ -395,10 +397,11 @@ function verPreguntaContenedor4(){
 
 		if(correctos==ropas_epp.length){
 			//quitar todos los eventos
+			getE('salir-btn').classList.remove('salir-btn-active')
 			game4_finished = true
 			finishGame4()
 		}else{
-			getE('contenedor-mensaje-alerta-box').innerHTML = '<p>El personaje no esta con los equipos de protección adecuados, verifica y vuelve a intentar</p>'
+			getE('contenedor-mensaje-alerta-box').innerHTML = '<p>El personaje no está con los equipos de protección adecuados, verifica y vuelve a intentar</p>'
 			getE('contenedor-mensaje-alerta').className = "contenedor-mensaje-alerta-on"
 			animacion_mensaje_alerta = setTimeout(function(){
 				clearTimeout(animacion_mensaje_alerta)

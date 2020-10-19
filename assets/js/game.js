@@ -171,7 +171,7 @@ function empezarJuego(){
 			getE('keys-pad-cont').className = "keys-pad-on keys-pad-show"
 		}
 		addEvents()
-		//setEscenario(empleados[3])
+		//setEscenario(empleados[5])
 	})
 }
 
@@ -1193,7 +1193,7 @@ function checkCollision(x,y,a,b){
 				stop = null
 				params = []
 				type = ''
-				setMensaje({content:'<p>Necesito los 5 premios y las llaves del auto para subirme al carro</p>',delay:3000,posx:true})
+				setMensaje({content:'<p>Necesito los 5 premios y las llaves del carro para subirme al carro</p>',delay:3000,posx:true})
 			}
 		}
 	}
@@ -1364,15 +1364,12 @@ function setEscenario(params){
 		clearTimeout(animacion_escenario)
 		animacion_escenario = null
 
-		if(actual_escenario.id==5){
-			//quitarlo cuando cargue el video, pero ya no hay video
-			getE('contenedor-preguntas').className = 'contenedor-preguntas-off'
-		}else if(actual_escenario.id==4){
+		if(actual_escenario.id==4){
 			///cargar recursos del escenario 4
             setEppStands(function(){
             	getE('contenedor-preguntas').className = 'contenedor-preguntas-off'
             	setBurbujaText(params.bienvenida,function(){
-					
+					getE('salir-btn').classList.add('salir-btn-active')
 				})
             },function(){
 				unsetBurbujaText(function(){
@@ -1399,6 +1396,7 @@ function setEscenario(params){
 		}else if(actual_escenario.id==2){
 			setBurbujaText(params.bienvenida,function(){
 				pregunta_data = questions[0]
+				getE('salir-btn').classList.add('salir-btn-active')
 			})
 		}else if(actual_escenario.id==3){
 			setBurbujaText(params.bienvenida,function(){
@@ -1434,6 +1432,7 @@ function setEscenario(params){
 					setBurbujaText(params.bienvenida,function(){
 						getE('alarma_btn').style.display = 'block'
 						getE('alarma_btn').setAttribute('onclick','clickSirena()')
+						getE('salir-btn').classList.add('salir-btn-active')
 					})
 				//},500)
 			//}
@@ -1448,6 +1447,7 @@ function setEscenario(params){
 
 	//poner escenario visible
 	getE('contenedor-preguntas-'+actual_escenario.id).className = "contenedor-preguntas-visible"
+	getE('salir-btn').className = 'salir-btn-'+actual_escenario.id
 
 	if(toggle_audio){
 		underground_mp3.volume = 0.1
@@ -1484,6 +1484,59 @@ function unsetEscenario(callBack){
 		}
 	},500)
 
+}
+
+function abortOffice(){
+	getE('salir-btn').classList.remove('salir-btn-active')
+
+	if(actual_escenario.id!=2){
+		//ocultar carta
+		if(ismobile){
+			getE('carta-wrap').className = 'carta-off'
+			//esperar que se vaya la carta
+			animacion_carta = setTimeout(function(){
+				clearTimeout(animacion_carta)
+				animacion_carta = null
+
+				getE('contenedor-carta').className = 'contenedor-carta-off'
+				
+				unsetEscenario(function(){//-->quitar escenario
+					continuarGame()
+				})
+			},500)
+		}else{
+			getE('carta').style.transform = 'rotateY(90deg)'
+			getE('carta').style.webkitTransform = 'rotateY(90deg)'
+			getE('carta').style.oTransform = 'rotateY(90deg)'
+
+			animacion_carta = setTimeout(function(){
+				clearTimeout(animacion_carta)
+				animacion_carta = null
+
+				getE('carta').className = 'carta-back'
+				getE('carta').style.transform = 'rotateY(0deg)'
+				getE('carta').style.webkitTransform = 'rotateY(0deg)'
+				getE('carta').style.oTransform = 'rotateY(0deg)'
+				
+				getE('carta-wrap').className = 'carta-off'
+				//esperar que se vaya la carta
+				animacion_carta = setTimeout(function(){
+					clearTimeout(animacion_carta)
+					animacion_carta = null
+
+					getE('contenedor-carta').className = 'contenedor-carta-off'
+					unsetEscenario(function(){//-->quitar escenario
+						continuarGame()
+					})
+				},500)
+			},250)
+		}
+	}else{
+		unsetEscenario(function(){//-->quitar escenario
+			continuarGame()
+		})
+	}
+		
 }
 
 var animacion_burbuja = null
@@ -1679,6 +1732,9 @@ function setPregunta(question){
 				getE('carta').style.transform = 'rotateY(0deg)'
 				getE('carta').style.webkitTransform = 'rotateY(0deg)'
 				getE('carta').style.oTransform = 'rotateY(0deg)'
+
+				//habilitar btn salir
+				getE('salir-btn').classList.add('salir-btn-active')
 			},250)
 		}
 	},500)
@@ -1687,6 +1743,7 @@ function setPregunta(question){
 var respuesta_activa = false
 function clickRespuesta(r){
 	if(respuesta_activa){
+		getE('salir-btn').classList.remove('salir-btn-active')//ocultar el boton salir insta
 		if(r==pregunta_data.correcta){
 			respuesta_correcta_mp3.play()
 		}else{
@@ -1833,6 +1890,7 @@ function unlockEmpleados(){
 function clickOpcion(r,butt){
 	getE('opcion_a_btn').disabled = true
 	getE('opcion_b_btn').disabled = true
+	getE('salir-btn').classList.remove('salir-btn-active')//ocultar el boton salir insta
 	if(r==pregunta_data.correcta){
 		respuesta_correcta_mp3.play()
 	}else{
@@ -1869,6 +1927,7 @@ function outOpcionb(){
 
 var animacion_personajes_corriendo = null
 function clickSirena(){
+	getE('salir-btn').classList.remove('salir-btn-active')
 	spdPlayAnimation({frame:1,stop:0,loop:true},6)
 	spdPlayAnimation({frame:1,stop:0,loop:true},7)
 	spdPlayAnimation({frame:1,stop:0,loop:true},8)
@@ -1934,7 +1993,7 @@ function setVictoriaItem(item,data,callBack,callBack2){
 		spdPlayAnimation({frame:1,stop:0,loop:true},1)
 	}else if(item=='premio'){
 		if(data.ref==null){
-			getE('contenedor-item-msg').innerHTML = 'Felicidades has ganado <span>un trofeo</span> continua reuniendo los demás'
+			getE('contenedor-item-msg').innerHTML = 'Felicidades has ganado <span>un trofeo</span> continú reuniendo los demás'
 		}else{
 			//nunca va a entrar aqui
 			getE('contenedor-item-msg').innerHTML = 'Felicidades has ganado <span>'+data.ref+'</span>'
@@ -2064,7 +2123,7 @@ function showStadistics(d,ll){
 			gotKey(15)&&
 			gotTrophies()
 		){
-			setMensaje({content:'<p>Es momento de ir al auto y terminar el juego.</p>',delay:4000})
+			setMensaje({content:'<p>Es momento de ir al carro y terminar el juego.</p>',delay:4000})
 		}
 		animacion_stadistics = setTimeout(function(){
 			clearTimeout(animacion_stadistics)

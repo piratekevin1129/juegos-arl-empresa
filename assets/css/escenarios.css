@@ -553,7 +553,6 @@
     background: linear-gradient(to bottom, #E3E829, #C6C62A);
     background: -webkit-linear-gradient(to bottom, #E3E829, #C6C62A);
     background: -o-linear-gradient(to bottom, #E3E829, #C6C62A);
-    cursor: pointer;
 
     margin: 0px;
     padding: 0px;
@@ -572,11 +571,63 @@
     transition: box-shadow 0.3s, transform 0.3s, -webkit-transform 0.3s, -o-transform 0.3s;
     -webkit-transition: box-shadow 0.3s, transform 0.3s, -webkit-transform 0.3s, -o-transform 0.3s;
 }
-#ver-pregunta-btn:hover{
-    transform: scale(1.1);
-    -webkit-transform: scale(1.1);
-    -o-transform: scale(1.1);
-    box-shadow: -1px 1px 2px 1px rgba(0,0,0,0.3);
+
+#salir-btn{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100px;
+    height: 35px;
+    border-radius: 4px;
+    background: #E3E829;
+    background: linear-gradient(to bottom, #E3E829, #C6C62A);
+    background: -webkit-linear-gradient(to bottom, #E3E829, #C6C62A);
+    background: -o-linear-gradient(to bottom, #E3E829, #C6C62A);
+
+    bottom: 15px;
+    right: 15px;
+
+    margin: 0px;
+    padding: 0px;
+    border: none;
+
+    font-family: 'Barlow-Bold';
+    font-size: 16px;
+    color: #0033A0;
+    text-align: center;
+    font-weight: normal;
+    line-height: normal;
+    text-transform: uppercase;
+    visibility: hidden;
+    opacity: 0;
+
+    transition: box-shadow 0.3s, transform 0.3s, -webkit-transform 0.3s, -o-transform 0.3s, visibility 0s, opacity 0.3s;
+    -webkit-transition: box-shadow 0.3s, transform 0.3s, -webkit-transform 0.3s, -o-transform 0.3s, visibility 0s, opacity 0.3s;
+}
+#salir-btn span{
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-image: url(../images/exit-icon.svg);
+    margin-left: 5px;
+}
+
+.salir-btn-4,
+.salir-btn-5{
+    bottom: initial !important;
+    right: initial !important;
+    top: 15px;
+    left: 15px;
+}
+
+.salir-btn-active{
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 /***********ESCENARIO 5***********/

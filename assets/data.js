@@ -170,7 +170,7 @@ var oficinas = [
 			direccion:'horizontal',
 			orientacion:'sur'
 		},
-		ref:'Oficina con llaves del auto'
+		ref:'Oficina con llaves del carro'
 	},
 
 	////////piso 2///////
@@ -298,8 +298,8 @@ var llaves = [
 		id:1,
 		x:888,
 		y:435,
-		key:15,//llaves del auto
-		ref:'del auto',
+		key:15,//llaves del carro
+		ref:'del carro',
 		recogida:'no'
 	}
 ]
@@ -316,7 +316,7 @@ var empleados = [
 		estado:'disponible',
 		ref:'oficina 2 - preguna sobre sistema de gestión de riesgos laborales',
 		bienvenida:'¡Hola! te preguntaré acerca del tema Sistema de Riesgos Laborales.',
-		bien:'¡¡Muy bien!!, has respondido correctamente, aqui tienes una llave.',
+		bien:'¡Muy bien!, has respondido correctamente, aqui tienes una llave.',
 		mal:'La respuesta es incorrecta, vuelve en otro momento.'
 	},
 	{
@@ -330,8 +330,8 @@ var empleados = [
 		estado:'disponible',
 		ref:'oficina 6 - pregunta sobre ergonomía',
 		bienvenida:'Ahora estás observando a dos personas en su puesto de trabajo. Selecciona la que tiene la postura correcta de trabajo.',
-		bien:'¡¡Muy bien!!. Haz respondido correctamente, aquí tienes una llave',
-		mal:'¡¡La respuesta es incorrecta!!. Vuelve en otro momento'
+		bien:'¡Muy bien!. Haz respondido correctamente, aquí tienes una llave',
+		mal:'¡La respuesta es incorrecta!. Vuelve en otro momento'
 	},
 	{
 		id:3,
@@ -343,9 +343,9 @@ var empleados = [
 		idpregunta:3,
 		estado:'disponible',
 		ref:'oficina 11 - pregunta sobre salud ocupacional',
-		bienvenida:'¡Hola! en este momento nos encontramos en un comite paritario de salud, por lo tanto te preguntaremos sobre el programa de salud ocupacional.',
-		bien:'¡¡Muy bien!!, haz respondido correctamente, aqui tienes una llave.',
-		mal:'¡¡La respuesta es incorrecta!!, vuelve en otro momento.'
+		bienvenida:'¡Hola! en este momento nos encontramos en un comité paritario de salud, por lo tanto te preguntaremos sobre el programa de salud ocupacional.',
+		bien:'¡Muy bien!, haz respondido correctamente, aqui tienes una llave.',
+		mal:'¡La respuesta es incorrecta!!, vuelve en otro momento.'
 	},
 	{
 		id:4,
@@ -357,9 +357,9 @@ var empleados = [
 		idpregunta:4,
 		estado:'disponible',
 		ref:'oficina 14 - pregunta sobre epp + juego de arrastrar',
-		bienvenida:'Coloca al personaje los equipos de protección que le hacen falta para operar una maquinaria y luego haz clic en <span>Ver pregunta</span>.',
+		bienvenida:'Arrastra hacia el personaje los <span>dos</span> equipos de protección personal que le hacen falta para operar maquinaria. Luego haz clic en <span>Ver pregunta</span>.',
 		bienvenida2:'¡Muy bien!. Ahora responde la siguiente pregunta',
-		bien:'¡¡Muy bien!!. Haz respondido correctamente, aquí tienes una llave.',
+		bien:'¡Muy bien!. Haz respondido correctamente, aquí tienes una llave.',
 		mal:'¡La respuesta es incorrecta!. Vuelve en otro momento.'
 	},
 	{
@@ -374,7 +374,7 @@ var empleados = [
 		ref:'afueras de la empresa - pregunta sobre simulacros de emergencia + interactividad de simulacro',
 		bienvenida:'Plan de emergencias. En este tema veremos un simulacro de evacuación. Toca la sirena.',
 		bienvenida2:'Luego de ver el simulacro de evacuación responde la siguiente pregunta.',
-		bien:'¡¡Muy bien!!. Haz respondido correctamente, aquí tienes una llave.',
+		bien:'¡Muy bien!. Haz respondido correctamente, aquí tienes una llave.',
 		mal:'¡La respuesta es incorrecta!. Regresa en otro momento.'
 	},
 	{
@@ -388,7 +388,7 @@ var empleados = [
 		estado:'disponible',
 		ref:'afueras de la empresa - pregunta sobre seguridad vial',
 		bienvenida:'La seguridad vial también es un factor importante en las empresas. Contesta correctamente y seguro que irás por buen camino.',
-		bien:'¡¡Muy bien!!. Haz respondido correctamente, aquí tienes una llave.',
+		bien:'¡Muy bien!. Haz respondido correctamente, aquí tienes una llave.',
 		mal:'¡La respuesta es incorrecta!. Vuelve en otro momento.'
 	}
 ]
@@ -401,8 +401,8 @@ var preguntas = [
 				pregunta:'Estar cubierto por la ARL significa que tenemos derecho a:',
 				respuestas:[
 					'La atención médica en caso de presentarse un accidente de trabajo o una enfermedad profesional.',
-					'a y c',
-					'El reconocimiento de las prestaciones económicas que puedan generarse por un accidente de trabajo o una enfermedad profesional.'
+					'El reconocimiento de las prestaciones económicas que puedan generarse por un accidente de trabajo o una enfermedad profesional.',
+					'a y b'
 				],
 				correcta:2
 			},
@@ -529,7 +529,7 @@ var preguntas = [
 				correcta:2
 			},
 			{
-				pregunta:'El plan de evacuación hace parte del Plan de emergencias y consiste en:',
+				pregunta:'El plan de evacuación hace parte del plan de emergencias y consiste en:',
 				respuestas:[
 					'Definir el procedimiento y las rutas de evacuación para que las personas protejan su vida mediante el desplazamiento organizado hasta lugares de menor riesgo.',
 					'Definir el procedimiento para que las personas se desplacen, retirándose del origen de la emergencia.',

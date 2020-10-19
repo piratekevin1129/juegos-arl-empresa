@@ -79,6 +79,20 @@
         -o-transform: scale(1);
         opacity: 1;
     }
+    #salir-btn:hover{
+        cursor: pointer;
+        transform: scale(1.1);
+        -webkit-transform: scale(1.1);
+        -o-transform: scale(1.1);
+        box-shadow: -1px 1px 2px 1px rgba(0,0,0,0.3);
+    }
+    #ver-pregunta-btn:hover{
+        cursor: pointer;
+        transform: scale(1.1);
+        -webkit-transform: scale(1.1);
+        -o-transform: scale(1.1);
+        box-shadow: -1px 1px 2px 1px rgba(0,0,0,0.3);
+    }
 
     /*********MODAL**********/
     #modal-button:hover{
@@ -205,6 +219,10 @@
         left: calc(30% - 10px);
         left: -moz-calc(30% - 10px);
     }
+    .burbuja-texto p,
+    .burbuja-texto-big p{
+        font-size: 14px;
+    }
     #opcion-a{
         top: 200px;
         left: 15px;
@@ -213,6 +231,34 @@
         top: 200px;
         left: initial;
         right: 20px;
+    }
+
+    #salir-btn{
+        bottom: 10px;
+        right: 10px;
+    }
+    
+    .salir-btn-4,
+    .salir-btn-5{
+        bottom: initial !important;
+        right: initial !important;
+        top: 10px;
+        left: 10px;
+    }
+
+    #salir-btn:hover{
+        cursor: pointer;
+        transform: scale(1.1);
+        -webkit-transform: scale(1.1);
+        -o-transform: scale(1.1);
+        box-shadow: -1px 1px 2px 1px rgba(0,0,0,0.3);
+    }
+    #ver-pregunta-btn:hover{
+        cursor: pointer;
+        transform: scale(1.1);
+        -webkit-transform: scale(1.1);
+        -o-transform: scale(1.1);
+        box-shadow: -1px 1px 2px 1px rgba(0,0,0,0.3);
     }
     
     /************MODAL**************/
@@ -346,8 +392,10 @@
         padding: 7px;
     }
     .burbuja-texto-big{
-        width: 95%;
-        left: 2.5%;
+        width: 100%;
+        width: calc(100% - 20px);
+        width: -moz-calc(100% - 20px);
+        left: 10px;
         padding: 7px;
     }
     .burbuja-texto::after{
@@ -367,16 +415,19 @@
         bottom: 5px;
         right: 0px;
     }
+    #burbuja-texto-pregunta4{
+        bottom: 10px;
+        width: 100%;
+        width: calc(100% - (130px + 10px + 10px + 10px));
+        width: -moz-calc(100% - (130px + 10px + 10px + 10px));
+        left: 10px;
+    }
     #burbuja-texto-pregunta5{
         bottom: 10px;
         width: 100%;
         width: calc(100% - (130px + 10px));
         width: -moz-calc(100% - (130px + 10px));
         left: 10px;
-    }
-    #burbuja-texto-pregunta1{
-        width: 95%;
-        left: 2.5%;
     }
     
     #contenedor-preguntas-2 .contenedor-preguntas-fondo{
@@ -431,6 +482,39 @@
 
     .carta-respuesta{
         cursor: default;
+    }
+    #salir-btn{
+        width: 35px;
+        height: 35px;
+        border-radius: 0px 0px 4px 4px;
+        
+        bottom: initial !important;
+        left: initial !important;
+        right: 100px !important;
+        top: 0px !important;
+        
+        white-space: nowrap;
+        overflow: hidden;
+    
+        color: rgba(0,0,0,0);
+        
+        visibility: hidden;
+        opacity: 0;
+        background-color: #E3E829;
+        background-repeat: no-repeat;
+        background-size: 18px 18px;
+        background-position: center;
+        background-image: url(../images/exit-icon.svg);
+        box-shadow: -1px 1px 2px 1px rgba(0,0,0,0.3);
+    }
+
+    #salir-btn span{
+        display: none;
+    }
+    #ver-pregunta-btn{
+        bottom: 10px;
+        right: 10px;
+        box-shadow: -1px 1px 2px 1px rgba(0,0,0,0.3);
     }
 
     /************MODAL**************/

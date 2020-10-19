@@ -1,13 +1,13 @@
 body{
     position: relative;
-    margin: 0px;
+    margin: 0px auto;
     padding: 0px;
     box-sizing: border-box;
 }
 
 #container{
     position: relative;
-    margin: 0px;
+    margin: 0px auto;
     padding: 0px;
     box-sizing: border-box;
     overflow: hidden;
@@ -1046,8 +1046,8 @@ header{
 #music-btn{
     position: absolute;
     display: block;
-    width: 36px;
-    height: 36px;
+    width: 35px;
+    height: 35px;
     border-radius: 0px 0px 4px 4px;
     border: none;
     background-color: #00AEC7;

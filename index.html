@@ -165,6 +165,8 @@
                         </div>
                     </div>
 
+                    <button id="salir-btn" onclick="abortOffice()">Salir<span></span></button>
+
                     <div id="contenedor-preguntas-alfa"></div>
                     <div id="contenedor-preguntas-cargador"></div><!--cargador solo para videos-->
                 </div>
@@ -258,7 +260,7 @@
                                 </div>
                             </div>
                             <div class="instrucciones-wrap-page">
-                                <p class="modal-content-p">Reune los 5 premios que hay en los <span>2</span> pisos del edificio</p>
+                                <p class="modal-content-p">Reúne los 5 premios que hay en los <span>2</span> pisos del edificio</p>
                                 <div class="instrucciones-graph-4">
                                     <div class="instrucciones-graph-piso"></div>
                                     <div class="instrucciones-graph-premio">
@@ -268,12 +270,12 @@
                                     <div class="instrucciones-avatar-gif"></div>
                                     <div class="instrucciones-graph-copa">
                                         <img src="assets/images/trophy.png" />
-                                        <p>!Muy bien!</p>
+                                        <p>¡Muy bien!</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="instrucciones-wrap-page">
-                                <p class="modal-content-p">Cuando hayas reunido todos los premios y las <span>llaves del auto</span>. dirígete al parqueadero del edificio y sal en el vehículo para terminar el juego</p>
+                                <p class="modal-content-p">Cuando hayas reunido todos los premios y las <span>llaves del carro</span>, dirígete al parqueadero del edificio y sal en el vehículo para terminar el juego</p>
                                 <div class="instrucciones-graph-5">
                                     <video id="video-instrucciones-5" loop width="284" height="252">
                                         <source src="assets/animations/instrucciones-5.mp4" type="video/mp4" />
@@ -486,7 +488,7 @@ function clickAudio(btn){
         toggle_audio = true
 	}
 }
-var loader_cont = Math.round((100/28))
+var loader_cont = Math.round((100/29))
 var loader_counter = 1
 function setCargadorText(load,txt){
     var t = ''
